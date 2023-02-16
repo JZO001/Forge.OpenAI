@@ -137,7 +137,7 @@ Also here is the OpenAI playground, where you can also find examples about the u
 https://platform.openai.com/playground/p/default-chat?lang=node.js&mode=complete&model=text-davinci-003
 
 
-## Example - Text completition 1.
+## Example - Text completion 1.
 
 The next code demonstrates how to give a simple instruction (prompt). The whole answer generated on the OpenAI side remotelly,
 than the answer will send in a response.
@@ -187,7 +187,7 @@ public static async Task Main(string[] args)
 ```
 
 
-## Example - Text completition 2.
+## Example - Text completion 2.
 
 The next example demonstrates, how you can receive an answer in streamed mode. Streamed mode means, you will get the generated answer
 in pieces and not in one packages like in the previous example. Because of generating an answer takes time, it can be useful,
@@ -245,7 +245,7 @@ public static async Task Main(string[] args)
 ```
 
 
-## Example - Text completition 3.
+## Example - Text completion 3.
 
 The last example in this topic demonstrates, how you can receive an answer in streamed mode also.
 
