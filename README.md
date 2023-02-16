@@ -1,10 +1,10 @@
 # Forge.OpenAI
 OpenAI API client library for .NET. This is not an official library, I was developed it for myself, for public and it is free to use.
 Supported .NET versions:
-x >= v4.6.1
-x >= Netstandard 2.0
-x >= dotNetCore 3.1
-.NET 6.0
+x >= v4.6.1,
+x >= Netstandard 2.0,
+x >= dotNetCore 3.1,
+.NET 6.0,
 .NET 7.0
 
 
