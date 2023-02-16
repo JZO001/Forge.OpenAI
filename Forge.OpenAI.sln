@@ -1,0 +1,148 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forge.OpenAI", "Forge.OpenAI\Forge.OpenAI.csproj", "{D1DDE02E-1865-4173-8F3C-153D99AB394F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Playgrounds", "Playgrounds", "{7B047CA9-973E-4C16-8985-2708C61E8C7D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Playgrounds\Models\Models.csproj", "{0D3BA87E-767B-439E-8F71-4445E3475F36}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextCompletions.Complete", "Playgrounds\TextCompletions.Complete\TextCompletions.Complete.csproj", "{1D8A8767-12F9-42BB-A9D0-500E90725934}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextCompletions.Edit", "Playgrounds\TextCompletions.Edit\TextCompletions.Edit.csproj", "{E87F2146-1553-4FE3-A1D0-6A73C9A3493A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moderation", "Playgrounds\Moderation\Moderation.csproj", "{2D2CF14D-21CF-43A6-91ED-1C20EAF4755B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Embeddings", "Playgrounds\Embeddings\Embeddings.csproj", "{FC8918CE-73AA-4CA2-BC84-ED0ED72CE4BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Images.Create", "Playgrounds\Images.Create\Images.Create.csproj", "{4366D476-11D2-4995-949E-6CA289E21800}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Images.Edit", "Playgrounds\Images.Edit\Images.Edit.csproj", "{93ED19B0-7B44-4F60-82F6-A4F38B766F88}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Images.Variations", "Playgrounds\Images.Variations\Images.Variations.csproj", "{1F91DCB3-1E09-4B28-A78B-50534B49B7FB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Files", "Playgrounds\Files\Files.csproj", "{84DE0D16-564D-4ED3-89F1-70231F35A546}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FineTunes", "Playgrounds\FineTunes\FineTunes.csproj", "{3AD4944E-D7F6-4E68-A217-6D8C496C1118}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D1DDE02E-1865-4173-8F3C-153D99AB394F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1DDE02E-1865-4173-8F3C-153D99AB394F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1DDE02E-1865-4173-8F3C-153D99AB394F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1DDE02E-1865-4173-8F3C-153D99AB394F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D3BA87E-767B-439E-8F71-4445E3475F36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D3BA87E-767B-439E-8F71-4445E3475F36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D3BA87E-767B-439E-8F71-4445E3475F36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D3BA87E-767B-439E-8F71-4445E3475F36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D8A8767-12F9-42BB-A9D0-500E90725934}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D8A8767-12F9-42BB-A9D0-500E90725934}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D8A8767-12F9-42BB-A9D0-500E90725934}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D8A8767-12F9-42BB-A9D0-500E90725934}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E87F2146-1553-4FE3-A1D0-6A73C9A3493A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E87F2146-1553-4FE3-A1D0-6A73C9A3493A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E87F2146-1553-4FE3-A1D0-6A73C9A3493A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E87F2146-1553-4FE3-A1D0-6A73C9A3493A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D2CF14D-21CF-43A6-91ED-1C20EAF4755B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D2CF14D-21CF-43A6-91ED-1C20EAF4755B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D2CF14D-21CF-43A6-91ED-1C20EAF4755B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D2CF14D-21CF-43A6-91ED-1C20EAF4755B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC8918CE-73AA-4CA2-BC84-ED0ED72CE4BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC8918CE-73AA-4CA2-BC84-ED0ED72CE4BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC8918CE-73AA-4CA2-BC84-ED0ED72CE4BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC8918CE-73AA-4CA2-BC84-ED0ED72CE4BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4366D476-11D2-4995-949E-6CA289E21800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4366D476-11D2-4995-949E-6CA289E21800}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4366D476-11D2-4995-949E-6CA289E21800}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4366D476-11D2-4995-949E-6CA289E21800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93ED19B0-7B44-4F60-82F6-A4F38B766F88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93ED19B0-7B44-4F60-82F6-A4F38B766F88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93ED19B0-7B44-4F60-82F6-A4F38B766F88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93ED19B0-7B44-4F60-82F6-A4F38B766F88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F91DCB3-1E09-4B28-A78B-50534B49B7FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F91DCB3-1E09-4B28-A78B-50534B49B7FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F91DCB3-1E09-4B28-A78B-50534B49B7FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F91DCB3-1E09-4B28-A78B-50534B49B7FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84DE0D16-564D-4ED3-89F1-70231F35A546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84DE0D16-564D-4ED3-89F1-70231F35A546}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84DE0D16-564D-4ED3-89F1-70231F35A546}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84DE0D16-564D-4ED3-89F1-70231F35A546}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AD4944E-D7F6-4E68-A217-6D8C496C1118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AD4944E-D7F6-4E68-A217-6D8C496C1118}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AD4944E-D7F6-4E68-A217-6D8C496C1118}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AD4944E-D7F6-4E68-A217-6D8C496C1118}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0D3BA87E-767B-439E-8F71-4445E3475F36} = {7B047CA9-973E-4C16-8985-2708C61E8C7D}
+		{1D8A8767-12F9-42BB-A9D0-500E90725934} = {7B047CA9-973E-4C16-8985-2708C61E8C7D}
+		{E87F2146-1553-4FE3-A1D0-6A73C9A3493A} = {7B047CA9-973E-4C16-8985-2708C61E8C7D}
+		{2D2CF14D-21CF-43A6-91ED-1C20EAF4755B} = {7B047CA9-973E-4C16-8985-2708C61E8C7D}
+		{FC8918CE-73AA-4CA2-BC84-ED0ED72CE4BF} = {7B047CA9-973E-4C16-8985-2708C61E8C7D}
+		{4366D476-11D2-4995-949E-6CA289E21800} = {7B047CA9-973E-4C16-8985-2708C61E8C7D}
+		{93ED19B0-7B44-4F60-82F6-A4F38B766F88} = {7B047CA9-973E-4C16-8985-2708C61E8C7D}
+		{1F91DCB3-1E09-4B28-A78B-50534B49B7FB} = {7B047CA9-973E-4C16-8985-2708C61E8C7D}
+		{84DE0D16-564D-4ED3-89F1-70231F35A546} = {7B047CA9-973E-4C16-8985-2708C61E8C7D}
+		{3AD4944E-D7F6-4E68-A217-6D8C496C1118} = {7B047CA9-973E-4C16-8985-2708C61E8C7D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {614B2A5B-ACA8-4878-A1D1-D7B09FFB81E8}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 12
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://jzo.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Forge.OpenAI\\Forge.OpenAI.csproj
+		SccProjectName1 = Forge.OpenAI
+		SccLocalPath1 = Forge.OpenAI
+		SccProjectUniqueName2 = Playgrounds\\Models\\Models.csproj
+		SccProjectTopLevelParentUniqueName2 = Forge.OpenAI.sln
+		SccProjectName2 = Playgrounds/Models
+		SccLocalPath2 = Playgrounds\\Models
+		SccProjectUniqueName3 = Playgrounds\\TextCompletions.Complete\\TextCompletions.Complete.csproj
+		SccProjectTopLevelParentUniqueName3 = Forge.OpenAI.sln
+		SccProjectName3 = Playgrounds/TextCompletions.Complete
+		SccLocalPath3 = Playgrounds\\TextCompletions.Complete
+		SccProjectUniqueName4 = Playgrounds\\TextCompletions.Edit\\TextCompletions.Edit.csproj
+		SccProjectTopLevelParentUniqueName4 = Forge.OpenAI.sln
+		SccProjectName4 = Playgrounds/TextCompletions.Edit
+		SccLocalPath4 = Playgrounds\\TextCompletions.Edit
+		SccProjectUniqueName5 = Playgrounds\\Moderation\\Moderation.csproj
+		SccProjectTopLevelParentUniqueName5 = Forge.OpenAI.sln
+		SccProjectName5 = Playgrounds/Moderation
+		SccLocalPath5 = Playgrounds\\Moderation
+		SccProjectUniqueName6 = Playgrounds\\Embeddings\\Embeddings.csproj
+		SccProjectTopLevelParentUniqueName6 = Forge.OpenAI.sln
+		SccProjectName6 = Playgrounds/Embeddings
+		SccLocalPath6 = Playgrounds\\Embeddings
+		SccProjectUniqueName7 = Playgrounds\\Images.Create\\Images.Create.csproj
+		SccProjectTopLevelParentUniqueName7 = Forge.OpenAI.sln
+		SccProjectName7 = Playgrounds/Images.Create
+		SccLocalPath7 = Playgrounds\\Images.Create
+		SccProjectUniqueName8 = Playgrounds\\Images.Edit\\Images.Edit.csproj
+		SccProjectTopLevelParentUniqueName8 = Forge.OpenAI.sln
+		SccProjectName8 = Playgrounds/Images.Edit
+		SccLocalPath8 = Playgrounds\\Images.Edit
+		SccProjectUniqueName9 = Playgrounds\\Images.Variations\\Images.Variations.csproj
+		SccProjectTopLevelParentUniqueName9 = Forge.OpenAI.sln
+		SccProjectName9 = Playgrounds/Images.Variations
+		SccLocalPath9 = Playgrounds\\Images.Variations
+		SccProjectUniqueName10 = Playgrounds\\Files\\Files.csproj
+		SccProjectTopLevelParentUniqueName10 = Forge.OpenAI.sln
+		SccProjectName10 = Playgrounds/Files
+		SccLocalPath10 = Playgrounds\\Files
+		SccProjectUniqueName11 = Playgrounds\\FineTunes\\FineTunes.csproj
+		SccProjectTopLevelParentUniqueName11 = Forge.OpenAI.sln
+		SccProjectName11 = Playgrounds/FineTunes
+		SccLocalPath11 = Playgrounds\\FineTunes
+	EndGlobalSection
+EndGlobal
