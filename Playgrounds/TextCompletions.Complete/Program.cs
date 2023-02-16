@@ -14,13 +14,13 @@ namespace TextCompletions.Complete
         static async Task Main(string[] args)
         {
             using var host = Host.CreateDefaultBuilder(args)
-            .ConfigureServices((builder, services) =>
-            {
-                services.AddForgeOpenAI(options => {
-                    options.AuthenticationInfo = builder.Configuration["OpenAI:ApiKey"]!;
-                });
-            })
-            .Build();
+                .ConfigureServices((builder, services) =>
+                {
+                    services.AddForgeOpenAI(options => {
+                        options.AuthenticationInfo = builder.Configuration["OpenAI:ApiKey"]!;
+                    });
+                })
+                .Build();
 
             IOpenAIService openAi = host.Services.GetService<IOpenAIService>()!;
 
@@ -33,7 +33,7 @@ namespace TextCompletions.Complete
 
         static async Task ConversationWithNonStreamingModeAsync(IOpenAIService openAi)
         {
-            // in this scenario the answer generated on server side than the whole text will be sent in one pass
+            // in this scenario the answer generated on server side, than the whole text will be sent in one pass
             // this method is useful for small conversatons and for short answers
 
             TextCompletionRequest request = new TextCompletionRequest();

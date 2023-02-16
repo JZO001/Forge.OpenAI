@@ -13,13 +13,13 @@ namespace TestCompletions.Edit
         static async Task Main(string[] args)
         {
             using var host = Host.CreateDefaultBuilder(args)
-            .ConfigureServices((builder, services) =>
-            {
-                services.AddForgeOpenAI(options => {
-                    options.AuthenticationInfo = builder.Configuration["OpenAI:ApiKey"]!;
-                });
-            })
-            .Build();
+                .ConfigureServices((builder, services) =>
+                {
+                    services.AddForgeOpenAI(options => {
+                        options.AuthenticationInfo = builder.Configuration["OpenAI:ApiKey"]!;
+                    });
+                })
+                .Build();
 
             IOpenAIService openAi = host.Services.GetService<IOpenAIService>()!;
 
