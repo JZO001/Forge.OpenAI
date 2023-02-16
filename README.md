@@ -168,13 +168,16 @@ public static async Task Main(string[] args)
         await openAi.TextCompletionService
             .GetAsync(request, CancellationToken.None)
                 .ConfigureAwait(false);
+
     if (response.IsSuccess)
     {
         response.Result!.Completions.ForEach(c => Console.WriteLine(c.Text));
 
         request.Prompt = "Are you sure?";
+
         response = await openAi.TextCompletionService
             .GetAsync(request, CancellationToken.None).ConfigureAwait(false);
+
         if (response.IsSuccess)
         {
             response.Result!.Completions.ForEach(c => Console.WriteLine(c.Text));
@@ -243,6 +246,7 @@ public static async Task Main(string[] args)
     HttpOperationResult response = await openAi.TextCompletionService
         .GetStreamAsync(request, receivedDataHandler, CancellationToken.None)
             .ConfigureAwait(false);
+
     if (response.IsSuccess)
     {
         Console.WriteLine();
