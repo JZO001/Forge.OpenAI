@@ -44,7 +44,6 @@ namespace Images.Edit
                 request.Mask = new BinaryContentData() { ContentName = "Mask Image", SourceStream = File.OpenRead("image_edit_mask.png") };
                 using (request.Mask.SourceStream)
                 {
-                    //request.Prompt = "A sunlit indoor lounge area with a pool containing a cat";
                     request.Prompt = "A boy cycling away on a bicycle on the road";
 
                     HttpOperationResult<ImageEditResponse> response = await openAi.ImageService.EditImageAsync(request, CancellationToken.None).ConfigureAwait(false);
