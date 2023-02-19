@@ -7,7 +7,7 @@ namespace Forge.OpenAI.Infrastructure
 {
 
     /// <summary>Represents the settings of the OpenAI client</summary>
-    public class OpenAIOptions
+    public class OpenAIOptions : ICloneable
     {
 
         /// <summary>Gets or sets the base address of the HttpClient.</summary>
@@ -119,6 +119,43 @@ namespace Forge.OpenAI.Infrastructure
         /// Here your can optionally set the OpenAI apiKey and the Organization information.</summary>
         /// <value>The authentication information.</value>
         public AuthenticationInfo AuthenticationInfo { get; set; } = AuthenticationInfo.Default;
+
+        /// <summary>Creates a new object that is a copy of the current instance.</summary>
+        /// <returns>A new object that is a copy of this instance.</returns>
+        public object Clone()
+        {
+            OpenAIOptions cloned = (OpenAIOptions)GetType().GetConstructor(Type.EmptyTypes).Invoke(null);
+
+            cloned.ApiVersion = ApiVersion;
+            cloned.AuthenticationInfo = AuthenticationInfo;
+            cloned.BaseAddress = BaseAddress;
+            cloned.EmbeddingsUri = EmbeddingsUri;
+            cloned.FileDataUri = FileDataUri;
+            cloned.FileDeleteUri = FileDeleteUri;
+            cloned.FileDownloadUri = FileDownloadUri;
+            cloned.FileListUri = FileListUri;
+            cloned.FileUploadUri = FileUploadUri;
+            cloned.FineTuneCancelUri = FineTuneCancelUri;
+            cloned.FineTuneCreateUri = FineTuneCreateUri;
+            cloned.FineTuneDeleteModelUri = FineTuneDeleteModelUri;
+            cloned.FineTuneEventsUri = FineTuneEventsUri;
+            cloned.FineTuneGetUri = FineTuneGetUri;
+            cloned.FineTuneListUri = FineTuneListUri;
+            cloned.FineTuneStreamedEventsUri = FineTuneGetUri;
+            cloned.HttpMessageHandlerFactory = HttpMessageHandlerFactory;
+            cloned.ImageCreateUri = ImageCreateUri;
+            cloned.ImageEditUri = ImageEditUri;
+            cloned.ImageVariationUri = ImageVariationUri;
+            cloned.JsonSerializerOptions = JsonSerializerOptions;
+            cloned.LogRequestsAndResponses = LogRequestsAndResponses;
+            cloned.LogRequestsAndResponsesFolder = LogRequestsAndResponsesFolder;
+            cloned.ModelsUri = ModelsUri;
+            cloned.ModerationUri = ModerationUri;
+            cloned.TextCompletionsUri = TextCompletionsUri;
+            cloned.TextEditUri = TextEditUri;
+
+            return cloned;
+        }
 
     }
 

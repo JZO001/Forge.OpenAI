@@ -12,6 +12,14 @@ namespace Embeddings
     {
         static async Task Main(string[] args)
         {
+            // This example demonstrates, how you can use embedding feature of OpenAI.
+            // This feature is useful for search, clustering, recommendations, anomaly detection, etc
+            // More information: https://platform.openai.com/docs/guides/embeddings/what-are-embeddings
+            //
+            // The very first step to create an account at OpenAI: https://platform.openai.com/
+            // Using the loggedIn account, navigate to https://platform.openai.com/account/api-keys
+            // Here you can create apiKey(s)
+
             using var host = Host.CreateDefaultBuilder(args)
             .ConfigureServices((builder, services) =>
             {

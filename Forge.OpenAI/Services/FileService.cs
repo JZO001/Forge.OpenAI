@@ -22,23 +22,23 @@ namespace Forge.OpenAI.Services
 
         /// <summary>Initializes a new instance of the <see cref="FileService" /> class.</summary>
         /// <param name="options">The options.</param>
-        /// <param name="apiCommunicationService">The API communication service.</param>
+        /// <param name="apiHttpService">The API communication service.</param>
         /// <exception cref="System.ArgumentNullException">options
         /// or
         /// apiCommunicationService</exception>
-        public FileService(OpenAIOptions options, IApiHttpService apiCommunicationService)
+        public FileService(OpenAIOptions options, IApiHttpService apiHttpService)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
-            if (apiCommunicationService == null) throw new ArgumentNullException(nameof(apiCommunicationService));
+            if (apiHttpService == null) throw new ArgumentNullException(nameof(apiHttpService));
             _options = options;
-            _apiHttpService = apiCommunicationService;
+            _apiHttpService = apiHttpService;
         }
 
         /// <summary>Initializes a new instance of the <see cref="FileService" /> class.</summary>
         /// <param name="options">The options.</param>
-        /// <param name="apiCommunicationService">The API communication service.</param>
-        public FileService(IOptions<OpenAIOptions> options, IApiHttpService apiCommunicationService)
-            : this(options?.Value, apiCommunicationService)
+        /// <param name="apiHttpService">The API communication service.</param>
+        public FileService(IOptions<OpenAIOptions> options, IApiHttpService apiHttpService)
+            : this(options?.Value, apiHttpService)
         {
         }
 

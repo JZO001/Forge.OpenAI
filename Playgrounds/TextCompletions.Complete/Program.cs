@@ -13,6 +13,12 @@ namespace TextCompletions.Complete
 
         static async Task Main(string[] args)
         {
+            // This example demonstrates, how to make a simple conversation with ChatGPT
+            //
+            // The very first step to create an account at OpenAI: https://platform.openai.com/
+            // Using the loggedIn account, navigate to https://platform.openai.com/account/api-keys
+            // Here you can create apiKey(s)
+
             using var host = Host.CreateDefaultBuilder(args)
                 .ConfigureServices((builder, services) =>
                 {
@@ -39,12 +45,19 @@ namespace TextCompletions.Complete
             TextCompletionRequest request = new TextCompletionRequest();
             request.Prompt = "Say this is a test";
 
+            Console.WriteLine(request.Prompt);
+
             HttpOperationResult<TextCompletionResponse> response = await openAi.TextCompletionService.GetAsync(request, CancellationToken.None).ConfigureAwait(false);
             if (response.IsSuccess)
             {
+                Console.WriteLine();
                 response.Result!.Completions.ForEach(c => Console.WriteLine(c.Text));
 
+                Console.WriteLine();
+
                 request.Prompt = "Are you sure?";
+                Console.WriteLine(request.Prompt);
+
                 response = await openAi.TextCompletionService.GetAsync(request, CancellationToken.None).ConfigureAwait(false);
                 if (response.IsSuccess)
                 {
@@ -97,6 +110,8 @@ namespace TextCompletions.Complete
 
         static async Task ConversationWithStreamingMode(IOpenAIService openAi)
         {
+            Console.ReadKey();
+
             TextCompletionRequest request = new TextCompletionRequest();
             request.Prompt = "Write a C# code which demonstrate how to write some text into file";
             request.MaxTokens = 4096 - request.Prompt.Split(" ", StringSplitOptions.RemoveEmptyEntries).Length; // calculating max token

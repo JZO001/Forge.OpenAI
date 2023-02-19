@@ -15,12 +15,12 @@ namespace Forge.OpenAI.Infrastructure
         private readonly OpenAIOptions _options;
 
         /// <summary>Initializes a new instance of the <see cref="ApiHttpClientFactory" /> class.</summary>
-        /// <param name="logger">The logger.</param>
         /// <param name="options">The options.</param>
+        /// <param name="logger">The logger.</param>
         /// <exception cref="System.ArgumentNullException">logger
         /// or
         /// options</exception>
-        public ApiHttpClientFactory(ILogger<ApiHttpClientFactory> logger, OpenAIOptions options)
+        public ApiHttpClientFactory(OpenAIOptions options, ILogger<ApiHttpClientFactory> logger = null)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
             _logger = logger;
@@ -28,10 +28,10 @@ namespace Forge.OpenAI.Infrastructure
         }
 
         /// <summary>Initializes a new instance of the <see cref="ApiHttpClientFactory" /> class.</summary>
-        /// <param name="logger">The logger.</param>
         /// <param name="options">The options.</param>
-        public ApiHttpClientFactory(ILogger<ApiHttpClientFactory> logger, IOptions<OpenAIOptions> options)
-            : this(logger, options?.Value)
+        /// <param name="logger">The logger.</param>
+        public ApiHttpClientFactory(IOptions<OpenAIOptions> options, ILogger<ApiHttpClientFactory> logger)
+            : this(options?.Value, logger)
         {
         }
 

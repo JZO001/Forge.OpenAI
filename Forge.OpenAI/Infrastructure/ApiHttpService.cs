@@ -32,36 +32,38 @@ namespace Forge.OpenAI.Infrastructure
         private readonly OpenAIOptions _options;
 
         /// <summary>Initializes a new instance of the <see cref="ApiHttpService" /> class.</summary>
-        /// <param name="logger">The logger.</param>
         /// <param name="httpClientFactory">The HTTP client factory.</param>
         /// <param name="apiHttpLoggerService">The API HTTP logger service.</param>
         /// <param name="options">The options.</param>
+        /// <param name="logger">The logger.</param>
         /// <exception cref="System.ArgumentNullException">httpClientFactory
         /// or
         /// options</exception>
-        public ApiHttpService(ILogger<ApiHttpService> logger,
+        public ApiHttpService(
             IApiHttpClientFactory httpClientFactory,
             IApiHttpLoggerService apiHttpLoggerService,
-            OpenAIOptions options)
+            OpenAIOptions options,
+            ILogger<ApiHttpService> logger = null)
         {
             if (httpClientFactory == null) throw new ArgumentNullException(nameof(httpClientFactory));
             if (options == null) throw new ArgumentNullException(nameof(options));
-            _logger = logger;
             _httpClientFactory = httpClientFactory;
             _apiHttpLoggerService = apiHttpLoggerService;
             _options = options;
+            _logger = logger;
         }
 
         /// <summary>Initializes a new instance of the <see cref="ApiHttpService" /> class.</summary>
-        /// <param name="logger">The logger.</param>
         /// <param name="httpClientFactory">The HTTP client factory.</param>
         /// <param name="apiHttpLoggerService">The API HTTP logger service.</param>
         /// <param name="options">The options.</param>
-        public ApiHttpService(ILogger<ApiHttpService> logger,
+        /// <param name="logger">The logger.</param>
+        public ApiHttpService(
             IApiHttpClientFactory httpClientFactory,
             IApiHttpLoggerService apiHttpLoggerService,
-            IOptions<OpenAIOptions> options)
-            : this(logger, httpClientFactory, apiHttpLoggerService, options?.Value)
+            IOptions<OpenAIOptions> options,
+            ILogger<ApiHttpService> logger = null)
+            : this(httpClientFactory, apiHttpLoggerService, options?.Value, logger)
         {
         }
 

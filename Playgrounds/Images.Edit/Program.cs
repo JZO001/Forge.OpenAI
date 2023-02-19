@@ -16,6 +16,13 @@ namespace Images.Edit
 
         static async Task Main(string[] args)
         {
+            // This example demonstrates, how you can ask OpenAI to edit an existing image you provide.
+            // More information: https://platform.openai.com/docs/guides/images/edits
+            //
+            // The very first step to create an account at OpenAI: https://platform.openai.com/
+            // Using the loggedIn account, navigate to https://platform.openai.com/account/api-keys
+            // Here you can create apiKey(s)
+
             using var host = Host.CreateDefaultBuilder(args)
             .ConfigureServices((builder, services) =>
             {

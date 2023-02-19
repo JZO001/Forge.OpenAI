@@ -30,7 +30,11 @@ namespace TestCompletions.Edit
             Console.WriteLine(request.InputTextForEditing);
             Console.WriteLine(request.Instruction);
 
-            HttpOperationResult<TextEditResponse> response = await openAi.TextEditService.GetAsync(request, CancellationToken.None).ConfigureAwait(false);
+            HttpOperationResult<TextEditResponse> response = 
+                await openAi.TextEditService
+                    .GetAsync(request, CancellationToken.None)
+                        .ConfigureAwait(false);
+            
             if (response.IsSuccess)
             {
                 response.Result!.Choices.ForEach(c => Console.WriteLine(c.Text)); // output: Are you happy with your order?

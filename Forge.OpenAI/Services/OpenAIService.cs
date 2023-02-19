@@ -1,4 +1,6 @@
-﻿using Forge.OpenAI.Interfaces.Services;
+﻿using Forge.OpenAI.Infrastructure;
+using Forge.OpenAI.Interfaces.Infrastructure;
+using Forge.OpenAI.Interfaces.Services;
 using System;
 
 namespace Forge.OpenAI.Services
@@ -51,6 +53,7 @@ namespace Forge.OpenAI.Services
             if (imageService == null) throw new ArgumentNullException(nameof(imageService));
             if (fileService == null) throw new ArgumentNullException(nameof(fileService));
             if (fineTuneService == null) throw new ArgumentNullException(nameof(fineTuneService));
+
             ModelService = modelService;
             TextCompletionService = textCompletionService;
             TextEditService = textEditService;
@@ -61,13 +64,68 @@ namespace Forge.OpenAI.Services
             FineTuneService = fineTuneService;
         }
 
+        /// <summary>Initializes a new instance of the <see cref="OpenAIService" /> class.</summary>
+        /// <param name="options">The options.</param>
+        /// <param name="apiHttpService">The API HTTP service.</param>
+        /// <exception cref="System.ArgumentNullException">options
+        /// or
+        /// apiHttpService</exception>
+        public OpenAIService(OpenAIOptions options, IApiHttpService apiHttpService)
+        {
+            if (options == null) throw new ArgumentNullException(nameof(options));
+            if (apiHttpService == null) throw new ArgumentNullException(nameof(apiHttpService));
+
+            ModelService = new ModelService(options, apiHttpService);
+            TextCompletionService = new TextCompletionService(options, apiHttpService);
+            TextEditService = new TextEditService(options, apiHttpService);
+            ModerationService = new ModerationService(options, apiHttpService);
+            EmbeddingsService = new EmbeddingsService(options, apiHttpService);
+            ImageService = new ImageService(options, apiHttpService);
+            FileService = new FileService(options, apiHttpService);
+            FineTuneService = new FineTuneService(options, apiHttpService);
+        }
+
+        /// <summary>Creates a new service instance with individual options.</summary>
+        /// <param name="options">The options.</param>
+        /// <returns>
+        ///   IOpenAIService
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">options</exception>
+        public static IOpenAIService CreateService(OpenAIOptions options)
+        {
+            if (options == null) throw new ArgumentNullException(nameof(options));
+
+            IApiHttpClientFactory apiHttpClientFactory = new ApiHttpClientFactory(options);
+            IApiHttpLoggerService apiHttpLoggerService = new ApiHttpLoggerService(options);
+            IApiHttpService apiHttpService = new ApiHttpService(apiHttpClientFactory, apiHttpLoggerService, options);
+
+            return CreateService(options, apiHttpService);
+        }
+
+        /// <summary>Creates a new service instance with individual options.</summary>
+        /// <param name="options">The options.</param>
+        /// <param name="apiHttpService">The API HTTP service.</param>
+        /// <returns>
+        ///   IOpenAIService
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">options
+        /// or
+        /// apiHttpService</exception>
+        public static IOpenAIService CreateService(OpenAIOptions options, IApiHttpService apiHttpService)
+        {
+            if (options == null) throw new ArgumentNullException(nameof(options));
+            if (apiHttpService == null) throw new ArgumentNullException(nameof(apiHttpService));
+
+            return new OpenAIService(options, apiHttpService);
+        }
+
         /// <summary>Gets the model service.</summary>
         /// <value>The model service.</value>
-        public IModelService ModelService { get; private set; }
+        public IModelService ModelService { get; }
 
         /// <summary>Gets the text completion service.</summary>
         /// <value>The text completion service.</value>
-        public ITextCompletionService TextCompletionService { get; private set; }
+        public ITextCompletionService TextCompletionService { get; }
 
         /// <summary>Gets the text edit service.</summary>
         /// <value>The text edit service.</value>
