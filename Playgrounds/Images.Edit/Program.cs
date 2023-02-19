@@ -34,8 +34,7 @@ namespace Images.Edit
 
             IOpenAIService openAi = host.Services.GetService<IOpenAIService>()!;
 
-            // Images should be in png format with ARGB. I got help from this website to generate sample mask
-            // https://www.online-image-editor.com/
+            // Images should be in png format with ARGB
 
             ImageEditRequest request = new ImageEditRequest();
             request.Image = new BinaryContentData() { ContentName = "Original Image", SourceStream = File.OpenRead("image_edit_original.png") };
@@ -46,7 +45,7 @@ namespace Images.Edit
                 using (request.Mask.SourceStream)
                 {
                     //request.Prompt = "A sunlit indoor lounge area with a pool containing a cat";
-                    request.Prompt = "A boy rides away on a bicycle on the road";
+                    request.Prompt = "A boy cycling away on a bicycle on the road";
 
                     HttpOperationResult<ImageEditResponse> response = await openAi.ImageService.EditImageAsync(request, CancellationToken.None).ConfigureAwait(false);
                     if (response.IsSuccess)
