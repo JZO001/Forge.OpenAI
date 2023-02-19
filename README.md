@@ -32,6 +32,16 @@ If you're using Visual Studio you can also install via the built in NuGet packag
 
 ## Setup
 
+You should create an ApiKey to work with the OpenAI API.
+
+If you do not have an account at OpenAI, create one here:
+https://platform.openai.com/
+
+Than navigate to:
+https://platform.openai.com/account/api-keys
+
+
+
 By default, this library uses Microsoft Dependency Injection, however it is not necessary.
 
 You can register the client services with the service collection in your _Startup.cs_ / _Program.cs_ file in your application.
