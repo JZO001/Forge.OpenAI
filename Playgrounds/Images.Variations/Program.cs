@@ -25,14 +25,14 @@ namespace Images.Variations
             // Here you can create apiKey(s)
 
             using var host = Host.CreateDefaultBuilder(args)
-            .ConfigureServices((builder, services) =>
-            {
-                services.AddForgeOpenAI(options =>
+                .ConfigureServices((builder, services) =>
                 {
-                    options.AuthenticationInfo = builder.Configuration["OpenAI:ApiKey"]!;
-                });
-            })
-            .Build();
+                    services.AddForgeOpenAI(options =>
+                    {
+                        options.AuthenticationInfo = builder.Configuration["OpenAI:ApiKey"]!;
+                    });
+                })
+                .Build();
 
             IOpenAIService openAi = host.Services.GetService<IOpenAIService>()!;
 
