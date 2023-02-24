@@ -27,9 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Files", "Playgrounds\Files\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FineTunes", "Playgrounds\FineTunes\FineTunes.csproj", "{3AD4944E-D7F6-4E68-A217-6D8C496C1118}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleApiKeyUsage", "Playgrounds\MultipleApiKeyUsage\MultipleApiKeyUsage.csproj", "{9D07CDFF-A969-4FE4-BCCE-F12934E7A643}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultipleApiKeyUsage", "Playgrounds\MultipleApiKeyUsage\MultipleApiKeyUsage.csproj", "{9D07CDFF-A969-4FE4-BCCE-F12934E7A643}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleUsersWithSameApiKey", "Playgrounds\MultipleUsersWithSameApiKey\MultipleUsersWithSameApiKey.csproj", "{94F42233-96F8-4DEF-B434-5E6CCF63E99B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultipleUsersWithSameApiKey", "Playgrounds\MultipleUsersWithSameApiKey\MultipleUsersWithSameApiKey.csproj", "{94F42233-96F8-4DEF-B434-5E6CCF63E99B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

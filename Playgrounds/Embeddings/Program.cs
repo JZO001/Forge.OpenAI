@@ -34,7 +34,10 @@ namespace Embeddings
             EmbeddingsRequest request = new EmbeddingsRequest();
             request.InputTextsForEmbeddings.Add("The food was delicious and the waiter...");
 
-            HttpOperationResult<EmbeddingsResponse> response = await openAi.EmbeddingsService.GetAsync(request, CancellationToken.None);
+            HttpOperationResult<EmbeddingsResponse> response = 
+                await openAi.EmbeddingsService
+                    .GetAsync(request, CancellationToken.None)
+                        .ConfigureAwait(false);
 
             if (response.IsSuccess)
             {
