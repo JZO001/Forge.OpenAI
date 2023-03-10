@@ -44,6 +44,8 @@ namespace Forge.OpenAI.Models
         public const string DavinciSearchQuery = "davinci-search-query";
         public const string DavinciSimilarity = "davinci-similarity";
         public const string Davinci_20200503 = "davinci:2020-05-03";
+        public const string Gpt3_5Turbo = "gpt-3.5-turbo";
+        public const string Gpt3_5Turbo0301 = "gpt-3.5-turbo-0301";
         public const string IfCurieV2 = "if-curie-v2";
         public const string IfDavinciV2 = "if-davinci-v2";
         public const string IfDavinci_3_0_0 = "if-davinci:3.0.0";
@@ -75,6 +77,7 @@ namespace Forge.OpenAI.Models
         public const string TextSimilarityBabbage001 = "text-similarity-babbage-001";
         public const string TextSimilarityCurie001 = "text-similarity-curie-001";
         public const string TextSimilarityDavinci001 = "text-similarity-davinci-001";
+        public const string Whisper1 = "whisper-1";
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 

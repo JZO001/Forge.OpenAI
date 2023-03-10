@@ -1,5 +1,5 @@
 # Forge.OpenAI
-OpenAI API client library for .NET. This is not an official library, I was developed it for myself, for public and it is free to use.
+OpenAI API client library for .NET. This library was developed for public usage and it is free to use.
 Supported .NET versions:
 
 x >= v4.6.1,

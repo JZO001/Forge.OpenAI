@@ -10,7 +10,7 @@ namespace Models
         public static string GenerateModelsLookup(ModelsResponse response)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("namespace Forge.OpenAI.Services");
+            sb.AppendLine("namespace Forge.OpenAI.Models");
             sb.AppendLine("{");
             sb.AppendLine("    public class KnownModelTypes");
             sb.AppendLine("    {");
