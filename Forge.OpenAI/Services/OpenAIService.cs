@@ -10,32 +10,6 @@ namespace Forge.OpenAI.Services
     public class OpenAIService : IOpenAIService
     {
 
-        /// <summary>Initializes a new instance of the <see cref="OpenAIService" /> class.</summary>
-        /// <param name="modelService">The model service.</param>
-        /// <param name="textCompletionService">The text completion service.</param>
-        /// <param name="textEditService">The text edit service.</param>
-        /// <param name="moderationService">The moderation service.</param>
-        /// <param name="embeddingsService">The embeddings service.</param>
-        /// <param name="imageService">The image service.</param>
-        /// <param name="fileService">The file service.</param>
-        /// <param name="fineTuneService">The fine tune service.</param>
-        /// <exception cref="System.ArgumentNullException">
-        /// modelService
-        /// or
-        /// textCompletionService
-        /// or
-        /// textEditService
-        /// or
-        /// moderationService
-        /// or
-        /// embeddingsService
-        /// or
-        /// imageService
-        /// or
-        /// fileService
-        /// or
-        /// fineTuneService
-        /// </exception>
         public OpenAIService(IModelService modelService,
             ITextCompletionService textCompletionService,
             ITextEditService textEditService,
@@ -43,7 +17,9 @@ namespace Forge.OpenAI.Services
             IEmbeddingsService embeddingsService,
             IImageService imageService,
             IFileService fileService,
-            IFineTuneService fineTuneService)
+            IFineTuneService fineTuneService,
+            ITranscriptionService transcriptionService,
+            ITranslationService translationService)
         {
             if (modelService == null) throw new ArgumentNullException(nameof(modelService));
             if (textCompletionService == null) throw new ArgumentNullException(nameof(textCompletionService));
@@ -53,6 +29,8 @@ namespace Forge.OpenAI.Services
             if (imageService == null) throw new ArgumentNullException(nameof(imageService));
             if (fileService == null) throw new ArgumentNullException(nameof(fileService));
             if (fineTuneService == null) throw new ArgumentNullException(nameof(fineTuneService));
+            if (transcriptionService == null) throw new ArgumentNullException(nameof(transcriptionService));
+            if (translationService == null) throw new ArgumentNullException(nameof(translationService));
 
             ModelService = modelService;
             TextCompletionService = textCompletionService;
@@ -62,6 +40,8 @@ namespace Forge.OpenAI.Services
             ImageService = imageService;
             FileService = fileService;
             FineTuneService = fineTuneService;
+            TranscriptionService = transcriptionService;
+            TranslationService = translationService;
         }
 
         /// <summary>Initializes a new instance of the <see cref="OpenAIService" /> class.</summary>
@@ -83,6 +63,7 @@ namespace Forge.OpenAI.Services
             ImageService = new ImageService(options, apiHttpService);
             FileService = new FileService(options, apiHttpService);
             FineTuneService = new FineTuneService(options, apiHttpService);
+            TranscriptionService = new TranscriptionService(options, apiHttpService);
         }
 
         /// <summary>Creates a new service instance with individual options.</summary>
@@ -150,6 +131,12 @@ namespace Forge.OpenAI.Services
         /// <summary>Gets the fine tune service.</summary>
         /// <value>The fine tune service.</value>
         public IFineTuneService FineTuneService { get; }
+
+        /// <summary>Gets the transcription service.</summary>
+        /// <value>The transcription service.</value>
+        public ITranscriptionService TranscriptionService { get; }
+
+        public ITranslationService TranslationService { get; }
 
     }
 

@@ -33,11 +33,11 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/JZO001/Forge.OpenAI</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<AssemblyVersion>1.0.2.0</AssemblyVersion>
+		<AssemblyVersion>1.0.3.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<PackageTags>machine-learning, sdk, ml, openai, gpt-3, gpt3, gpt3-library, chatgpt, forge</PackageTags>
+		<PackageTags>machine-learning, sdk, ml, openai, gpt-3, gpt3, gpt3-library, chatgpt, forge, translation, transcription</PackageTags>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">

@@ -37,6 +37,14 @@
         /// <value>The fine tune service.</value>
         IFineTuneService FineTuneService { get; }
 
+        /// <summary>Gets the transcription service.</summary>
+        /// <value>The transcription service.</value>
+        ITranscriptionService TranscriptionService { get; }
+
+        /// <summary>Gets the translation service.</summary>
+        /// <value>The translation service.</value>
+        ITranslationService TranslationService { get; }
+
     }
 
 }

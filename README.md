@@ -1202,3 +1202,90 @@ static async Task Main(string[] args)
 
 }
 ```
+
+## Transcription
+
+Speech-to-text, transcript audio
+
+More info: https://platform.openai.com/docs/guides/speech-to-text/speech-to-text-beta
+
+
+```c#
+static async Task Main(string[] args)
+{
+    using var host = Host.CreateDefaultBuilder(args)
+        .ConfigureServices((builder, services) =>
+        {
+            services.AddForgeOpenAI(options => {
+                options.AuthenticationInfo = builder.Configuration["OpenAI:ApiKey"]!;
+            });
+        })
+        .Build();
+
+    IOpenAIService openAi = host.Services.GetService<IOpenAIService>()!;
+
+    TranscriptionRequest request = new TranscriptionRequest();
+    request.AudioFile = new BinaryContentData() 
+    { 
+        ContentName = "audio.mp3", 
+        SourceStream = File.OpenRead("audio.mp3") 
+    };
+
+    HttpOperationResult<TranscriptionResponse> response = 
+        await openAi.TranscriptionService
+            .GetAsync(request, CancellationToken.None)
+                .ConfigureAwait(false);
+
+    if (response.IsSuccess)
+    {
+        Console.WriteLine(response.Result?.Text);
+    }
+    else
+    {
+        Console.WriteLine(response);
+    }
+}
+```
+
+## Translation
+
+Translate audio into english
+
+
+```c#
+static async Task Main(string[] args)
+{
+    using var host = Host.CreateDefaultBuilder(args)
+        .ConfigureServices((builder, services) =>
+        {
+            services.AddForgeOpenAI(options => {
+                options.AuthenticationInfo = builder.Configuration["OpenAI:ApiKey"]!;
+            });
+        })
+        .Build();
+
+    IOpenAIService openAi = host.Services.GetService<IOpenAIService>()!;
+
+    TranslationRequest request = new TranslationRequest();
+    request.AudioFile = new BinaryContentData() 
+    { 
+        ContentName = "audio.mp3", 
+        SourceStream = File.OpenRead("audio.mp3") 
+    };
+
+    HttpOperationResult<TranslationResponse> response = 
+        await openAi.TranslationService
+            .GetAsync(request, CancellationToken.None)
+                .ConfigureAwait(false);
+
+    if (response.IsSuccess)
+    {
+        // text: "How can I motivate you?"
+        Console.WriteLine(response.Result?.Text);
+    }
+    else
+    {
+        Console.WriteLine(response);
+    }
+}
+```

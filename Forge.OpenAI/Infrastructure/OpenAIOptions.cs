@@ -98,6 +98,14 @@ namespace Forge.OpenAI.Infrastructure
         /// <value>The default fine tune delete model URI.</value>
         public string FineTuneDeleteModelUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuneDeleteModelUri;
 
+        /// <summary>Gets or sets the audio transcript URI.</summary>
+        /// <value>The audio transcript URI.</value>
+        public string AudioTranscriptUri { get; set; } = OpenAIDefaultOptions.DefaultAudioTranscriptUri;
+
+        /// <summary>Gets or sets the audio translation URI.</summary>
+        /// <value>The audio translation URI.</value>
+        public string AudioTranslationUri { get; set; } = OpenAIDefaultOptions.DefaultAudioTranslationUri;
+
         /// <summary>Gets or sets a value indicating whether [log requests and responses].</summary>
         /// <value>
         ///   <c>true</c> if [log requests and responses]; otherwise, <c>false</c>.</value>

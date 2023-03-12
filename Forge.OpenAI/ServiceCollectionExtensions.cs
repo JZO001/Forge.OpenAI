@@ -41,6 +41,8 @@ namespace Forge.OpenAI
                 .AddSingleton<IImageService, ImageService>()
                 .AddSingleton<IFileService, FileService>()
                 .AddSingleton<IFineTuneService, FineTuneService>()
+                .AddSingleton<ITranscriptionService, TranscriptionService>()
+                .AddSingleton<ITranslationService, TranslationService>()
                 .AddSingleton<IOpenAIService, OpenAIService>()
                 .Configure<OpenAIOptions>(configureOptions =>
                 {
