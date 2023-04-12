@@ -1,5 +1,5 @@
-# Forge.OpenAI
-OpenAI API client library for .NET. This library was developed for public usage and it is free to use.
+# Forge.OpenAI is a C#.NET client library for OpenAI API, using GPT-3, 3.5 and 4, DALL-E 2, Whisper, etc.
+OpenAI API client library for .NET. It supports OpenAI and Azure-OpenAI APIs. This library was developed for public usage and it is free to use.
 Supported .NET versions:
 
 x >= v4.6.1,
@@ -146,183 +146,6 @@ Feel free to run through these examples and play with the settings.
 
 Also here is the OpenAI playground, where you can also find examples about the usage:
 https://platform.openai.com/playground/p/default-chat?lang=node.js&mode=complete&model=text-davinci-003
-
-
-## ApiKey usage #1: many users can use the same apiKey
-
-This example demonstrates, how to use the API with multiple individual users, but with the same apiKey.
-This is useful, if you have multiple users, becuase it is highly recommended
-to differentiate them. If a user against the OpenAPI rules, this user will be
-denied and not your whole apiKey and your other users.
-
-
-```c#
-static async Task Main(string[] args)
-{
-    // This example demonstrates, how to use the API with multiple individual users,
-    // but with the same apiKey.
-    // This is useful, if you have multiple users, becuase it is highly recommended
-    // to differentiate them. If a user against the OpenAPI rules, this user will be
-    // denied and not your whole apiKey and your other users.
-    //
-    // The very first step to create an account at OpenAI: https://platform.openai.com/
-    // Using the loggedIn account, navigate to https://platform.openai.com/account/api-keys
-    // Here you can create apiKey(s)
-
-    using var host = Host.CreateDefaultBuilder(args)
-        .ConfigureServices((builder, services) =>
-        {
-            services.AddForgeOpenAI(options => {
-                options.AuthenticationInfo = builder.Configuration["OpenAI:ApiKey"]!;
-            });
-        })
-        .Build();
-
-    IOpenAIService openAi = host.Services.GetService<IOpenAIService>()!;
-
-
-    // use a unique identifier for your users
-    // it can be an email, a guid, etc...
-    const string idForUserA = "user_a@email.com";
-    const string idForUserB = "user_b@email.com";
-
-    // works with User "A"
-    await TextEditExampleAsync(openAi, idForUserA);
-
-    // works with User "B"
-    await TextEditExampleAsync(openAi, idForUserB);
-}
-
-static async Task TextEditExampleAsync(IOpenAIService openAIService, string userId)
-{
-    TextCompletionRequest request = new TextCompletionRequest();
-    request.Prompt = "Say this is a test";
-    request.User = userId;
-
-    Console.WriteLine(request.Prompt);
-
-    HttpOperationResult<TextCompletionResponse> response = 
-        await openAIService.TextCompletionService
-            .GetAsync(request, CancellationToken.None)
-                .ConfigureAwait(false);
-            
-    if (response.IsSuccess)
-    {
-        Console.WriteLine();
-        response.Result!.Completions.ForEach(c => Console.WriteLine(c.Text));
-    }
-    else
-    {
-        Console.WriteLine(response);
-    }
-}
-```
-
-
-## ApiKey usage #2: many users with different apiKey
-
-This example demonstrates, how to use the Forge.OpenAI without dependency injection
-and create service instances for individual users which have different OpenAI API key.
-
-
-```c#
-static async Task Main(string[] args)
-{
-    // This example demonstrates, how to use the Forge.OpenAI without dependency injection
-    // and create service instances for individual users which have different OpenAI API key.
-
-    // The very first step to create an account at OpenAI: https://platform.openai.com/
-    // Using the loggedIn account, navigate to https://platform.openai.com/account/api-keys
-    // Here you can create apiKey(s), for example let's create two for this demo.
-
-    // Add the created API keys here
-    const string apiKeyForUserA = "";
-    const string apiKeyForUserB = "";
-
-    OpenAIOptions optionsForUserA = new OpenAIOptions();
-    optionsForUserA.AuthenticationInfo = new AuthenticationInfo(apiKeyForUserA);
-
-    OpenAIOptions optionsForUserB = new OpenAIOptions();
-    optionsForUserB.AuthenticationInfo = new AuthenticationInfo(apiKeyForUserB);
-
-    IOpenAIService openAiInstanceForUserA = OpenAIService.CreateService(optionsForUserA);
-    IOpenAIService openAiInstanceForUserB = OpenAIService.CreateService(optionsForUserB);
-
-    await TextEditExampleAsync(openAiInstanceForUserA);
-    await TextEditExampleAsync(openAiInstanceForUserB);
-
-    // NOTE: there is an other example in the Playgrouns here, which demonstrates
-    // how you can use the OpenAPI with multiple users, but with only one ApiKey
-    // This is useful, if you have multiple users, becuase it is highly recommended
-    // to differentiate them. If a user against the OpenAPI rules, this user will be
-    // denied and not your whole apiKey and your other users.
-}
-
-static async Task TextEditExampleAsync(IOpenAIService openAIService)
-{
-    TextEditRequest request = new TextEditRequest();
-    request.InputTextForEditing = "Do you happy with your order?";
-    request.Instruction = "Fix the grammar";
-
-    Console.WriteLine(request.InputTextForEditing);
-    Console.WriteLine(request.Instruction);
-
-    HttpOperationResult<TextEditResponse> response = 
-        await openAIService.TextEditService
-            .GetAsync(request, CancellationToken.None)
-                .ConfigureAwait(false);
-            
-    if (response.IsSuccess)
-    {
-        // output: Are you happy with your order?
-        response.Result!.Choices.ForEach(c => Console.WriteLine(c.Text));
-    }
-    else
-    {
-        Console.WriteLine(response);
-    }
-
-}
-```
-
-
-
-## Azure-OpenAI: how to setup for the provider
-
-This example demonstrates, how to setup Forge.OpenAI to using Azure-OpenAI as provider.
-
-
-```c#
-static void Main(string[] args)
-{
-    // This example demonstrates, how to setup the service with Azure-OpenAI provider
-    //
-    // Prerequisites: https://learn.microsoft.com/en-us/azure/cognitive-services/openai/quickstart?tabs=command-line&pivots=programming-language-studio
-    // Documentation: https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference
-
-    using var host = Host.CreateDefaultBuilder(args)
-        .ConfigureServices((builder, services) =>
-        {
-            OpenAIOptions settings = builder
-                .Configuration
-                .GetSection(OpenAIOptions.ConfigurationSectionName)
-                .Get<OpenAIOptions>()!;
-
-            services.AddForgeAzureOpenAI(options =>
-            {
-                options.AuthenticationInfo = settings.AuthenticationInfo;
-                options.AzureResourceName = settings.AzureResourceName;
-                options.AzureDeploymentId = settings.AzureDeploymentId;
-            });
-        })
-        .Build();
-
-    IOpenAIService openAi = host.Services.GetService<IOpenAIService>()!;
-
-    // do something with the service
-
-}
-```
 
 
 
@@ -1470,5 +1293,182 @@ static async Task Main(string[] args)
     {
         Console.WriteLine(response);
     }
+}
+```
+
+
+## ApiKey usage #1: many users can use the same apiKey
+
+This example demonstrates, how to use the API with multiple individual users, but with the same apiKey.
+This is useful, if you have multiple users, becuase it is highly recommended
+to differentiate them. If a user against the OpenAPI rules, this user will be
+denied and not your whole apiKey and your other users.
+
+
+```c#
+static async Task Main(string[] args)
+{
+    // This example demonstrates, how to use the API with multiple individual users,
+    // but with the same apiKey.
+    // This is useful, if you have multiple users, becuase it is highly recommended
+    // to differentiate them. If a user against the OpenAPI rules, this user will be
+    // denied and not your whole apiKey and your other users.
+    //
+    // The very first step to create an account at OpenAI: https://platform.openai.com/
+    // Using the loggedIn account, navigate to https://platform.openai.com/account/api-keys
+    // Here you can create apiKey(s)
+
+    using var host = Host.CreateDefaultBuilder(args)
+        .ConfigureServices((builder, services) =>
+        {
+            services.AddForgeOpenAI(options => {
+                options.AuthenticationInfo = builder.Configuration["OpenAI:ApiKey"]!;
+            });
+        })
+        .Build();
+
+    IOpenAIService openAi = host.Services.GetService<IOpenAIService>()!;
+
+
+    // use a unique identifier for your users
+    // it can be an email, a guid, etc...
+    const string idForUserA = "user_a@email.com";
+    const string idForUserB = "user_b@email.com";
+
+    // works with User "A"
+    await TextEditExampleAsync(openAi, idForUserA);
+
+    // works with User "B"
+    await TextEditExampleAsync(openAi, idForUserB);
+}
+
+static async Task TextEditExampleAsync(IOpenAIService openAIService, string userId)
+{
+    TextCompletionRequest request = new TextCompletionRequest();
+    request.Prompt = "Say this is a test";
+    request.User = userId;
+
+    Console.WriteLine(request.Prompt);
+
+    HttpOperationResult<TextCompletionResponse> response = 
+        await openAIService.TextCompletionService
+            .GetAsync(request, CancellationToken.None)
+                .ConfigureAwait(false);
+            
+    if (response.IsSuccess)
+    {
+        Console.WriteLine();
+        response.Result!.Completions.ForEach(c => Console.WriteLine(c.Text));
+    }
+    else
+    {
+        Console.WriteLine(response);
+    }
+}
+```
+
+
+## ApiKey usage #2: many users with different apiKey
+
+This example demonstrates, how to use the Forge.OpenAI without dependency injection
+and create service instances for individual users which have different OpenAI API key.
+
+
+```c#
+static async Task Main(string[] args)
+{
+    // This example demonstrates, how to use the Forge.OpenAI without dependency injection
+    // and create service instances for individual users which have different OpenAI API key.
+
+    // The very first step to create an account at OpenAI: https://platform.openai.com/
+    // Using the loggedIn account, navigate to https://platform.openai.com/account/api-keys
+    // Here you can create apiKey(s), for example let's create two for this demo.
+
+    // Add the created API keys here
+    const string apiKeyForUserA = "";
+    const string apiKeyForUserB = "";
+
+    OpenAIOptions optionsForUserA = new OpenAIOptions();
+    optionsForUserA.AuthenticationInfo = new AuthenticationInfo(apiKeyForUserA);
+
+    OpenAIOptions optionsForUserB = new OpenAIOptions();
+    optionsForUserB.AuthenticationInfo = new AuthenticationInfo(apiKeyForUserB);
+
+    IOpenAIService openAiInstanceForUserA = OpenAIService.CreateService(optionsForUserA);
+    IOpenAIService openAiInstanceForUserB = OpenAIService.CreateService(optionsForUserB);
+
+    await TextEditExampleAsync(openAiInstanceForUserA);
+    await TextEditExampleAsync(openAiInstanceForUserB);
+
+    // NOTE: there is an other example in the Playgrouns here, which demonstrates
+    // how you can use the OpenAPI with multiple users, but with only one ApiKey
+    // This is useful, if you have multiple users, becuase it is highly recommended
+    // to differentiate them. If a user against the OpenAPI rules, this user will be
+    // denied and not your whole apiKey and your other users.
+}
+
+static async Task TextEditExampleAsync(IOpenAIService openAIService)
+{
+    TextEditRequest request = new TextEditRequest();
+    request.InputTextForEditing = "Do you happy with your order?";
+    request.Instruction = "Fix the grammar";
+
+    Console.WriteLine(request.InputTextForEditing);
+    Console.WriteLine(request.Instruction);
+
+    HttpOperationResult<TextEditResponse> response = 
+        await openAIService.TextEditService
+            .GetAsync(request, CancellationToken.None)
+                .ConfigureAwait(false);
+            
+    if (response.IsSuccess)
+    {
+        // output: Are you happy with your order?
+        response.Result!.Choices.ForEach(c => Console.WriteLine(c.Text));
+    }
+    else
+    {
+        Console.WriteLine(response);
+    }
+
+}
+```
+
+
+
+## Azure-OpenAI: how to setup for the provider
+
+This example demonstrates, how to setup Forge.OpenAI to using Azure-OpenAI as provider.
+
+
+```c#
+static void Main(string[] args)
+{
+    // This example demonstrates, how to setup the service with Azure-OpenAI provider
+    //
+    // Prerequisites: https://learn.microsoft.com/en-us/azure/cognitive-services/openai/quickstart?tabs=command-line&pivots=programming-language-studio
+    // Documentation: https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference
+
+    using var host = Host.CreateDefaultBuilder(args)
+        .ConfigureServices((builder, services) =>
+        {
+            OpenAIOptions settings = builder
+                .Configuration
+                .GetSection(OpenAIOptions.ConfigurationSectionName)
+                .Get<OpenAIOptions>()!;
+
+            services.AddForgeAzureOpenAI(options =>
+            {
+                options.AuthenticationInfo = settings.AuthenticationInfo;
+                options.AzureResourceName = settings.AzureResourceName;
+                options.AzureDeploymentId = settings.AzureDeploymentId;
+            });
+        })
+        .Build();
+
+    IOpenAIService openAi = host.Services.GetService<IOpenAIService>()!;
+
+    // do something with the service
+
 }
 ```
