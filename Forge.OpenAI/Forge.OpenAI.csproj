@@ -27,13 +27,13 @@
 		<PackageId>$(AssemblyName)</PackageId>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>Forge OpenAI API for .NET</Title>
-		<Description>Simple OpenAI API C# SDK for dotNET and dotNETCore. Developed for public and free usage.</Description>
+		<Description>Simple OpenAI API client library for .NET, using GPT-3, 3.5 and 4, DALL-E 2, Whisper, etc. It supports OpenAI and Azure-OpenAI APIs. Developed for public and free usage.</Description>
 		<PackageProjectUrl>https://github.com/JZO001/Forge.OpenAI</PackageProjectUrl>
 		<Authors>Zoltan Juhasz</Authors>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/JZO001/Forge.OpenAI</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<AssemblyVersion>1.1.0.0</AssemblyVersion>
+		<AssemblyVersion>1.1.1.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
