@@ -1,9 +1,9 @@
 ﻿using Forge.OpenAI.Authentication;
-using Forge.OpenAI.Infrastructure;
 using Forge.OpenAI.Interfaces.Services;
 using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Models.TextEdits;
 using Forge.OpenAI.Services;
+using Forge.OpenAI.Settings;
 
 namespace MultipleApiKeyUsage
 {

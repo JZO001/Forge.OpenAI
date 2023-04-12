@@ -1,8 +1,9 @@
-﻿using Forge.OpenAI.Infrastructure;
-using Forge.OpenAI.Interfaces.Infrastructure;
+﻿using Forge.OpenAI.Interfaces.Infrastructure;
+using Forge.OpenAI.Interfaces.Providers;
 using Forge.OpenAI.Interfaces.Services;
 using Forge.OpenAI.Models.Audio.Translation;
 using Forge.OpenAI.Models.Common;
+using Forge.OpenAI.Settings;
 using Microsoft.Extensions.Options;
 using System;
 using System.IO;
@@ -14,31 +15,37 @@ namespace Forge.OpenAI.Services
 {
 
     /// <summary>Represents the transcription service</summary>
-    public class TranslationService : ServiceBase, ITranslationService
+    public class TranslationService : ITranslationService
     {
 
         private readonly OpenAIOptions _options;
         private readonly IApiHttpService _apiHttpService;
+        private readonly IProviderEndpointService _providerEndpointService;
 
         /// <summary>Initializes a new instance of the <see cref="TranslationService" /> class.</summary>
         /// <param name="options">The options.</param>
         /// <param name="apiHttpService">The API HTTP service.</param>
+        /// <param name="providerEndpointService">The provider endpoint service.</param>
         /// <exception cref="System.ArgumentNullException">options
         /// or
         /// apiHttpService</exception>
-        public TranslationService(OpenAIOptions options, IApiHttpService apiHttpService)
+        public TranslationService(OpenAIOptions options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
             if (apiHttpService == null) throw new ArgumentNullException(nameof(apiHttpService));
+            if (providerEndpointService == null) throw new ArgumentNullException(nameof(providerEndpointService));
+
             _options = options;
             _apiHttpService = apiHttpService;
+            _providerEndpointService = providerEndpointService;
         }
 
         /// <summary>Initializes a new instance of the <see cref="TranslationService" /> class.</summary>
         /// <param name="options">The options.</param>
         /// <param name="apiHttpService">The API HTTP service.</param>
-        public TranslationService(IOptions<OpenAIOptions> options, IApiHttpService apiHttpService)
-            : this(options?.Value, apiHttpService)
+        /// <param name="providerEndpointService">The provider endpoint service.</param>
+        public TranslationService(IOptions<OpenAIOptions> options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
+            : this(options?.Value, apiHttpService, providerEndpointService)
         {
         }
 
@@ -55,7 +62,7 @@ namespace Forge.OpenAI.Services
 
         private string GetTranscriptUri()
         {
-            return $"{GetBaseUri(_options)}{_options.AudioTranslationUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.AudioTranslationUri);
         }
 
         private async Task<HttpContent> TranslateHttpContentFactoryAsync(TranslationRequest request, CancellationToken cancellationToken)

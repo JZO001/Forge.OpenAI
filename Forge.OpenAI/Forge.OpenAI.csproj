@@ -27,17 +27,17 @@
 		<PackageId>$(AssemblyName)</PackageId>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>Forge OpenAI API for .NET</Title>
-		<Description>OpenAI API client library for .NET and .NETCore. This is not an official library, developed for public use.</Description>
+		<Description>Simple OpenAI API C# SDK for dotNET and dotNETCore. Developed for public and free usage.</Description>
 		<PackageProjectUrl>https://github.com/JZO001/Forge.OpenAI</PackageProjectUrl>
 		<Authors>Zoltan Juhasz</Authors>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/JZO001/Forge.OpenAI</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<AssemblyVersion>1.0.3.0</AssemblyVersion>
+		<AssemblyVersion>1.1.0.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<PackageTags>machine-learning, sdk, ml, openai, gpt-3, gpt3, gpt3-library, chatgpt, forge, translation, transcription</PackageTags>
+		<PackageTags>OpenAI, Azure-OpenAI, ChatGPT, GPT4, GPT-4, GPT3, GPT-3, DALLE, DALL-E, Whisper, AI, ML, dotnet, dotnetcore, machine-learning, sdk, forge, translation, transcription, chat, image, embedding, moderation, text-completion, fine-tune</PackageTags>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">

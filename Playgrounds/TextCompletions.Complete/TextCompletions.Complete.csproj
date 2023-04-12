@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup Label="Globals">
-	  <SccProjectName>SAK</SccProjectName>
-	  <SccProvider>SAK</SccProvider>
-	  <SccAuxPath>SAK</SccAuxPath>
-	  <SccLocalPath>SAK</SccLocalPath>
+		<SccProjectName>SAK</SccProjectName>
+		<SccProvider>SAK</SccProvider>
+		<SccAuxPath>SAK</SccAuxPath>
+		<SccLocalPath>SAK</SccLocalPath>
 	</PropertyGroup>
 
 	<PropertyGroup>

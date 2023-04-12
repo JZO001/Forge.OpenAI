@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Json.Serialization;
 using Forge.OpenAI.Models.Common;
+using Forge.OpenAI.Settings;
 
 namespace Forge.OpenAI.Models.TextCompletions
 {
@@ -19,7 +20,7 @@ namespace Forge.OpenAI.Models.TextCompletions
         /// <summary>Initializes a new instance of the <see cref="TextCompletionRequest" /> class.</summary>
         public TextCompletionRequest()
         {
-            Model = KnownModelTypes.TextDavinci003;
+            Model = OpenAIDefaultOptions.DefaultTextCompletionModel;
         }
 
         /// <summary>
@@ -108,7 +109,7 @@ namespace Forge.OpenAI.Models.TextCompletions
                 throw new ArgumentNullException($"Missing required {nameof(prompt)}(s)");
             }
 
-            Model = model ?? KnownModelTypes.TextDavinci003;
+            Model = model ?? OpenAIDefaultOptions.DefaultTextCompletionModel;
             Suffix = suffix;
             MaxTokens = maxTokens;
             Temperature = temperature;

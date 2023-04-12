@@ -22,6 +22,14 @@ namespace Forge.OpenAI.Authentication
         private static readonly object DEFAULT_LOCK_OBJECT = new object();
         private static AuthenticationInfo DEFAULT;
 
+        private string _apiKey;
+        private string _organization;
+
+        /// <summary>Initializes a new instance of the <see cref="AuthenticationInfo" /> class.</summary>
+        public AuthenticationInfo()
+        {
+        }
+
         /// <summary>Initializes a new instance of the <see cref="AuthenticationInfo" /> class.</summary>
         /// <param name="apiKey">The API key.</param>
         /// <exception cref="System.ArgumentNullException">apiKey</exception>
@@ -32,7 +40,7 @@ namespace Forge.OpenAI.Authentication
 
             if (!apiKey.Contains("sk-"))
             {
-                throw new Exception($"{apiKey} parameter must start with 'sk-'");
+                throw new ArgumentException($"{apiKey} parameter must start with 'sk-'");
             }
 
             ApiKey = apiKey;
@@ -44,14 +52,14 @@ namespace Forge.OpenAI.Authentication
         /// <exception cref="System.ArgumentNullException">apiKey</exception>
         /// <exception cref="System.Security.Authentication.InvalidCredentialException"></exception>
         [JsonConstructor]
-        public AuthenticationInfo(string apiKey, string organization = null)
+        public AuthenticationInfo(string apiKey, string organization)
             : this(apiKey)
         {
             if (!string.IsNullOrWhiteSpace(organization))
             {
                 if (!organization.Contains("org-"))
                 {
-                    throw new Exception($"{nameof(organization)} parameter must start with 'org-'");
+                    throw new ArgumentException($"{nameof(organization)} parameter must start with 'org-'");
                 }
 
                 Organization = organization;
@@ -61,12 +69,45 @@ namespace Forge.OpenAI.Authentication
         /// <summary>Gets the API key.</summary>
         /// <value>The API key.</value>
         [JsonPropertyName("apiKey")]
-        public string ApiKey { get; }
+        public string ApiKey 
+        { 
+            get => _apiKey;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value)) throw new ArgumentNullException(nameof(value));
+
+                if (!value.Contains("sk-"))
+                {
+                    throw new ArgumentException($"{value} parameter must start with 'sk-'");
+                }
+
+                _apiKey = value;
+            }
+        }
 
         /// <summary>Gets the organization.</summary>
         /// <value>The organization.</value>
         [JsonPropertyName("organization")]
-        public string Organization { get; }
+        public string Organization 
+        { 
+            get => _organization;
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    if (!value.Contains("org-"))
+                    {
+                        throw new ArgumentException($"{nameof(value)} parameter must start with 'org-'");
+                    }
+
+                    _organization = value;
+                }
+                else
+                {
+                    _organization = value;
+                }
+            }
+        }
 
         /// <summary>
         /// Allows implicit casting from a string, so that a simple string API key can be provided in place of an instance of <see cref="AuthenticationInfo"/>.

@@ -1,8 +1,9 @@
-﻿using Forge.OpenAI.Infrastructure;
-using Forge.OpenAI.Interfaces.Infrastructure;
+﻿using Forge.OpenAI.Interfaces.Infrastructure;
+using Forge.OpenAI.Interfaces.Providers;
 using Forge.OpenAI.Interfaces.Services;
 using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Models.Images;
+using Forge.OpenAI.Settings;
 using Microsoft.Extensions.Options;
 using System;
 using System.IO;
@@ -14,31 +15,36 @@ namespace Forge.OpenAI.Services
 {
 
     /// <summary>Represents the image service</summary>
-    public class ImageService : ServiceBase, IImageService
+    public class ImageService : IImageService
     {
 
         private readonly OpenAIOptions _options;
         private readonly IApiHttpService _apiHttpService;
+        private readonly IProviderEndpointService _providerEndpointService;
 
         /// <summary>Initializes a new instance of the <see cref="ImageService" /> class.</summary>
         /// <param name="options">The options.</param>
         /// <param name="apiHttpService">The API communication service.</param>
+        /// <param name="providerEndpointService">The provider endpoint service.</param>
         /// <exception cref="System.ArgumentNullException">options
         /// or
         /// apiCommunicationService</exception>
-        public ImageService(OpenAIOptions options, IApiHttpService apiHttpService)
+        public ImageService(OpenAIOptions options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
             if (apiHttpService == null) throw new ArgumentNullException(nameof(apiHttpService));
+
             _options = options;
             _apiHttpService = apiHttpService;
+            _providerEndpointService = providerEndpointService;
         }
 
         /// <summary>Initializes a new instance of the <see cref="ImageService" /> class.</summary>
         /// <param name="options">The options.</param>
         /// <param name="apiHttpService">The API communication service.</param>
-        public ImageService(IOptions<OpenAIOptions> options, IApiHttpService apiHttpService)
-            : this(options?.Value, apiHttpService)
+        /// <param name="providerEndpointService">The provider endpoint service.</param>
+        public ImageService(IOptions<OpenAIOptions> options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
+            : this(options?.Value, apiHttpService, providerEndpointService)
         {
         }
 
@@ -52,6 +58,7 @@ namespace Forge.OpenAI.Services
         {
             var validationResult = imageCreateRequest.Validate<ImageCreateResponse>();
             if (validationResult != null) return validationResult;
+            
             return await _apiHttpService.PostAsync<ImageCreateRequest, ImageCreateResponse>(GetCreateUri(), imageCreateRequest, null, cancellationToken).ConfigureAwait(false);
         }
 
@@ -65,6 +72,7 @@ namespace Forge.OpenAI.Services
         {
             var validationResult = imageEditRequest.Validate<ImageEditResponse>();
             if (validationResult != null) return validationResult;
+            
             return await _apiHttpService.PostAsync<ImageEditRequest, ImageEditResponse>(GetEditUri(), imageEditRequest, ImageEditHttpContentFactoryAsync, cancellationToken).ConfigureAwait(false);
         }
 
@@ -78,22 +86,23 @@ namespace Forge.OpenAI.Services
         {
             var validationResult = imageVariationRequest.Validate<ImageVariationResponse>();
             if (validationResult != null) return validationResult;
+            
             return await _apiHttpService.PostAsync<ImageVariationRequest, ImageVariationResponse>(GetVariationUri(), imageVariationRequest, ImageVariationHttpContentFactoryAsync, cancellationToken).ConfigureAwait(false);
         }
 
         private string GetCreateUri()
         {
-            return $"{GetBaseUri(_options)}{_options.ImageCreateUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.ImageCreateUri);
         }
 
         private string GetEditUri()
         {
-            return $"{GetBaseUri(_options)}{_options.ImageEditUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.ImageEditUri);
         }
 
         private string GetVariationUri()
         {
-            return $"{GetBaseUri(_options)}{_options.ImageVariationUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.ImageVariationUri);
         }
 
         private async Task<HttpContent> ImageEditHttpContentFactoryAsync(ImageEditRequest imageEditRequest, CancellationToken cancellationToken)

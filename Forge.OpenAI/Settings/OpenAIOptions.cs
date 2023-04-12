@@ -2,21 +2,47 @@
 using System;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace Forge.OpenAI.Infrastructure
+namespace Forge.OpenAI.Settings
 {
 
-    /// <summary>Represents the settings of the OpenAI client</summary>
+    /// <summary>Represents the common settings of the providers</summary>
     public class OpenAIOptions : ICloneable
     {
 
-        /// <summary>Gets or sets the base address of the HttpClient.</summary>
-        /// <value>The base address.</value>
-        public string BaseAddress { get; set; } = OpenAIDefaultOptions.DefaultBaseAddress;
+        /// <summary>The configuration section name</summary>
+        public static readonly string ConfigurationSectionName = typeof(OpenAIOptions).Name;
 
-        /// <summary>Gets or sets the API version.</summary>
+        /// <summary>Gets the type of the AI provider. Currently OpenAI and Azure-OpenAI providers are supported.</summary>
+        /// <value>The type of the provider.</value>
+        public AIServiceProviderTypeEnum AIServiceProviderType { get; set; } = AIServiceProviderTypeEnum.OpenAI;
+
+        /// <summary>Gets or sets the base address of the HttpClient for the OpenAI provider.</summary>
+        /// <value>The base address.</value>
+        public string BaseAddress { get; set; } = OpenAIDefaultOptions.DefaultOpenAIBaseAddress;
+
+        /// <summary>Gets or sets the API version of the OpenAI provider.</summary>
         /// <value>The API version.</value>
-        public string ApiVersion { get; set; } = OpenAIDefaultOptions.DefaultApiVersion;
+        public string OpenAIApiVersion { get; set; } = OpenAIDefaultOptions.DefaultOpenAIApiVersion;
+
+        /// <summary>Gets or sets the API version for Azure provider.</summary>
+        /// <value>The API version.</value>
+        public string AzureApiVersion { get; set; } = OpenAIDefaultOptions.DefaultAzureApiVersion;
+
+        /// <summary>
+        /// Gets or sets the default name of the azure resource.
+        /// For more information, see https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference
+        /// </summary>
+        /// <value>The default name of the azure resource.</value>
+        public string AzureResourceName { get; set; } = OpenAIDefaultOptions.DefaultAzureResourceName;
+
+        /// <summary>
+        /// The deployment name you chose when you deployed the model.
+        /// For more information, see https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference
+        /// </summary>
+        /// <value>The default azure deployment identifier.</value>
+        public string AzureDeploymentId { get; set; } = OpenAIDefaultOptions.DefaultAzureDeploymentId;
 
         /// <summary>Gets or sets the models URI.</summary>
         /// <value>The models URI.</value>
@@ -106,6 +132,10 @@ namespace Forge.OpenAI.Infrastructure
         /// <value>The audio translation URI.</value>
         public string AudioTranslationUri { get; set; } = OpenAIDefaultOptions.DefaultAudioTranslationUri;
 
+        /// <summary>Gets or sets the chat completions URI.</summary>
+        /// <value>The chat completions URI.</value>
+        public string ChatCompletionsUri { get; set; } = OpenAIDefaultOptions.DefaultChatCompletionsUri;
+
         /// <summary>Gets or sets a value indicating whether [log requests and responses].</summary>
         /// <value>
         ///   <c>true</c> if [log requests and responses]; otherwise, <c>false</c>.</value>
@@ -117,10 +147,12 @@ namespace Forge.OpenAI.Infrastructure
 
         /// <summary>Gets or sets the json serializer options.</summary>
         /// <value>The json serializer options.</value>
+        [JsonIgnore]
         public JsonSerializerOptions JsonSerializerOptions { get; set; } = OpenAIDefaultOptions.DefaultJsonSerializerOptions;
 
         /// <summary>Gets or sets the HTTP message handler for the HttpClient.</summary>
         /// <value>The HTTP message handler.</value>
+        [JsonIgnore]
         public Func<HttpMessageHandler> HttpMessageHandlerFactory { get; set; }
 
         /// <summary>Gets or sets the authentication data.
@@ -130,13 +162,17 @@ namespace Forge.OpenAI.Infrastructure
 
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
         /// <returns>A new object that is a copy of this instance.</returns>
-        public object Clone()
+        public virtual object Clone()
         {
             OpenAIOptions cloned = (OpenAIOptions)GetType().GetConstructor(Type.EmptyTypes).Invoke(null);
 
-            cloned.ApiVersion = ApiVersion;
-            cloned.AuthenticationInfo = AuthenticationInfo;
+            cloned.AIServiceProviderType = AIServiceProviderType;
+            cloned.OpenAIApiVersion = OpenAIApiVersion;
             cloned.BaseAddress = BaseAddress;
+            cloned.AzureApiVersion = AzureApiVersion;
+            cloned.AzureDeploymentId = AzureDeploymentId;
+            cloned.AzureResourceName = AzureResourceName;
+            cloned.AuthenticationInfo = AuthenticationInfo;
             cloned.EmbeddingsUri = EmbeddingsUri;
             cloned.FileDataUri = FileDataUri;
             cloned.FileDeleteUri = FileDeleteUri;
@@ -161,6 +197,7 @@ namespace Forge.OpenAI.Infrastructure
             cloned.ModerationUri = ModerationUri;
             cloned.TextCompletionsUri = TextCompletionsUri;
             cloned.TextEditUri = TextEditUri;
+            cloned.ChatCompletionsUri = ChatCompletionsUri;
 
             return cloned;
         }

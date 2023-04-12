@@ -1,8 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 using System.Text.Json;
-using System;
+using Forge.OpenAI.Models;
+using Forge.OpenAI.Services.Endpoints;
 
-namespace Forge.OpenAI.Infrastructure
+namespace Forge.OpenAI.Settings
 {
 
     /// <summary>Default options for OpenAI API</summary>
@@ -11,11 +12,49 @@ namespace Forge.OpenAI.Infrastructure
 
         /// <summary>Gets or sets the default base address.</summary>
         /// <value>The default base address.</value>
-        public static string DefaultBaseAddress { get; set; } = "https://api.openai.com";
+        public static string DefaultOpenAIBaseAddress { get; set; } = "https://api.openai.com";
 
-        /// <summary>Gets or sets the default API version.</summary>
+        /// <summary>Gets or sets the default base address.</summary>
+        /// <value>The default base address.</value>
+        public static string DefaultAzureBaseAddress { get; set; } = "https://{0}.openai.azure.com";
+
+        /// <summary>
+        /// Gets or sets the default name of the azure resource.
+        /// For more information, see https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference
+        /// </summary>
+        /// <value>The default name of the azure resource.</value>
+        public static string DefaultAzureResourceName { get; set; } = string.Empty;
+
+        /// <summary>The deployment name you chose when you deployed the model.</summary>
+        /// <value>The default azure deployment identifier.</value>
+        public static string DefaultAzureDeploymentId { get; set; } = string.Empty;
+
+        /// <summary>The API version to use for this operation. This follows the YYYY-MM-DD format.</summary>
+        public static string DefaultAzureApiVersion { get; set; } = AzureProviderEndpointApiVersions.Default;
+
+        /// <summary>Gets or sets the default API version for the OpenAI provider.</summary>
         /// <value>The default API version.</value>
-        public static string DefaultApiVersion { get; set; } = "v1";
+        public static string DefaultOpenAIApiVersion { get; set; } = "v1";
+
+        /// <summary>Gets or sets the default embeddings model.</summary>
+        /// <value>The default embeddings model.</value>
+        public static string DefaultEmbeddingsModel { get; set; } = KnownModelTypes.TextEmbeddingAda002;
+
+        /// <summary>Gets or sets the default moderation model.</summary>
+        /// <value>The default moderation model.</value>
+        public static string DefaultModerationModel { get; set; } = KnownModelTypes.TextModerationLatest;
+
+        /// <summary>Gets or sets the default text completion model.</summary>
+        /// <value>The default text completion model.</value>
+        public static string DefaultTextCompletionModel { get; set; } = KnownModelTypes.TextDavinci003;
+
+        /// <summary>Gets or sets the default text edit model.</summary>
+        /// <value>The default text edit model.</value>
+        public static string DefaultTextEditModel { get; set; } = KnownModelTypes.TextDavinciEdit001;
+
+        /// <summary>Gets or sets the default chat completion model.</summary>
+        /// <value>The default chat completion model.</value>
+        public static string DefaultChatCompletionModel { get; set; } = KnownModelTypes.Gpt3_5Turbo;
 
         /// <summary>Gets or sets the default models URI.</summary>
         /// <value>The default models URI.</value>
@@ -104,6 +143,10 @@ namespace Forge.OpenAI.Infrastructure
         /// <summary>Gets or sets the default audio translation URI.</summary>
         /// <value>The default audio translation URI.</value>
         public static string DefaultAudioTranslationUri { get; set; } = "audio/translations";
+
+        /// <summary>Gets or sets the default chat completions URI.</summary>
+        /// <value>The default chat completions URI.</value>
+        public static string DefaultChatCompletionsUri { get; set; } = "chat/completions";
 
         /// <summary>Gets or sets a value indicating whether [default log requests and responses].</summary>
         /// <value>

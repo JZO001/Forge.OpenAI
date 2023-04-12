@@ -1,4 +1,5 @@
 ﻿using Forge.OpenAI.Models.Common;
+using Forge.OpenAI.Settings;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -12,7 +13,7 @@ namespace Forge.OpenAI.Models.TextEdits
         /// <summary>Initializes a new instance of the <see cref="TextEditRequest" /> class.</summary>
         public TextEditRequest()
         {
-            Model = KnownModelTypes.TextDavinciEdit001;
+            Model = OpenAIDefaultOptions.DefaultTextEditModel;
         }
 
         /// <summary>
@@ -42,9 +43,14 @@ namespace Forge.OpenAI.Models.TextEdits
             int? numberOfEditedTexts = null,
             double? temperature = null,
             double? topP = null,
-            string model = null)
+#if NETCOREAPP3_1_OR_GREATER
+            string? model = null
+#else
+            string model = null
+#endif
+            )
         {
-            Model = model ?? KnownModelTypes.TextDavinciEdit001;
+            Model = model ?? OpenAIDefaultOptions.DefaultTextEditModel;
             InputTextForEditing = inputTextForEditing;
             Instruction = instruction;
             NumberOfEditedTexts = numberOfEditedTexts;

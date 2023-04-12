@@ -1,14 +1,12 @@
-﻿using Forge.OpenAI.Infrastructure;
-using Forge.OpenAI.Interfaces.Infrastructure;
+﻿using Forge.OpenAI.Interfaces.Infrastructure;
+using Forge.OpenAI.Interfaces.Providers;
 using Forge.OpenAI.Interfaces.Services;
 using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Models.FineTunes;
+using Forge.OpenAI.Settings;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,31 +14,37 @@ namespace Forge.OpenAI.Services
 {
 
     /// <summary>Represents the fine tune service</summary>
-    public class FineTuneService : ServiceBase, IFineTuneService
+    public class FineTuneService : IFineTuneService
     {
 
         private readonly OpenAIOptions _options;
         private readonly IApiHttpService _apiHttpService;
+        private readonly IProviderEndpointService _providerEndpointService;
 
         /// <summary>Initializes a new instance of the <see cref="FineTuneService" /> class.</summary>
         /// <param name="options">The options.</param>
         /// <param name="apiHttpService">The API communication service.</param>
+        /// <param name="providerEndpointService">The provider endpoint service.</param>
         /// <exception cref="System.ArgumentNullException">options
         /// or
         /// apiCommunicationService</exception>
-        public FineTuneService(OpenAIOptions options, IApiHttpService apiHttpService)
+        public FineTuneService(OpenAIOptions options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
             if (apiHttpService == null) throw new ArgumentNullException(nameof(apiHttpService));
+            if (providerEndpointService == null) throw new ArgumentNullException(nameof(providerEndpointService));
+
             _options = options;
             _apiHttpService = apiHttpService;
+            _providerEndpointService = providerEndpointService;
         }
 
         /// <summary>Initializes a new instance of the <see cref="FineTuneService" /> class.</summary>
         /// <param name="options">The options.</param>
         /// <param name="apiHttpService">The API communication service.</param>
-        public FineTuneService(IOptions<OpenAIOptions> options, IApiHttpService apiHttpService)
-            : this(options?.Value, apiHttpService)
+        /// <param name="providerEndpointService">The provider endpoint service.</param>
+        public FineTuneService(IOptions<OpenAIOptions> options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
+            : this(options?.Value, apiHttpService, providerEndpointService)
         {
         }
 
@@ -152,37 +156,37 @@ namespace Forge.OpenAI.Services
 
         private string GetCreateUri()
         {
-            return $"{GetBaseUri(_options)}{_options.FineTuneCreateUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.FineTuneCreateUri);
         }
 
         private string GetListUri()
         {
-            return $"{GetBaseUri(_options)}{_options.FineTuneListUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.FineTuneListUri);
         }
 
         private string GetUri()
         {
-            return $"{GetBaseUri(_options)}{_options.FineTuneGetUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.FineTuneGetUri);
         }
 
         private string GetEventsUri()
         {
-            return $"{GetBaseUri(_options)}{_options.FineTuneEventsUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.FineTuneEventsUri);
         }
 
         private string GetStreamedEventsUri()
         {
-            return $"{GetBaseUri(_options)}{_options.FineTuneStreamedEventsUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.FineTuneStreamedEventsUri);
         }
 
         private string GetCancelUri()
         {
-            return $"{GetBaseUri(_options)}{_options.FineTuneCancelUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.FineTuneCancelUri);
         }
 
         private string GetModelDeleteUri()
         {
-            return $"{GetBaseUri(_options)}{_options.FineTuneDeleteModelUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.FineTuneDeleteModelUri);
         }
 
     }

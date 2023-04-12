@@ -1,5 +1,7 @@
 ﻿using Forge.OpenAI.Interfaces.Infrastructure;
+using Forge.OpenAI.Interfaces.Providers;
 using Forge.OpenAI.Models.Common;
+using Forge.OpenAI.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -26,14 +28,20 @@ namespace Forge.OpenAI.Infrastructure
         private const string OPENAI_VERSION = "Openai-Version";
         private const string OPENAI_MODEL = "Openai-Model";
 
+#if NETCOREAPP3_1_OR_GREATER
+        private readonly ILogger<ApiHttpService>? _logger;
+#else
         private readonly ILogger<ApiHttpService> _logger;
+#endif
         private readonly IApiHttpClientFactory _httpClientFactory;
         private readonly IApiHttpLoggerService _apiHttpLoggerService;
+        private readonly IProviderEndpointService _providerEndpointService;
         private readonly OpenAIOptions _options;
 
         /// <summary>Initializes a new instance of the <see cref="ApiHttpService" /> class.</summary>
         /// <param name="httpClientFactory">The HTTP client factory.</param>
         /// <param name="apiHttpLoggerService">The API HTTP logger service.</param>
+        /// <param name="providerEndpointService">The provider endpoint service.</param>
         /// <param name="options">The options.</param>
         /// <param name="logger">The logger.</param>
         /// <exception cref="System.ArgumentNullException">httpClientFactory
@@ -42,13 +50,22 @@ namespace Forge.OpenAI.Infrastructure
         public ApiHttpService(
             IApiHttpClientFactory httpClientFactory,
             IApiHttpLoggerService apiHttpLoggerService,
+            IProviderEndpointService providerEndpointService,
             OpenAIOptions options,
-            ILogger<ApiHttpService> logger = null)
+#if NETCOREAPP3_1_OR_GREATER
+            ILogger<ApiHttpService>? logger = null
+#else
+            ILogger<ApiHttpService> logger = null
+#endif
+            )
         {
             if (httpClientFactory == null) throw new ArgumentNullException(nameof(httpClientFactory));
+            if (providerEndpointService == null) throw new ArgumentNullException(nameof(providerEndpointService));
             if (options == null) throw new ArgumentNullException(nameof(options));
+            
             _httpClientFactory = httpClientFactory;
             _apiHttpLoggerService = apiHttpLoggerService;
+            _providerEndpointService = providerEndpointService;
             _options = options;
             _logger = logger;
         }
@@ -56,14 +73,21 @@ namespace Forge.OpenAI.Infrastructure
         /// <summary>Initializes a new instance of the <see cref="ApiHttpService" /> class.</summary>
         /// <param name="httpClientFactory">The HTTP client factory.</param>
         /// <param name="apiHttpLoggerService">The API HTTP logger service.</param>
+        /// <param name="providerEndpointService">The provider endpoint service.</param>
         /// <param name="options">The options.</param>
         /// <param name="logger">The logger.</param>
         public ApiHttpService(
             IApiHttpClientFactory httpClientFactory,
             IApiHttpLoggerService apiHttpLoggerService,
+            IProviderEndpointService providerEndpointService,
             IOptions<OpenAIOptions> options,
-            ILogger<ApiHttpService> logger = null)
-            : this(httpClientFactory, apiHttpLoggerService, options?.Value, logger)
+#if NETCOREAPP3_1_OR_GREATER
+            ILogger<ApiHttpService>? logger = null
+#else
+            ILogger<ApiHttpService> logger = null
+#endif
+            )
+            : this(httpClientFactory, apiHttpLoggerService, providerEndpointService, options?.Value, logger)
         {
         }
 
@@ -86,15 +110,18 @@ namespace Forge.OpenAI.Infrastructure
         /// <param name="contentFactory">The content factory.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The result data</returns>
-        public async Task<HttpOperationResult<TResult>> PostAsync<TData, TResult>(string uri, TData
+        public async Task<HttpOperationResult<TResult>> PostAsync<TData, TResult>(string uri,
 #if NETCOREAPP3_1_OR_GREATER
-            ?
+            TData? data,
+#else
+            TData data, 
 #endif
-            data, Func<TData, CancellationToken, Task<HttpContent>>
 #if NETCOREAPP3_1_OR_GREATER
-            ?
+            Func<TData, CancellationToken, Task<HttpContent>>? contentFactory,
+#else
+            Func<TData, CancellationToken, Task<HttpContent>> contentFactory, 
 #endif
-            contentFactory, CancellationToken cancellationToken = default)
+            CancellationToken cancellationToken = default)
             where TData : class
             where TResult : class
         {
@@ -130,7 +157,7 @@ namespace Forge.OpenAI.Infrastructure
 
                 using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri))
                 {
-                    ConfigureHttpRequestMessageHeader(request);
+                    _providerEndpointService.ConfigureHttpRequestHeaders(request.Headers);
 
                     using (HttpClient httpClient = _httpClientFactory.GetHttpClient())
                     {
@@ -245,7 +272,7 @@ namespace Forge.OpenAI.Infrastructure
 
             using (HttpRequestMessage request = new HttpRequestMessage(httpMethod, uri))
             {
-                ConfigureHttpRequestMessageHeader(request);
+                _providerEndpointService.ConfigureHttpRequestHeaders(request.Headers);
 
                 if (data != null)
                 {
@@ -281,7 +308,11 @@ namespace Forge.OpenAI.Infrastructure
 
                                         if (!string.IsNullOrWhiteSpace(line))
                                         {
-                                            TResult jsonResult = JsonSerializer.Deserialize<TResult>(line.Trim(), _options.JsonSerializerOptions);
+                                            TResult jsonResult = JsonSerializer.Deserialize<TResult>(line.Trim(), _options.JsonSerializerOptions)
+#if NETCOREAPP3_1_OR_GREATER
+                                                !
+#endif
+                                                ;
                                             SetResponseData(response, jsonResult);
                                             
                                             HttpOperationResult<TResult> resData = new HttpOperationResult<TResult>(jsonResult);
@@ -319,11 +350,16 @@ namespace Forge.OpenAI.Infrastructure
         /// <param name="contentFactory">The content factory.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The return value</returns>
-        private async Task<HttpOperationResult<TResult>> ApiCall<TData, TResult>(HttpMethod httpMethod, string uri, TData data, Func<TData, CancellationToken, Task<HttpContent>>
+        private async Task<HttpOperationResult<TResult>> ApiCall<TData, TResult>(HttpMethod httpMethod, 
+            string uri,
 #if NETCOREAPP3_1_OR_GREATER
-            ?
+            TData? data,
+            Func<TData?, CancellationToken, Task<HttpContent>>? contentFactory,
+#else
+            TData data, 
+            Func<TData, CancellationToken, Task<HttpContent>> contentFactory, 
 #endif
-            contentFactory, CancellationToken cancellationToken)
+            CancellationToken cancellationToken)
             where TData : class
             where TResult : class
         {
@@ -331,7 +367,11 @@ namespace Forge.OpenAI.Infrastructure
             {
                 logContext?.Log(data);
 
+#if NETCOREAPP3_1_OR_GREATER
+                HttpOperationResult<TResult>? result = default;
+#else
                 HttpOperationResult<TResult> result = default;
+#endif
 
                 using (HttpRequestMessage request = new HttpRequestMessage(httpMethod, uri))
                 {
@@ -348,7 +388,7 @@ namespace Forge.OpenAI.Infrastructure
                         request.Content = new StringContent(JsonSerializer.Serialize(data, _options.JsonSerializerOptions), Encoding.UTF8, "application/json");
                     }
 
-                    ConfigureHttpRequestMessageHeader(request);
+                    _providerEndpointService.ConfigureHttpRequestHeaders(request.Headers);
 
                     using (HttpClient httpClient = _httpClientFactory.GetHttpClient())
                     {
@@ -419,7 +459,7 @@ namespace Forge.OpenAI.Infrastructure
 
                 using (HttpRequestMessage request = new HttpRequestMessage(httpMethod, uri))
                 {
-                    ConfigureHttpRequestMessageHeader(request);
+                    _providerEndpointService.ConfigureHttpRequestHeaders(request.Headers);
 
                     if (data != null)
                     {
@@ -459,7 +499,11 @@ namespace Forge.OpenAI.Infrastructure
 
                                             if (!string.IsNullOrWhiteSpace(line))
                                             {
-                                                TResult jsonResult = JsonSerializer.Deserialize<TResult>(line.Trim(), _options.JsonSerializerOptions);
+                                                TResult jsonResult = JsonSerializer.Deserialize<TResult>(line.Trim(), _options.JsonSerializerOptions)
+#if NETCOREAPP3_1_OR_GREATER
+                                                !
+#endif
+                                                ;
                                                 SetResponseData(response, jsonResult);
                                                 
                                                 HttpOperationResult<TResult> callbackRes = new HttpOperationResult<TResult>(jsonResult);
@@ -493,23 +537,15 @@ namespace Forge.OpenAI.Infrastructure
             });
         }
 
-        private void ConfigureHttpRequestMessageHeader(HttpRequestMessage request)
-        {
-            request.Headers.Add("Authorization", $"Bearer {_options.AuthenticationInfo.ApiKey}");
-
-            if (!string.IsNullOrEmpty(_options.AuthenticationInfo.Organization))
-            {
-                request.Headers.Add("OpenAI-Organization", $"{_options.AuthenticationInfo.Organization}");
-            }
-
-            request.Headers.Add("User-Agent", "Forge.OpenAI");
-        }
-
         private static void SetResponseData<TResult>(HttpResponseMessage response, TResult result)
         {
             if (typeof(ResponseBase).IsAssignableFrom(typeof(TResult)))
             {
-                ResponseBase rb = result as ResponseBase;
+                ResponseBase rb = (result as ResponseBase)
+#if NETCOREAPP3_1_OR_GREATER
+                    !
+#endif
+                    ;
                 if (response.Headers.Contains(ORGANIZATION)) rb.Organization = response.Headers.GetValues(ORGANIZATION).FirstOrDefault();
                 if (response.Headers.Contains(REQUEST_ID)) rb.RequestId = response.Headers.GetValues(REQUEST_ID).FirstOrDefault();
                 if (response.Headers.Contains(PROCESSING_TIME)) rb.ProcessingTime = TimeSpan.FromMilliseconds(int.Parse(response.Headers.GetValues(PROCESSING_TIME).First()));

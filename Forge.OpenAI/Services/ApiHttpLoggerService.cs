@@ -1,5 +1,6 @@
 ﻿using Forge.OpenAI.Infrastructure;
 using Forge.OpenAI.Interfaces.Infrastructure;
+using Forge.OpenAI.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;

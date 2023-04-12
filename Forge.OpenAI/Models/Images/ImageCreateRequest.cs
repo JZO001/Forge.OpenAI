@@ -36,10 +36,16 @@ namespace Forge.OpenAI.Models.Images
         /// <param name="responseFormat">The image response format.</param>
         /// <param name="user">The user.</param>
         /// <exception cref="ArgumentOutOfRangeException">number - The number of results must be between 1 and 10</exception>
-        public ImageCreateRequest(string prompt, int numberOfCreatedImages = 1,
+        public ImageCreateRequest(string prompt, 
+            int numberOfCreatedImages = 1,
             ImageSizeEnum imageSize = ImageSizeEnum.Size_1024_x_1024,
             ImageResponseFormatEnum responseFormat = ImageResponseFormatEnum.Url,
-            string user = null)
+#if NETCOREAPP3_1_OR_GREATER
+            string? user = null
+#else
+            string user = null
+#endif
+            )
             : this(prompt)
         {
             if (numberOfCreatedImages > 10 || numberOfCreatedImages < 1)
@@ -86,7 +92,11 @@ namespace Forge.OpenAI.Models.Images
         /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
         /// </summary>
         [JsonPropertyName("user")]
+#if NETCOREAPP3_1_OR_GREATER
+        public string? User { get; set; }
+#else
         public string User { get; set; }
+#endif
 
     }
 

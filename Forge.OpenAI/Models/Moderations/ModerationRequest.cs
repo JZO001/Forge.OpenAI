@@ -2,19 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-
-/* Unmerged change from project 'Forge.OpenAI (net461)'
-Before:
 using System.Linq;
-After:
-using System.Linq;
-using Forge;
-using Forge.OpenAI;
-using Forge.OpenAI.Models;
-using Forge.OpenAI.Models.Moderation;
-using Forge.OpenAI.Models.Moderations;
-*/
-using System.Linq;
+using Forge.OpenAI.Settings;
 
 namespace Forge.OpenAI.Models.Moderations
 {
@@ -26,7 +15,7 @@ namespace Forge.OpenAI.Models.Moderations
         /// <summary>Initializes a new instance of the <see cref="ModerationRequest" /> class.</summary>
         public ModerationRequest()
         {
-            Model = KnownModelTypes.TextModerationLatest;
+            Model = OpenAIDefaultOptions.DefaultModerationModel;
         }
 
         /// <summary>Initializes a new instance of the <see cref="ModerationRequest" /> class.</summary>
@@ -41,7 +30,7 @@ namespace Forge.OpenAI.Models.Moderations
         /// <param name="model">The model.</param>
         public ModerationRequest(IEnumerable<string> inputTextsToClassify, string model) : this(inputTextsToClassify)
         {
-            Model = string.IsNullOrEmpty(model) ? KnownModelTypes.TextModerationLatest : model;
+            Model = string.IsNullOrEmpty(model) ? OpenAIDefaultOptions.DefaultModerationModel : model;
         }
 
         /// <summary>

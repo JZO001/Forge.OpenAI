@@ -1,8 +1,9 @@
-﻿using Forge.OpenAI.Infrastructure;
-using Forge.OpenAI.Interfaces.Infrastructure;
+﻿using Forge.OpenAI.Interfaces.Infrastructure;
+using Forge.OpenAI.Interfaces.Providers;
 using Forge.OpenAI.Interfaces.Services;
 using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Models.Files;
+using Forge.OpenAI.Settings;
 using Microsoft.Extensions.Options;
 using System;
 using System.IO;
@@ -14,31 +15,37 @@ namespace Forge.OpenAI.Services
 {
 
     /// <summary>Represents the file service</summary>
-    public class FileService : ServiceBase, IFileService
+    public class FileService : IFileService
     {
 
         private readonly OpenAIOptions _options;
         private readonly IApiHttpService _apiHttpService;
+        private readonly IProviderEndpointService _providerEndpointService;
 
         /// <summary>Initializes a new instance of the <see cref="FileService" /> class.</summary>
         /// <param name="options">The options.</param>
         /// <param name="apiHttpService">The API communication service.</param>
+        /// <param name="providerEndpointService">The provider endpoint service.</param>
         /// <exception cref="System.ArgumentNullException">options
         /// or
         /// apiCommunicationService</exception>
-        public FileService(OpenAIOptions options, IApiHttpService apiHttpService)
+        public FileService(OpenAIOptions options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
             if (apiHttpService == null) throw new ArgumentNullException(nameof(apiHttpService));
+            if (providerEndpointService == null) throw new ArgumentNullException(nameof(providerEndpointService));
+
             _options = options;
             _apiHttpService = apiHttpService;
+            _providerEndpointService = providerEndpointService;
         }
 
         /// <summary>Initializes a new instance of the <see cref="FileService" /> class.</summary>
         /// <param name="options">The options.</param>
         /// <param name="apiHttpService">The API communication service.</param>
-        public FileService(IOptions<OpenAIOptions> options, IApiHttpService apiHttpService)
-            : this(options?.Value, apiHttpService)
+        /// <param name="providerEndpointService">The provider endpoint service.</param>
+        public FileService(IOptions<OpenAIOptions> options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
+            : this(options?.Value, apiHttpService, providerEndpointService)
         {
         }
 
@@ -62,6 +69,7 @@ namespace Forge.OpenAI.Services
         {
             var validationResult = request.Validate<FileUploadResponse>();
             if (validationResult != null) return validationResult;
+
             return await _apiHttpService.PostAsync<FileUploadRequest, FileUploadResponse>(GetFileUploadUri(), request, FileUploadHttpContentFactoryAsync, cancellationToken).ConfigureAwait(false);
         }
 
@@ -74,6 +82,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<FileDeleteResponse>> DeleteFileAsync(string fileId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(fileId)) return new HttpOperationResult<FileDeleteResponse>(new ArgumentNullException(nameof(fileId)), System.Net.HttpStatusCode.BadRequest);
+
             return await DeleteFileAsync(fileId, 1, 1000, cancellationToken).ConfigureAwait(false);
         }
 
@@ -94,14 +103,13 @@ namespace Forge.OpenAI.Services
             {
                 HttpOperationResult<FileDeleteResponse> attemptResponse = await _apiHttpService.DeleteAsync<FileDeleteResponse>($"{GetFileDeleteUri()}/{fileId}", cancellationToken).ConfigureAwait(false);
 
-                if (!attemptResponse.IsSuccess && attempt < maxAttempts)
+                if (!attemptResponse.IsSuccess && 
+                    attempt < maxAttempts && 
+                    !string.IsNullOrWhiteSpace(attemptResponse.ErrorMessage) &&
+                    attemptResponse.ErrorMessage.Contains("File is still processing. Check back later."))
                 {
-                    if (!string.IsNullOrWhiteSpace(attemptResponse.ErrorMessage) &&
-                        attemptResponse.ErrorMessage.Contains("File is still processing. Check back later."))
-                    {
-                        await Task.Delay(delayBetweenAttemptsInMilliseconds, cancellationToken).ConfigureAwait(false);
-                        return await InternalDeleteFileAsync(attempt + 1).ConfigureAwait(false);
-                    }
+                    await Task.Delay(delayBetweenAttemptsInMilliseconds, cancellationToken).ConfigureAwait(false);
+                    return await InternalDeleteFileAsync(attempt + 1).ConfigureAwait(false);
                 }
 
                 return attemptResponse;
@@ -119,6 +127,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<FileDataResponse>> GetFileDataAsync(string fileId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(fileId)) return new HttpOperationResult<FileDataResponse>(new ArgumentNullException(nameof(fileId)), System.Net.HttpStatusCode.BadRequest);
+
             return await _apiHttpService.GetAsync<FileDataResponse>(string.Format(GetFileDataUri(), fileId), cancellationToken).ConfigureAwait(false);
         }
 
@@ -133,32 +142,33 @@ namespace Forge.OpenAI.Services
         {
             if (string.IsNullOrWhiteSpace(fileId)) return new HttpOperationResult<Stream>(new ArgumentNullException(nameof(fileId)), System.Net.HttpStatusCode.BadRequest);
             if (resultStream == null) return new HttpOperationResult<Stream>(new ArgumentNullException(nameof(resultStream)), System.Net.HttpStatusCode.BadRequest);
+
             return await _apiHttpService.GetContentAsStream(string.Format(GetDownloadFileUri(), fileId), resultStream, cancellationToken).ConfigureAwait(false);
         }
 
         private string GetFileListUri()
         {
-            return $"{GetBaseUri(_options)}{_options.FileListUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.FileListUri);
         }
 
         private string GetFileUploadUri()
         {
-            return $"{GetBaseUri(_options)}{_options.FileUploadUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.FileUploadUri);
         }
 
         private string GetFileDataUri()
         {
-            return $"{GetBaseUri(_options)}{_options.FileDataUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.FileDataUri);
         }
 
         private string GetDownloadFileUri()
         {
-            return $"{GetBaseUri(_options)}{_options.FileDownloadUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.FileDownloadUri);
         }
 
         private string GetFileDeleteUri()
         {
-            return $"{GetBaseUri(_options)}{_options.FileDeleteUri}";
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.FileDeleteUri);
         }
 
         private async Task<HttpContent> FileUploadHttpContentFactoryAsync(FileUploadRequest request, CancellationToken cancellationToken)

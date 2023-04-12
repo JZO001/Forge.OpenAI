@@ -16,7 +16,11 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
         /// <returns>
         ///   <br />
         /// </returns>
+#if NETCOREAPP3_1_OR_GREATER
+        Task Log(object? data);
+#else
         Task Log(object data);
+#endif
 
     }
 

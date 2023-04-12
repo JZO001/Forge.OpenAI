@@ -45,6 +45,10 @@
         /// <value>The translation service.</value>
         ITranslationService TranslationService { get; }
 
+        /// <summary>Gets the chat completion service.</summary>
+        /// <value>The chat completion service.</value>
+        IChatCompletionService ChatCompletionService { get; }
+
     }
 
 }

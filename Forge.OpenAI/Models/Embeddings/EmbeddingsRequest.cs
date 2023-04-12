@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Forge.OpenAI.Settings;
 
 namespace Forge.OpenAI.Models.Embeddings
 {
@@ -14,14 +15,14 @@ namespace Forge.OpenAI.Models.Embeddings
         /// <summary>Initializes a new instance of the <see cref="EmbeddingsRequest" /> class.</summary>
         public EmbeddingsRequest()
         {
-            Model = KnownModelTypes.TextEmbeddingAda002;
+            Model = OpenAIDefaultOptions.DefaultEmbeddingsModel;
         }
 
         /// <summary>Initializes a new instance of the <see cref="EmbeddingsRequest" /> class.</summary>
         /// <param name="model">The model.</param>
         public EmbeddingsRequest(string model)
         {
-            Model = string.IsNullOrWhiteSpace(model) ? KnownModelTypes.TextEmbeddingAda002 : model;
+            Model = string.IsNullOrWhiteSpace(model) ? OpenAIDefaultOptions.DefaultEmbeddingsModel : model;
         }
 
         /// <summary>Initializes a new instance of the <see cref="EmbeddingsRequest" /> class.</summary>

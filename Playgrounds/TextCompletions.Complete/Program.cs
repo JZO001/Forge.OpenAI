@@ -8,7 +8,9 @@ using Microsoft.Extensions.Hosting;
 namespace TextCompletions.Complete
 {
 
+#pragma warning disable S1118 // Utility classes should not have public constructors
     internal class Program
+#pragma warning restore S1118 // Utility classes should not have public constructors
     {
 
         static async Task Main(string[] args)
