@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -411,16 +412,20 @@ namespace Forge.OpenAI.Infrastructure
                             {
                                 if (typeof(string).IsAssignableFrom(typeof(TResult)))
                                 {
+                                    //var jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                                     result = new HttpOperationResult<TResult>(jsonResult as TResult);
                                 }
                                 else
                                 {
-                                    result = new HttpOperationResult<TResult>(JsonSerializer.Deserialize<TResult>(jsonResult, _options.JsonSerializerOptions));
+                                    var contentAsBytes = UTF8Encoding.UTF8.GetBytes(jsonResult);
+                                    var jsonObj = GetUTF8Object<TResult>(contentAsBytes);
+                                    result = new HttpOperationResult<TResult>(jsonObj);
                                     SetResponseData(response, result.Result);
                                 }
                             }
                             else
                             {
+                               // var jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                                 _logger?.LogDebug($"ApiCall, response indicates an unsuccessful operation from {httpClient.BaseAddress}{uri}, method: {httpMethod.Method}");
 
                                 result = new HttpOperationResult<TResult>(new Exception(response.StatusCode.ToString(), new Exception(jsonResult)), response.StatusCode, jsonResult);
@@ -434,7 +439,11 @@ namespace Forge.OpenAI.Infrastructure
                 return result;
             });
         }
-
+        private TResult GetUTF8Object<TResult>(byte[] responseBytes)
+        {
+            Utf8JsonReader reader = new Utf8JsonReader(responseBytes);
+            return JsonSerializer.Deserialize<TResult>(ref reader, _options.JsonSerializerOptions);
+        }
         /// <summary>Perform the API call in streaming mode the asynchronously.</summary>
         /// <typeparam name="TData">The type of the data.</typeparam>
         /// <typeparam name="TResult">The type of the result.</typeparam>

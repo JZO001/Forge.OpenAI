@@ -9,9 +9,9 @@
 
 	<PropertyGroup>
 		<!--TargetFrameworks>net6.0</TargetFrameworks-->
-		<TargetFrameworks>net461;netstandard2.0;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net6.0;net7.0</TargetFrameworks>
 		<SignAssembly>true</SignAssembly>
-		<AssemblyOriginatorKeyFile>..\..\.Documents\Forge.pfx</AssemblyOriginatorKeyFile>
+		<!--<AssemblyOriginatorKeyFile>..\..\.Documents\Forge.pfx</AssemblyOriginatorKeyFile>-->
 		<ProjectGuid>{D1DDE02E-1865-4173-8F3C-153D99AB394F}</ProjectGuid>
 		<DocumentationFile>Forge.OpenAI.xml</DocumentationFile>
 	</PropertyGroup>
