@@ -92,7 +92,7 @@ namespace Forge.OpenAI.Services
 
             if (!string.IsNullOrWhiteSpace(request.Prompt)) content.Add(new StringContent(request.Prompt), "prompt");
             if (!string.IsNullOrWhiteSpace(request.ResponseFormat)) content.Add(new StringContent(request.ResponseFormat), "response_format");
-            if (!string.IsNullOrWhiteSpace(request.Language)) content.Add(new StringContent(request.ResponseFormat), "language");
+            if (!string.IsNullOrWhiteSpace(request.Language)) content.Add(new StringContent(request.Language), "language");
             if (request.Temperature.HasValue) content.Add(new StringContent(request.Temperature.Value.ToString()), "temperature");
 
             return content;

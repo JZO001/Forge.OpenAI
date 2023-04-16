@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -62,7 +63,7 @@ namespace Forge.OpenAI.Infrastructure
             if (httpClientFactory == null) throw new ArgumentNullException(nameof(httpClientFactory));
             if (providerEndpointService == null) throw new ArgumentNullException(nameof(providerEndpointService));
             if (options == null) throw new ArgumentNullException(nameof(options));
-            
+
             _httpClientFactory = httpClientFactory;
             _apiHttpLoggerService = apiHttpLoggerService;
             _providerEndpointService = providerEndpointService;
@@ -294,7 +295,7 @@ namespace Forge.OpenAI.Infrastructure
                                 using (StreamReader reader = new StreamReader(contentStream))
                                 {
                                     string? line = null;
-                                    
+
                                     while ((line = await reader.ReadLineAsync().ConfigureAwait(false)) != null &&
                                         !cancellationToken.IsCancellationRequested)
                                     {
@@ -314,10 +315,10 @@ namespace Forge.OpenAI.Infrastructure
 #endif
                                                 ;
                                             SetResponseData(response, jsonResult);
-                                            
+
                                             HttpOperationResult<TResult> resData = new HttpOperationResult<TResult>(jsonResult);
                                             logContext?.Log(resData);
-                                            
+
                                             yield return resData;
                                         }
                                     }
@@ -350,7 +351,7 @@ namespace Forge.OpenAI.Infrastructure
         /// <param name="contentFactory">The content factory.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The return value</returns>
-        private async Task<HttpOperationResult<TResult>> ApiCall<TData, TResult>(HttpMethod httpMethod, 
+        private async Task<HttpOperationResult<TResult>> ApiCall<TData, TResult>(HttpMethod httpMethod,
             string uri,
 #if NETCOREAPP3_1_OR_GREATER
             TData? data,
@@ -397,31 +398,37 @@ namespace Forge.OpenAI.Infrastructure
                         {
                             _logger?.LogDebug($"ApiCall, response arrived from baseAddress: {httpClient.BaseAddress}, uri: {uri}, method: {httpMethod.Method}");
 
-                            string
-#if NETCOREAPP3_1_OR_GREATER
-                                ?
-#endif
-                                jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-                            _logger?.LogDebug($"ApiCall, response string content from uri: {uri}, data: {jsonResult}");
-
-                            logContext?.Log(jsonResult);
-
                             if (response.IsSuccessStatusCode)
                             {
                                 if (typeof(string).IsAssignableFrom(typeof(TResult)))
                                 {
+                                    string
+#if NETCOREAPP3_1_OR_GREATER
+                                        ?
+#endif
+                                        jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                                    _logger?.LogDebug($"ApiCall, response string content from uri: {uri}, data: {jsonResult}");
+
+                                    logContext?.Log(jsonResult);
+
                                     result = new HttpOperationResult<TResult>(jsonResult as TResult);
                                 }
                                 else
                                 {
-                                    result = new HttpOperationResult<TResult>(JsonSerializer.Deserialize<TResult>(jsonResult, _options.JsonSerializerOptions));
+                                    result = new HttpOperationResult<TResult>(await response.Content.ReadFromJsonAsync<TResult>(_options.JsonSerializerOptions, cancellationToken));
                                     SetResponseData(response, result.Result);
                                 }
                             }
                             else
                             {
                                 _logger?.LogDebug($"ApiCall, response indicates an unsuccessful operation from {httpClient.BaseAddress}{uri}, method: {httpMethod.Method}");
+
+                                string
+#if NETCOREAPP3_1_OR_GREATER
+                                    ?
+#endif
+                                    jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                                 result = new HttpOperationResult<TResult>(new Exception(response.StatusCode.ToString(), new Exception(jsonResult)), response.StatusCode, jsonResult);
                             }
@@ -505,10 +512,10 @@ namespace Forge.OpenAI.Infrastructure
 #endif
                                                 ;
                                                 SetResponseData(response, jsonResult);
-                                                
+
                                                 HttpOperationResult<TResult> callbackRes = new HttpOperationResult<TResult>(jsonResult);
                                                 logContext?.Log(callbackRes);
-                                                
+
                                                 resultCallback(callbackRes);
                                             }
                                         }
@@ -520,10 +527,10 @@ namespace Forge.OpenAI.Infrastructure
                                 _logger?.LogDebug($"StreamedAsync, response indicates an unsuccessful operation from {httpClient.BaseAddress}{uri}, method: {request.Method.Method}");
 
                                 string errorResponse = await response.Content.ReadAsStringAsync();
-                                
+
                                 HttpOperationResult<TResult> unsucRes = new HttpOperationResult<TResult>(new Exception(response.StatusCode.ToString(), new Exception(errorResponse)), response.StatusCode, errorResponse);
                                 logContext?.Log(unsucRes);
-                                
+
                                 resultCallback(unsucRes);
                             }
                         }
