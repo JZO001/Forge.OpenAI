@@ -15,6 +15,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<!--<PackageReference Include="Forge.OpenAI" Version="1.1.1" />-->
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
@@ -24,8 +25,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Forge.OpenAI\Forge.OpenAI.csproj" />
+	  <ProjectReference Include="..\..\Forge.OpenAI\Forge.OpenAI.csproj" />
 	</ItemGroup>
+
+	
 
 	<ItemGroup>
 		<None Update="appsettings.json">
@@ -33,6 +36,9 @@
 		</None>
 		<None Update="audio.mp3">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Sample.mp3">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 
