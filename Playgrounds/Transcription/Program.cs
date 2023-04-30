@@ -29,7 +29,7 @@ namespace Transcription
             TranscriptionRequest request = new TranscriptionRequest();
             request.AudioFile = new BinaryContentData() { ContentName = "audio.mp3", SourceStream = File.OpenRead("audio.mp3") };
 
-            HttpOperationResult<TranscriptionResponse> response = await openAi.TranscriptionService.GetAsync(request, CancellationToken.None).ConfigureAwait(false);
+            HttpOperationResult<TranscriptionResponse> response = await openAi.TranscriptionService.GetAsync(request, CancellationToken.None);
             if (response.IsSuccess)
             {
                 Console.WriteLine(response.Result?.Text);
@@ -42,7 +42,7 @@ namespace Transcription
             request = new TranscriptionRequest();
             request.AudioFile = new BinaryContentData() { ContentName = "non_english_audio.mp3", SourceStream = File.OpenRead("non_english_audio.mp3") };
 
-            response = await openAi.TranscriptionService.GetAsync(request, CancellationToken.None).ConfigureAwait(false);
+            response = await openAi.TranscriptionService.GetAsync(request, CancellationToken.None);
             if (response.IsSuccess)
             {
                 Console.OutputEncoding = Encoding.UTF8;

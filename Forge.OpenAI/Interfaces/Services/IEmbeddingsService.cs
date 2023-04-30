@@ -16,7 +16,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   EmbeddingsResponse
         /// </returns>
-        Task<HttpOperationResult<EmbeddingsResponse>> GetAsync(EmbeddingsRequest request, CancellationToken cancellationToken);
+        Task<HttpOperationResult<EmbeddingsResponse>> GetAsync(EmbeddingsRequest request, CancellationToken cancellationToken = default);
 
     }
 

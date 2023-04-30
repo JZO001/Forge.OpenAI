@@ -16,7 +16,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   ImageCreateResponse
         /// </returns>
-        Task<HttpOperationResult<ImageCreateResponse>> CreateImageAsync(ImageCreateRequest imageCreateRequest, CancellationToken cancellationToken);
+        Task<HttpOperationResult<ImageCreateResponse>> CreateImageAsync(ImageCreateRequest imageCreateRequest, CancellationToken cancellationToken = default);
 
         /// <summary>Edits an image asynchronously</summary>
         /// <param name="imageEditRequest">The image edit request.</param>
@@ -24,7 +24,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   ImageEditResponse
         /// </returns>
-        Task<HttpOperationResult<ImageEditResponse>> EditImageAsync(ImageEditRequest imageEditRequest, CancellationToken cancellationToken);
+        Task<HttpOperationResult<ImageEditResponse>> EditImageAsync(ImageEditRequest imageEditRequest, CancellationToken cancellationToken = default);
 
         /// <summary>Variates an image asynchronously</summary>
         /// <param name="imageVariationRequest">The image variation request.</param>
@@ -32,7 +32,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   ImageVariationResponse
         /// </returns>
-        Task<HttpOperationResult<ImageVariationResponse>> VariateImageAsync(ImageVariationRequest imageVariationRequest, CancellationToken cancellationToken);
+        Task<HttpOperationResult<ImageVariationResponse>> VariateImageAsync(ImageVariationRequest imageVariationRequest, CancellationToken cancellationToken = default);
 
     }
 

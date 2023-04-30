@@ -188,7 +188,7 @@ namespace Forge.OpenAI.Services
             {
                 using (MemoryStream fileData = new MemoryStream())
                 {
-                    await request.File.SourceStream.CopyToAsync(fileData).ConfigureAwait(false);
+                    await request.File.SourceStream.CopyToAsync(fileData, 81920, cancellationToken).ConfigureAwait(false);
                     content.Add(new ByteArrayContent(fileData.ToArray()), "file", request.File.ContentName);
                     fileData.SetLength(0);
                 }

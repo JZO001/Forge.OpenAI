@@ -42,7 +42,7 @@ namespace Images.Variations
             
             using (request.Image.SourceStream)
             {
-                HttpOperationResult<ImageVariationResponse> response = await openAi.ImageService.VariateImageAsync(request, CancellationToken.None).ConfigureAwait(false);
+                HttpOperationResult<ImageVariationResponse> response = await openAi.ImageService.VariateImageAsync(request, CancellationToken.None);
                 if (response.IsSuccess)
                 {
                     Console.WriteLine(response.Result!);

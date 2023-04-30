@@ -39,6 +39,7 @@ namespace Forge.OpenAI.Models
         public const string CurieSearchQuery = "curie-search-query";
         public const string CurieSimilarity = "curie-similarity";
         public const string Curie_20200503 = "curie:2020-05-03";
+
         public const string Cushman_20200503 = "cushman:2020-05-03";
 
         public const string Davinci = "davinci";

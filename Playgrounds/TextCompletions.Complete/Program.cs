@@ -1,9 +1,11 @@
-﻿using Forge.OpenAI;
+﻿using AI.Dev.OpenAI.GPT;
+using Forge.OpenAI;
 using Forge.OpenAI.Interfaces.Services;
 using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Models.TextCompletions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Threading.Tasks;
 
 namespace TextCompletions.Complete
 {
@@ -49,7 +51,7 @@ namespace TextCompletions.Complete
 
             Console.WriteLine(request.Prompt);
 
-            HttpOperationResult<TextCompletionResponse> response = await openAi.TextCompletionService.GetAsync(request, CancellationToken.None).ConfigureAwait(false);
+            HttpOperationResult<TextCompletionResponse> response = await openAi.TextCompletionService.GetAsync(request, CancellationToken.None);
             if (response.IsSuccess)
             {
                 Console.WriteLine();
@@ -60,7 +62,7 @@ namespace TextCompletions.Complete
                 request.Prompt = "Are you sure?";
                 Console.WriteLine(request.Prompt);
 
-                response = await openAi.TextCompletionService.GetAsync(request, CancellationToken.None).ConfigureAwait(false);
+                response = await openAi.TextCompletionService.GetAsync(request, CancellationToken.None);
                 if (response.IsSuccess)
                 {
                     response.Result!.Completions.ForEach(c => Console.WriteLine(c.Text));
@@ -82,7 +84,7 @@ namespace TextCompletions.Complete
 
             TextCompletionRequest request = new TextCompletionRequest();
             request.Prompt = "Write a C# code which demonstrate how to open a text file and read its content";
-            request.MaxTokens = 4096 - request.Prompt.Split(" ", StringSplitOptions.RemoveEmptyEntries).Length; // calculating max token
+            request.MaxTokens = 4096 - GPT3Tokenizer.Encode(request.Prompt).Count; // calculating max token
             request.Temperature = 0.1; // lower value means more precise answer
 
             Console.WriteLine(request.Prompt);
@@ -99,7 +101,7 @@ namespace TextCompletions.Complete
                 }
             };
 
-            HttpOperationResult response = await openAi.TextCompletionService.GetStreamAsync(request, receivedDataHandler, CancellationToken.None).ConfigureAwait(false);
+            HttpOperationResult response = await openAi.TextCompletionService.GetStreamAsync(request, receivedDataHandler, CancellationToken.None);
             if (response.IsSuccess)
             {
                 Console.WriteLine();
@@ -116,7 +118,7 @@ namespace TextCompletions.Complete
 
             TextCompletionRequest request = new TextCompletionRequest();
             request.Prompt = "Write a C# code which demonstrate how to write some text into file";
-            request.MaxTokens = 4096 - request.Prompt.Split(" ", StringSplitOptions.RemoveEmptyEntries).Length; // calculating max token
+            request.MaxTokens = 4096 - GPT3Tokenizer.Encode(request.Prompt).Count; // calculating max token
             request.Temperature = 0.1; // lower value means more precise answer
 
             Console.WriteLine(request.Prompt);

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Forge.OpenAI.Interfaces.Infrastructure
 {
@@ -13,13 +14,14 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
 
         /// <summary>Logs the specified data.</summary>
         /// <param name="data">The data.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         ///   <br />
         /// </returns>
 #if NETCOREAPP3_1_OR_GREATER
-        Task Log(object? data);
+        Task LogAsync(object? data, CancellationToken cancellationToken = default);
 #else
-        Task Log(object data);
+        Task LogAsync(object data, CancellationToken cancellationToken = default);
 #endif
 
     }

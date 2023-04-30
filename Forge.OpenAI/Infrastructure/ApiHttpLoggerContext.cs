@@ -1,7 +1,6 @@
 ﻿using Forge.OpenAI.Interfaces.Infrastructure;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -38,7 +37,8 @@ namespace Forge.OpenAI.Infrastructure
 
         /// <summary>Logs the specified data.</summary>
         /// <param name="data">The data.</param>
-        public async Task Log(object data)
+        /// <param name="cancellationToken">The cancellation token.</param>
+        public async Task LogAsync(object data, CancellationToken cancellationToken = default)
         {
             long logId = Interlocked.Increment(ref _logId);
             Type dataType = data?.GetType();
@@ -69,7 +69,12 @@ namespace Forge.OpenAI.Infrastructure
                     {
                         using (StreamWriter sw = new StreamWriter(fs))
                         {
+#if NET7_0_OR_GREATER
+                            StringBuilder sb = new(data.ToString());
+                            await sw.WriteLineAsync(sb, cancellationToken);
+#else
                             await sw.WriteLineAsync(data.ToString());
+#endif
                             sw.Flush();
                         }
                     }

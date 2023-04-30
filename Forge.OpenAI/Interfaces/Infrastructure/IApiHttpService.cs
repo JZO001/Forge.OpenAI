@@ -17,7 +17,7 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
         /// <param name="uri">The URI.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The result object</returns>
-        Task<HttpOperationResult<TResult>> GetAsync<TResult>(string uri, CancellationToken cancellationToken) where TResult : class;
+        Task<HttpOperationResult<TResult>> GetAsync<TResult>(string uri, CancellationToken cancellationToken = default) where TResult : class;
 
         /// <summary>Posts data or creates a resource</summary>
         /// <typeparam name="TData">The type of the data.</typeparam>
@@ -31,7 +31,7 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
 #if NETCOREAPP3_1_OR_GREATER
             ? 
 #endif
-            contentFactory, CancellationToken cancellationToken)
+            contentFactory, CancellationToken cancellationToken = default)
             where TData : class
             where TResult : class;
 
@@ -40,7 +40,7 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
         /// <param name="uri">The URI.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The return data</returns>
-        Task<HttpOperationResult<TResult>> DeleteAsync<TResult>(string uri, CancellationToken cancellationToken) where TResult : class;
+        Task<HttpOperationResult<TResult>> DeleteAsync<TResult>(string uri, CancellationToken cancellationToken = default) where TResult : class;
 
         /// <summary>Sends a get asynchronously and handle the response as a stream.</summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
@@ -50,7 +50,7 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        Task<HttpOperationResult> StreamedGetAsync<TResult>(string uri, Action<HttpOperationResult<TResult>> resultCallback, CancellationToken cancellationToken)
+        Task<HttpOperationResult> StreamedGetAsync<TResult>(string uri, Action<HttpOperationResult<TResult>> resultCallback, CancellationToken cancellationToken = default)
             where TResult : class;
 
         /// <summary>Sends a post asynchronously and handle the response as a stream.</summary>
@@ -63,7 +63,7 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        Task<HttpOperationResult> StreamedPostAsync<TData, TResult>(string uri, TData data, Action<HttpOperationResult<TResult>> resultCallback, CancellationToken cancellationToken)
+        Task<HttpOperationResult> StreamedPostAsync<TData, TResult>(string uri, TData data, Action<HttpOperationResult<TResult>> resultCallback, CancellationToken cancellationToken = default)
             where TData : class
             where TResult : class;
 
@@ -75,7 +75,7 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
         /// <returns>
         ///   IAsyncEnumerable
         /// </returns>
-        System.Collections.Generic.IAsyncEnumerable<HttpOperationResult<TResult>> StreamedGetAsync<TResult>(string uri, CancellationToken cancellationToken)
+        System.Collections.Generic.IAsyncEnumerable<HttpOperationResult<TResult>> StreamedGetAsync<TResult>(string uri, CancellationToken cancellationToken = default)
             where TResult : class;
 
         /// <summary>Sends a post asynchronously and handle the response as a stream.</summary>
@@ -87,7 +87,7 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
         /// <returns>
         ///   IAsyncEnumerable
         /// </returns>
-        System.Collections.Generic.IAsyncEnumerable<HttpOperationResult<TResult>> StreamedPostAsync<TData, TResult>(string uri, TData data, CancellationToken cancellationToken)
+        System.Collections.Generic.IAsyncEnumerable<HttpOperationResult<TResult>> StreamedPostAsync<TData, TResult>(string uri, TData data, CancellationToken cancellationToken = default)
             where TData : class
             where TResult : class;
 #endif
@@ -99,7 +99,7 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
         /// <returns>
         ///   Task
         /// </returns>
-        Task<HttpOperationResult<Stream>> GetContentAsStream(string uri, Stream resultStream, CancellationToken cancellationToken);
+        Task<HttpOperationResult<Stream>> GetContentAsStream(string uri, Stream resultStream, CancellationToken cancellationToken = default);
 
     }
 

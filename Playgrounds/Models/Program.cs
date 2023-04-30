@@ -32,7 +32,7 @@ namespace Models
                 .Build();
 
             IOpenAIService openAi = host.Services.GetService<IOpenAIService>()!;
-            HttpOperationResult<ModelsResponse> response = await openAi.ModelService.GetAsync().ConfigureAwait(false);
+            HttpOperationResult<ModelsResponse> response = await openAi.ModelService.GetAsync();
 
             if (response.IsSuccess)
             {

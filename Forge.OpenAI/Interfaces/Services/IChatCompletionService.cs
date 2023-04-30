@@ -18,7 +18,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        Task<HttpOperationResult<ChatCompletionResponse>> GetAsync(ChatCompletionRequest request, CancellationToken cancellationToken);
+        Task<HttpOperationResult<ChatCompletionResponse>> GetAsync(ChatCompletionRequest request, CancellationToken cancellationToken = default);
 
         /// <summary>Request a chat completion asynchronously in streamed mode.</summary>
         /// <param name="request">The request.</param>
@@ -27,7 +27,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        Task<HttpOperationResult> GetStreamAsync(ChatCompletionRequest request, Action<HttpOperationResult<ChatCompletionStreamedResponse>> resultCallback, CancellationToken cancellationToken);
+        Task<HttpOperationResult> GetStreamAsync(ChatCompletionRequest request, Action<HttpOperationResult<ChatCompletionStreamedResponse>> resultCallback, CancellationToken cancellationToken = default);
 
 #if NETCOREAPP3_1_OR_GREATER
         /// <summary>Request a chat completion asynchronously in streamed mode. This method is only available in .NET Core applications.</summary>
@@ -36,7 +36,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   IAsyncEnumerable
         /// </returns>
-        IAsyncEnumerable<HttpOperationResult<ChatCompletionStreamedResponse>> GetStreamAsync(ChatCompletionRequest request, CancellationToken cancellationToken);
+        IAsyncEnumerable<HttpOperationResult<ChatCompletionStreamedResponse>> GetStreamAsync(ChatCompletionRequest request, CancellationToken cancellationToken = default);
 #endif
 
     }

@@ -57,8 +57,7 @@ namespace MultipleUsersWithSameApiKey
 
             HttpOperationResult<TextCompletionResponse> response = 
                 await openAIService.TextCompletionService
-                    .GetAsync(request, CancellationToken.None)
-                        .ConfigureAwait(false);
+                    .GetAsync(request, CancellationToken.None);
             
             if (response.IsSuccess)
             {

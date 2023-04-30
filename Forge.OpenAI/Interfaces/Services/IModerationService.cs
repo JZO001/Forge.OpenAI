@@ -16,7 +16,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   ModerationResponse
         /// </returns>
-        Task<HttpOperationResult<ModerationResponse>> GetAsync(ModerationRequest request, CancellationToken cancellationToken);
+        Task<HttpOperationResult<ModerationResponse>> GetAsync(ModerationRequest request, CancellationToken cancellationToken = default);
 
     }
 

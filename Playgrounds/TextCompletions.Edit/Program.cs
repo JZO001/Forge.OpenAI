@@ -31,9 +31,7 @@ namespace TestCompletions.Edit
             Console.WriteLine(request.Instruction);
 
             HttpOperationResult<TextEditResponse> response = 
-                await openAi.TextEditService
-                    .GetAsync(request, CancellationToken.None)
-                        .ConfigureAwait(false);
+                await openAi.TextEditService.GetAsync(request, CancellationToken.None);
             
             if (response.IsSuccess)
             {

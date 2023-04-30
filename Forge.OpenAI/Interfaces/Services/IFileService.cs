@@ -16,7 +16,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   FileListResponse
         /// </returns>
-        Task<HttpOperationResult<FileListResponse>> GetFileListAsync(CancellationToken cancellationToken);
+        Task<HttpOperationResult<FileListResponse>> GetFileListAsync(CancellationToken cancellationToken = default);
 
         /// <summary>Uploads a file asynchronously</summary>
         /// <param name="request">The request.</param>
@@ -24,7 +24,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   FileUploadResponse
         /// </returns>
-        Task<HttpOperationResult<FileUploadResponse>> UploadFileAsync(FileUploadRequest request, CancellationToken cancellationToken);
+        Task<HttpOperationResult<FileUploadResponse>> UploadFileAsync(FileUploadRequest request, CancellationToken cancellationToken = default);
 
         /// <summary>Gets the file data asynchronous.</summary>
         /// <param name="fileId">The file identifier.</param>
@@ -32,7 +32,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   FileDataResponse
         /// </returns>
-        Task<HttpOperationResult<FileDataResponse>> GetFileDataAsync(string fileId, CancellationToken cancellationToken);
+        Task<HttpOperationResult<FileDataResponse>> GetFileDataAsync(string fileId, CancellationToken cancellationToken = default);
 
         /// <summary>Downloads the file asynchronous.</summary>
         /// <param name="fileId">The file identifier.</param>
@@ -41,7 +41,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   Output Stream, which can receive the data from the underlying network stream.
         /// </returns>
-        Task<HttpOperationResult<Stream>> DownloadFileAsync(string fileId, Stream resultStream, CancellationToken cancellationToken);
+        Task<HttpOperationResult<Stream>> DownloadFileAsync(string fileId, Stream resultStream, CancellationToken cancellationToken = default);
 
         /// <summary>Deletes a file by id asynchronously</summary>
         /// <param name="fileId">The file identifier.</param>
@@ -49,7 +49,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   FileDeleteResponse
         /// </returns>
-        Task<HttpOperationResult<FileDeleteResponse>> DeleteFileAsync(string fileId, CancellationToken cancellationToken);
+        Task<HttpOperationResult<FileDeleteResponse>> DeleteFileAsync(string fileId, CancellationToken cancellationToken = default);
 
         /// <summary>Deletes a file by id asynchronously</summary>
         /// <param name="fileId">The file identifier.</param>
@@ -59,7 +59,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   FileDeleteResponse
         /// </returns>
-        Task<HttpOperationResult<FileDeleteResponse>> DeleteFileAsync(string fileId, int maxAttempts, int delayBetweenAttemptsInMilliseconds, CancellationToken cancellationToken);
+        Task<HttpOperationResult<FileDeleteResponse>> DeleteFileAsync(string fileId, int maxAttempts, int delayBetweenAttemptsInMilliseconds, CancellationToken cancellationToken = default);
 
     }
 

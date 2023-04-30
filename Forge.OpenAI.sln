@@ -44,6 +44,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatCompletions", "Playgrou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Azure-OpenAI_Setup_Example", "Playgrounds\Azure-OpenAI_Setup_Example\Azure-OpenAI_Setup_Example.csproj", "{F181D7A3-6152-407E-BF06-222A91313BFA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Artwork", "Artwork", "{A0635B5B-2F45-422B-A067-96E52B3BA6A2}"
+	ProjectSection(SolutionItems) = preProject
+		Artwork\Csharp_Logo.png = Artwork\Csharp_Logo.png
+		Artwork\logo.psd = Artwork\logo.psd
+		Artwork\pic 1_39.png = Artwork\pic 1_39.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -142,78 +149,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {614B2A5B-ACA8-4878-A1D1-D7B09FFB81E8}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 18
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://jzo.visualstudio.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Forge.OpenAI\\Forge.OpenAI.csproj
-		SccProjectName1 = Forge.OpenAI
-		SccLocalPath1 = Forge.OpenAI
-		SccProjectUniqueName2 = Playgrounds\\Models\\Models.csproj
-		SccProjectTopLevelParentUniqueName2 = Forge.OpenAI.sln
-		SccProjectName2 = Playgrounds/Models
-		SccLocalPath2 = Playgrounds\\Models
-		SccProjectUniqueName3 = Playgrounds\\TextCompletions.Complete\\TextCompletions.Complete.csproj
-		SccProjectTopLevelParentUniqueName3 = Forge.OpenAI.sln
-		SccProjectName3 = Playgrounds/TextCompletions.Complete
-		SccLocalPath3 = Playgrounds\\TextCompletions.Complete
-		SccProjectUniqueName4 = Playgrounds\\TextCompletions.Edit\\TextCompletions.Edit.csproj
-		SccProjectTopLevelParentUniqueName4 = Forge.OpenAI.sln
-		SccProjectName4 = Playgrounds/TextCompletions.Edit
-		SccLocalPath4 = Playgrounds\\TextCompletions.Edit
-		SccProjectUniqueName5 = Playgrounds\\Moderation\\Moderation.csproj
-		SccProjectTopLevelParentUniqueName5 = Forge.OpenAI.sln
-		SccProjectName5 = Playgrounds/Moderation
-		SccLocalPath5 = Playgrounds\\Moderation
-		SccProjectUniqueName6 = Playgrounds\\Embeddings\\Embeddings.csproj
-		SccProjectTopLevelParentUniqueName6 = Forge.OpenAI.sln
-		SccProjectName6 = Playgrounds/Embeddings
-		SccLocalPath6 = Playgrounds\\Embeddings
-		SccProjectUniqueName7 = Playgrounds\\Images.Create\\Images.Create.csproj
-		SccProjectTopLevelParentUniqueName7 = Forge.OpenAI.sln
-		SccProjectName7 = Playgrounds/Images.Create
-		SccLocalPath7 = Playgrounds\\Images.Create
-		SccProjectUniqueName8 = Playgrounds\\Images.Edit\\Images.Edit.csproj
-		SccProjectTopLevelParentUniqueName8 = Forge.OpenAI.sln
-		SccProjectName8 = Playgrounds/Images.Edit
-		SccLocalPath8 = Playgrounds\\Images.Edit
-		SccProjectUniqueName9 = Playgrounds\\Images.Variations\\Images.Variations.csproj
-		SccProjectTopLevelParentUniqueName9 = Forge.OpenAI.sln
-		SccProjectName9 = Playgrounds/Images.Variations
-		SccLocalPath9 = Playgrounds\\Images.Variations
-		SccProjectUniqueName10 = Playgrounds\\Files\\Files.csproj
-		SccProjectTopLevelParentUniqueName10 = Forge.OpenAI.sln
-		SccProjectName10 = Playgrounds/Files
-		SccLocalPath10 = Playgrounds\\Files
-		SccProjectUniqueName11 = Playgrounds\\FineTunes\\FineTunes.csproj
-		SccProjectTopLevelParentUniqueName11 = Forge.OpenAI.sln
-		SccProjectName11 = Playgrounds/FineTunes
-		SccLocalPath11 = Playgrounds\\FineTunes
-		SccProjectUniqueName12 = Playgrounds\\MultipleApiKeyUsage\\MultipleApiKeyUsage.csproj
-		SccProjectTopLevelParentUniqueName12 = Forge.OpenAI.sln
-		SccProjectName12 = Playgrounds/MultipleApiKeyUsage
-		SccLocalPath12 = Playgrounds\\MultipleApiKeyUsage
-		SccProjectUniqueName13 = Playgrounds\\MultipleUsersWithSameApiKey\\MultipleUsersWithSameApiKey.csproj
-		SccProjectTopLevelParentUniqueName13 = Forge.OpenAI.sln
-		SccProjectName13 = Playgrounds/MultipleUsersWithSameApiKey
-		SccLocalPath13 = Playgrounds\\MultipleUsersWithSameApiKey
-		SccProjectUniqueName14 = Playgrounds\\Transcription\\Transcription.csproj
-		SccProjectTopLevelParentUniqueName14 = Forge.OpenAI.sln
-		SccProjectName14 = Playgrounds/Transcription
-		SccLocalPath14 = Playgrounds\\Transcription
-		SccProjectUniqueName15 = Playgrounds\\Translation\\Translation.csproj
-		SccProjectTopLevelParentUniqueName15 = Forge.OpenAI.sln
-		SccProjectName15 = Playgrounds/Translation
-		SccLocalPath15 = Playgrounds\\Translation
-		SccProjectUniqueName16 = Playgrounds\\ChatCompletions\\ChatCompletions.csproj
-		SccProjectTopLevelParentUniqueName16 = Forge.OpenAI.sln
-		SccProjectName16 = Playgrounds/ChatCompletions
-		SccLocalPath16 = Playgrounds\\ChatCompletions
-		SccProjectUniqueName17 = Playgrounds\\Azure-OpenAI_Setup_Example\\Azure-OpenAI_Setup_Example.csproj
-		SccProjectTopLevelParentUniqueName17 = Forge.OpenAI.sln
-		SccProjectName17 = Playgrounds/Azure-OpenAI_Setup_Example
-		SccLocalPath17 = Playgrounds\\Azure-OpenAI_Setup_Example
 	EndGlobalSection
 EndGlobal

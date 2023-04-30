@@ -16,7 +16,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   TranscriptionResponse
         /// </returns>
-        Task<HttpOperationResult<TranscriptionResponse>> GetAsync(TranscriptionRequest request, CancellationToken cancellationToken);
+        Task<HttpOperationResult<TranscriptionResponse>> GetAsync(TranscriptionRequest request, CancellationToken cancellationToken = default);
 
     }
 

@@ -129,7 +129,7 @@ namespace Forge.OpenAI.Services
             {
                 using (MemoryStream imageData = new MemoryStream())
                 {
-                    await imageEditRequest.Image.SourceStream.CopyToAsync(imageData).ConfigureAwait(false);
+                    await imageEditRequest.Image.SourceStream.CopyToAsync(imageData, 81920, cancellationToken).ConfigureAwait(false);
                     content.Add(new ByteArrayContent(imageData.ToArray()), "image", imageEditRequest.Image.ContentName);
                     imageData.SetLength(0);
                 }
@@ -146,7 +146,7 @@ namespace Forge.OpenAI.Services
                 {
                     using (MemoryStream maskImageData = new MemoryStream())
                     {
-                        await imageEditRequest.Mask.SourceStream.CopyToAsync(maskImageData).ConfigureAwait(false);
+                        await imageEditRequest.Mask.SourceStream.CopyToAsync(maskImageData, 81920, cancellationToken).ConfigureAwait(false);
                         content.Add(new ByteArrayContent(maskImageData.ToArray()), "mask", imageEditRequest.Mask.ContentName);
                         maskImageData.SetLength(0);
                     }
@@ -180,7 +180,7 @@ namespace Forge.OpenAI.Services
             {
                 using (MemoryStream imageData = new MemoryStream())
                 {
-                    await imageVariationRequest.Image.SourceStream.CopyToAsync(imageData).ConfigureAwait(false);
+                    await imageVariationRequest.Image.SourceStream.CopyToAsync(imageData, 81920, cancellationToken).ConfigureAwait(false);
                     content.Add(new ByteArrayContent(imageData.ToArray()), "image", imageVariationRequest.Image.ContentName);
                     imageData.SetLength(0);
                 }

@@ -28,7 +28,7 @@ namespace Translation
             TranslationRequest request = new TranslationRequest();
             request.AudioFile = new BinaryContentData() { ContentName = "audio.mp3", SourceStream = File.OpenRead("audio.mp3") };
 
-            HttpOperationResult<TranslationResponse> response = await openAi.TranslationService.GetAsync(request, CancellationToken.None).ConfigureAwait(false);
+            HttpOperationResult<TranslationResponse> response = await openAi.TranslationService.GetAsync(request, CancellationToken.None);
             if (response.IsSuccess)
             {
                 // text: "How can I motivate you?"

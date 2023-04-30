@@ -53,7 +53,7 @@ namespace Forge.OpenAI.Services
         /// <returns>
         ///   TextEditResponse
         /// </returns>
-        public async Task<HttpOperationResult<TextEditResponse>> GetAsync(TextEditRequest request, CancellationToken cancellationToken)
+        public async Task<HttpOperationResult<TextEditResponse>> GetAsync(TextEditRequest request, CancellationToken cancellationToken = default)
         {
             var validationResult = request.Validate<TextEditResponse>();
             if (validationResult != null) return validationResult;

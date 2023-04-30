@@ -18,14 +18,14 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   FineTuneCreateResponse
         /// </returns>
-        Task<HttpOperationResult<FineTuneCreateResponse>> CreateAsync(FineTuneCreateRequest request, CancellationToken cancellationToken);
+        Task<HttpOperationResult<FineTuneCreateResponse>> CreateAsync(FineTuneCreateRequest request, CancellationToken cancellationToken = default);
 
         /// <summary>Gets the list of fine tune jobs asynchronously.</summary>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         ///   FineTuneListResponse
         /// </returns>
-        Task<HttpOperationResult<FineTuneListResponse>> GetAsync(CancellationToken cancellationToken);
+        Task<HttpOperationResult<FineTuneListResponse>> GetAsync(CancellationToken cancellationToken = default);
 
         /// <summary>Gets a fine tune job data asynchronously.</summary>
         /// <param name="fineTuneId">The fine tune identifier.</param>
@@ -33,7 +33,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   FineTuneJobDataResponse
         /// </returns>
-        Task<HttpOperationResult<FineTuneJobDataResponse>> GetAsync(string fineTuneId, CancellationToken cancellationToken);
+        Task<HttpOperationResult<FineTuneJobDataResponse>> GetAsync(string fineTuneId, CancellationToken cancellationToken = default);
 
         /// <summary>Cancels a fine tune job asynchronously.</summary>
         /// <param name="fineTuneId">The fine tune identifier.</param>
@@ -41,7 +41,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   FineTuneCancelResponse
         /// </returns>
-        Task<HttpOperationResult<FineTuneCancelResponse>> CancelAsync(string fineTuneId, CancellationToken cancellationToken);
+        Task<HttpOperationResult<FineTuneCancelResponse>> CancelAsync(string fineTuneId, CancellationToken cancellationToken = default);
 
         /// <summary>Deletes a fine tune model asynchronously, owned by your organization.</summary>
         /// <param name="model">The model.</param>
@@ -49,7 +49,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   FineTuneDeleteModelResponse
         /// </returns>
-        Task<HttpOperationResult<FineTuneDeleteModelResponse>> DeleteAsync(string model, CancellationToken cancellationToken);
+        Task<HttpOperationResult<FineTuneDeleteModelResponse>> DeleteAsync(string model, CancellationToken cancellationToken = default);
 
         /// <summary>Gets the events of a fine tune job asynchronously.</summary>
         /// <param name="fineTuneId">The fine tune identifier.</param>
@@ -57,7 +57,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   FineTuneEventsResponse
         /// </returns>
-        Task<HttpOperationResult<FineTuneJobEventsResponse>> GetEventsAsync(string fineTuneId, CancellationToken cancellationToken);
+        Task<HttpOperationResult<FineTuneJobEventsResponse>> GetEventsAsync(string fineTuneId, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets the events as stream asynchronous.
@@ -70,7 +70,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        Task<HttpOperationResult> GetEventsAsStreamAsync(string fineTuneId, Action<HttpOperationResult<FineTuneJobEvent>> resultCallback, CancellationToken cancellationToken);
+        Task<HttpOperationResult> GetEventsAsStreamAsync(string fineTuneId, Action<HttpOperationResult<FineTuneJobEvent>> resultCallback, CancellationToken cancellationToken = default);
 
 #if NETCOREAPP3_1_OR_GREATER
         /// <summary>
@@ -83,7 +83,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   FineTuneJobEvent
         /// </returns>
-        IAsyncEnumerable<HttpOperationResult<FineTuneJobEvent>> GetEventsAsStreamAsync(string fineTuneId, CancellationToken cancellationToken);
+        IAsyncEnumerable<HttpOperationResult<FineTuneJobEvent>> GetEventsAsStreamAsync(string fineTuneId, CancellationToken cancellationToken = default);
 #endif
 
     }

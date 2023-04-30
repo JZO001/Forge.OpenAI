@@ -21,7 +21,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        Task<HttpOperationResult<TextCompletionResponse>> GetAsync(TextCompletionRequest request, CancellationToken cancellationToken);
+        Task<HttpOperationResult<TextCompletionResponse>> GetAsync(TextCompletionRequest request, CancellationToken cancellationToken = default);
 
         /// <summary>Request a text completion asynchronously in streamed mode.</summary>
         /// <param name="request">The request.</param>
@@ -30,7 +30,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        Task<HttpOperationResult> GetStreamAsync(TextCompletionRequest request, Action<HttpOperationResult<TextCompletionResponse>> resultCallback, CancellationToken cancellationToken);
+        Task<HttpOperationResult> GetStreamAsync(TextCompletionRequest request, Action<HttpOperationResult<TextCompletionResponse>> resultCallback, CancellationToken cancellationToken = default);
 
 #if NETCOREAPP3_1_OR_GREATER
         /// <summary>Request a text completion asynchronously in streamed mode. This method is only available in .NET Core applications.</summary>
@@ -39,7 +39,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   IAsyncEnumerable
         /// </returns>
-        IAsyncEnumerable<HttpOperationResult<TextCompletionResponse>> GetStreamAsync(TextCompletionRequest request, CancellationToken cancellationToken);
+        IAsyncEnumerable<HttpOperationResult<TextCompletionResponse>> GetStreamAsync(TextCompletionRequest request, CancellationToken cancellationToken = default);
 #endif
 
     }

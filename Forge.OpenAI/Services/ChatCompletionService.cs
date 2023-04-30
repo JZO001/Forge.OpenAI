@@ -54,7 +54,7 @@ namespace Forge.OpenAI.Services
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        public async Task<HttpOperationResult<ChatCompletionResponse>> GetAsync(ChatCompletionRequest request, CancellationToken cancellationToken)
+        public async Task<HttpOperationResult<ChatCompletionResponse>> GetAsync(ChatCompletionRequest request, CancellationToken cancellationToken = default)
         {
             var validationResult = request.Validate<ChatCompletionResponse>();
             if (validationResult != null) return validationResult;
@@ -69,7 +69,7 @@ namespace Forge.OpenAI.Services
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        public async Task<HttpOperationResult> GetStreamAsync(ChatCompletionRequest request, Action<HttpOperationResult<ChatCompletionStreamedResponse>> resultCallback, CancellationToken cancellationToken)
+        public async Task<HttpOperationResult> GetStreamAsync(ChatCompletionRequest request, Action<HttpOperationResult<ChatCompletionStreamedResponse>> resultCallback, CancellationToken cancellationToken = default)
         {
             var validationResult = request.Validate();
             if (validationResult != null) return validationResult;
@@ -85,7 +85,7 @@ namespace Forge.OpenAI.Services
         /// <returns>
         ///   IAsyncEnumerable
         /// </returns>
-        public IAsyncEnumerable<HttpOperationResult<ChatCompletionStreamedResponse>> GetStreamAsync(ChatCompletionRequest request, CancellationToken cancellationToken)
+        public IAsyncEnumerable<HttpOperationResult<ChatCompletionStreamedResponse>> GetStreamAsync(ChatCompletionRequest request, CancellationToken cancellationToken = default)
         {
             var validationResult = request.Validate<ChatCompletionStreamedResponse>();
             if (validationResult != null) return RequestBase.GetValidationResultAsAsyncEnumerable<ChatCompletionStreamedResponse>(validationResult);

@@ -46,7 +46,7 @@ namespace Images.Edit
                 {
                     request.Prompt = "A boy cycling away on a bicycle on the road";
 
-                    HttpOperationResult<ImageEditResponse> response = await openAi.ImageService.EditImageAsync(request, CancellationToken.None).ConfigureAwait(false);
+                    HttpOperationResult<ImageEditResponse> response = await openAi.ImageService.EditImageAsync(request, CancellationToken.None);
                     if (response.IsSuccess)
                     {
                         Console.WriteLine(response.Result!);

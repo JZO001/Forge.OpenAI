@@ -31,7 +31,7 @@ namespace Moderation
             IOpenAIService openAi = host.Services.GetService<IOpenAIService>()!;
 
             ModerationRequest request = new ModerationRequest(new string[] { "I want to kill them." });
-            HttpOperationResult<ModerationResponse> response = await openAi.ModerationService.GetAsync(request, CancellationToken.None).ConfigureAwait(false);
+            HttpOperationResult<ModerationResponse> response = await openAi.ModerationService.GetAsync(request, CancellationToken.None);
 
             if (response.IsSuccess)
             {

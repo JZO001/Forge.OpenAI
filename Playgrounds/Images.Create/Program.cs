@@ -36,7 +36,7 @@ namespace Images.Create
             ImageCreateRequest request = new ImageCreateRequest();
             request.Prompt = "A cute baby sea otter";
 
-            HttpOperationResult<ImageCreateResponse> response = await openAi.ImageService.CreateImageAsync(request, CancellationToken.None).ConfigureAwait(false);
+            HttpOperationResult<ImageCreateResponse> response = await openAi.ImageService.CreateImageAsync(request, CancellationToken.None);
             if (response.IsSuccess)
             {
                 Console.WriteLine(response.Result!);

@@ -41,7 +41,7 @@ namespace Files
             uploadRequest.File = new BinaryContentData() { ContentName = "training", SourceStream = File.OpenRead("training.jsonl") };
             uploadRequest.Purpose = "fine-tune";
 
-            HttpOperationResult<FileUploadResponse> responseUpload = await openAi.FileService.UploadFileAsync(uploadRequest, CancellationToken.None).ConfigureAwait(false);
+            HttpOperationResult<FileUploadResponse> responseUpload = await openAi.FileService.UploadFileAsync(uploadRequest, CancellationToken.None);
             if (responseUpload.IsSuccess)
             {
                 Console.WriteLine(responseUpload.Result!);
@@ -49,7 +49,7 @@ namespace Files
                 Console.WriteLine("Get file list");
                 Console.WriteLine();
 
-                HttpOperationResult<FileListResponse> fileListResult = await openAi.FileService.GetFileListAsync(CancellationToken.None).ConfigureAwait(false);
+                HttpOperationResult<FileListResponse> fileListResult = await openAi.FileService.GetFileListAsync(CancellationToken.None);
 
                 if (fileListResult.IsSuccess)
                 {
@@ -64,7 +64,7 @@ namespace Files
                         Console.WriteLine($"Retrieving file data, id: {fileData.Id}");
                         Console.WriteLine();
 
-                        HttpOperationResult<FileDataResponse> responseFileData = openAi.FileService.GetFileDataAsync(fileData.Id, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
+                        HttpOperationResult<FileDataResponse> responseFileData = openAi.FileService.GetFileDataAsync(fileData.Id, CancellationToken.None).GetAwaiter().GetResult();
                         if (responseFileData.IsSuccess)
                         {
                             Console.WriteLine(responseFileData.Result!);
@@ -87,7 +87,7 @@ namespace Files
 
                         using (FileStream fs = new FileStream(fileData.Id, FileMode.Create, FileAccess.Write, FileShare.Read))
                         {
-                            HttpOperationResult<Stream> responseFileDownload = openAi.FileService.DownloadFileAsync(fileData.Id, fs, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
+                            HttpOperationResult<Stream> responseFileDownload = openAi.FileService.DownloadFileAsync(fileData.Id, fs, CancellationToken.None).GetAwaiter().GetResult();
                             if (responseFileDownload.IsSuccess)
                             {
                                 Console.WriteLine("File successfully downloaded.");
@@ -109,7 +109,7 @@ namespace Files
                         Console.WriteLine($"Deleting file, id: {fileData.Id}");
                         Console.WriteLine();
 
-                        HttpOperationResult<FileDeleteResponse> responseDelete = openAi.FileService.DeleteFileAsync(fileData.Id, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
+                        HttpOperationResult<FileDeleteResponse> responseDelete = openAi.FileService.DeleteFileAsync(fileData.Id, CancellationToken.None).GetAwaiter().GetResult();
                         if (responseDelete.IsSuccess)
                         {
                             Console.WriteLine(responseDelete.Result!);

@@ -39,7 +39,7 @@ namespace FineTunes
             uploadRequest.File = new BinaryContentData() { ContentName = "training", SourceStream = File.OpenRead("training.jsonl") };
             uploadRequest.Purpose = "fine-tune";
 
-            HttpOperationResult<FileUploadResponse> responseUpload = await openAi.FileService.UploadFileAsync(uploadRequest, CancellationToken.None).ConfigureAwait(false);
+            HttpOperationResult<FileUploadResponse> responseUpload = await openAi.FileService.UploadFileAsync(uploadRequest, CancellationToken.None);
             if (responseUpload.IsSuccess)
             {
                 Console.WriteLine($"Uploaded, id: {responseUpload.Result!.Id}");
@@ -49,14 +49,14 @@ namespace FineTunes
                 FineTuneCreateRequest createRequest = new FineTuneCreateRequest();
                 createRequest.TrainingFileId = responseUpload.Result!.Id;
 
-                HttpOperationResult<FineTuneCreateResponse> createResponse = await openAi.FineTuneService.CreateAsync(createRequest, CancellationToken.None).ConfigureAwait(false);
+                HttpOperationResult<FineTuneCreateResponse> createResponse = await openAi.FineTuneService.CreateAsync(createRequest, CancellationToken.None);
                 if (createResponse.IsSuccess)
                 {
                     Console.WriteLine($"Job created, id: {createResponse.Result!.Id}");
                     Console.WriteLine("List fine tune jobs");
                     Console.WriteLine();
 
-                    HttpOperationResult<FineTuneListResponse> listResponse = await openAi.FineTuneService.GetAsync(CancellationToken.None).ConfigureAwait(false);
+                    HttpOperationResult<FineTuneListResponse> listResponse = await openAi.FineTuneService.GetAsync(CancellationToken.None);
                     if (listResponse.IsSuccess)
                     {
                         listResponse.Result!.Jobs.ForEach(job =>
@@ -74,7 +74,7 @@ namespace FineTunes
                     Console.WriteLine($"Retrieve fine tune job data, id: {createResponse.Result!.Id}");
                     Console.WriteLine();
 
-                    HttpOperationResult<FineTuneJobDataResponse> responseJobData = await openAi.FineTuneService.GetAsync(createResponse.Result!.Id, CancellationToken.None).ConfigureAwait(false);
+                    HttpOperationResult<FineTuneJobDataResponse> responseJobData = await openAi.FineTuneService.GetAsync(createResponse.Result!.Id, CancellationToken.None);
                     if (responseJobData.IsSuccess)
                     {
                         Console.WriteLine(responseJobData.Result!);
@@ -89,7 +89,7 @@ namespace FineTunes
                     Console.WriteLine("List fine tune events (sync mode)");
                     Console.WriteLine();
 
-                    HttpOperationResult<FineTuneJobEventsResponse> eventsResponse = await openAi.FineTuneService.GetEventsAsync(createResponse.Result!.Id, CancellationToken.None).ConfigureAwait(false);
+                    HttpOperationResult<FineTuneJobEventsResponse> eventsResponse = await openAi.FineTuneService.GetEventsAsync(createResponse.Result!.Id, CancellationToken.None);
                     if (eventsResponse.IsSuccess)
                     {
                         Console.WriteLine(eventsResponse.Result!);
@@ -119,7 +119,7 @@ namespace FineTunes
                             }
                         };
 
-                        HttpOperationResult eventsCallbackModeResponse = await openAi.FineTuneService.GetEventsAsStreamAsync(createResponse.Result!.Id, eventResultCallback, CancellationToken.None).ConfigureAwait(false);
+                        HttpOperationResult eventsCallbackModeResponse = await openAi.FineTuneService.GetEventsAsStreamAsync(createResponse.Result!.Id, eventResultCallback, CancellationToken.None);
                         if (eventsCallbackModeResponse.IsSuccess)
                         {
                             Console.WriteLine();
@@ -160,7 +160,7 @@ namespace FineTunes
                     Console.WriteLine("Cancel fine tune job");
                     Console.WriteLine();
 
-                    HttpOperationResult<FineTuneCancelResponse> responseCancel = await openAi.FineTuneService.CancelAsync(createResponse.Result!.Id, CancellationToken.None).ConfigureAwait(false);
+                    HttpOperationResult<FineTuneCancelResponse> responseCancel = await openAi.FineTuneService.CancelAsync(createResponse.Result!.Id, CancellationToken.None);
                     if (responseCancel.IsSuccess)
                     {
                         Console.WriteLine(responseCancel.Result!);

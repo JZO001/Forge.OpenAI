@@ -4,6 +4,8 @@ using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Models.ChatCompletions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AI.Dev.OpenAI.GPT;
+using System.Threading.Tasks;
 
 namespace ChatCompletions
 {
@@ -44,7 +46,7 @@ namespace ChatCompletions
 
             ChatCompletionRequest request = new ChatCompletionRequest(ChatMessage.CreateFromUser("Count to 20, with a comma between each number and no newlines. E.g., 1, 2, 3, ..."));
 
-            HttpOperationResult<ChatCompletionResponse> response = await openAi.ChatCompletionService.GetAsync(request, CancellationToken.None).ConfigureAwait(false);
+            HttpOperationResult<ChatCompletionResponse> response = await openAi.ChatCompletionService.GetAsync(request, CancellationToken.None);
             if (response.IsSuccess)
             {
                 Console.WriteLine();
@@ -55,7 +57,7 @@ namespace ChatCompletions
                 request.Messages.Add(response.Result!.Choices[0].Message);
                 request.Messages.Add(ChatMessage.CreateFromUser("Please count from 21 to 30, on the same way than previously."));
 
-                response = await openAi.ChatCompletionService.GetAsync(request, CancellationToken.None).ConfigureAwait(false);
+                response = await openAi.ChatCompletionService.GetAsync(request, CancellationToken.None);
                 if (response.IsSuccess)
                 {
                     response.Result!.Choices.ForEach(c => Console.WriteLine(c.Message.Content));
@@ -93,7 +95,7 @@ namespace ChatCompletions
                 }
             };
 
-            HttpOperationResult response = await openAi.ChatCompletionService.GetStreamAsync(request, receivedDataHandler, CancellationToken.None).ConfigureAwait(false);
+            HttpOperationResult response = await openAi.ChatCompletionService.GetStreamAsync(request, receivedDataHandler, CancellationToken.None);
             if (response.IsSuccess)
             {
                 Console.WriteLine();
@@ -109,7 +111,7 @@ namespace ChatCompletions
             Console.ReadKey();
 
             ChatCompletionRequest request = new ChatCompletionRequest(ChatMessage.CreateFromUser("Write a C# code which demonstrate how to write some text into file"));
-            request.MaxTokens = 4096 - request.Messages[0].Content.Split(" ", StringSplitOptions.RemoveEmptyEntries).Length - 100; // calculating max token
+            request.MaxTokens = 4096 - GPT3Tokenizer.Encode(request.Messages[0].Content).Count; // calculating max token
             request.Temperature = 0.1; // lower value means more precise answer
 
             Console.WriteLine(request.Messages[0].Content);

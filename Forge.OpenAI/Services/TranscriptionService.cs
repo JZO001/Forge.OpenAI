@@ -82,7 +82,7 @@ namespace Forge.OpenAI.Services
             {
                 using (MemoryStream fileData = new MemoryStream())
                 {
-                    await request.AudioFile.SourceStream.CopyToAsync(fileData).ConfigureAwait(false);
+                    await request.AudioFile.SourceStream.CopyToAsync(fileData, 81920, cancellationToken).ConfigureAwait(false);
                     content.Add(new ByteArrayContent(fileData.ToArray()), "file", request.AudioFile.ContentName);
                     fileData.SetLength(0);
                 }

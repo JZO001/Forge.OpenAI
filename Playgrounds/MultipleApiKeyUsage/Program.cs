@@ -53,9 +53,7 @@ namespace MultipleApiKeyUsage
             Console.WriteLine(request.Instruction);
 
             HttpOperationResult<TextEditResponse> response = 
-                await openAIService.TextEditService
-                    .GetAsync(request, CancellationToken.None)
-                        .ConfigureAwait(false);
+                await openAIService.TextEditService.GetAsync(request, CancellationToken.None);
             
             if (response.IsSuccess)
             {
