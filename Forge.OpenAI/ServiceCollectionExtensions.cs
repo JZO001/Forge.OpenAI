@@ -7,6 +7,7 @@ using Forge.OpenAI.Services.Endpoints;
 using Forge.OpenAI.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Reflection;
 
 namespace Forge.OpenAI
 {
@@ -70,6 +71,8 @@ namespace Forge.OpenAI
 
         private static IServiceCollection AddServices(IServiceCollection services)
         {
+            services.AddHttpClient<IApiHttpService>(Consts.HTTP_CLIENT_FACTORY_NAME);
+
             return services
                 .AddSingleton<IApiHttpLoggerService, ApiHttpLoggerService>()
                 .AddSingleton<IApiHttpClientFactory, ApiHttpClientFactory>()
