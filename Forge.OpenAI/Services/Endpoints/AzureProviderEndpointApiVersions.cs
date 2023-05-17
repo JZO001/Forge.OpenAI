@@ -6,7 +6,7 @@
     {
 
         /// <summary>The default</summary>
-        public const string Default = V2022_12_01;
+        public const string Default = V2023_13_15_PREVIEW;
 
         /// <summary>2022-12-01</summary>
         public const string V2022_12_01 = "2022-12-01";

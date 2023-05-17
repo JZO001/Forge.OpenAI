@@ -123,7 +123,7 @@ namespace Forge.OpenAI.Models.FineTunes
         /// <see href="https://beta.openai.com/docs/api-reference/fine-tunes/create#fine-tunes/create-prompt_loss_weight" />
         /// </summary>
         [JsonPropertyName("prompt_loss_weight")]
-        public double PromptLossWeight { get; set; }
+        public double? PromptLossWeight { get; set; }
 
         /// <summary>
         /// If set, we calculate classification-specific metrics such as accuracy and F-1 score using the validation set at the end of every epoch. These metrics can be viewed in the <a href="https://beta.openai.com/docs/api-reference/fine-tunes/create#fine-tunes/create-compute_classification_metrics">results file</a>. <br />
