@@ -23,7 +23,7 @@ namespace Forge.OpenAI.Models.TextEdits
         /// <summary>Gets the token usage numbers.</summary>
         /// <value>The usage.</value>
         [JsonPropertyName("usage")]
-        public Usage Usage { get; }
+        public Usage Usage { get; set; }
 
     }
 
