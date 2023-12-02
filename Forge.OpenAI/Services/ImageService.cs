@@ -157,7 +157,7 @@ namespace Forge.OpenAI.Services
             content.Add(new StringContent(imageEditRequest.NumberOfEditedImages.ToString()), "n");
 
             if (!string.IsNullOrWhiteSpace(imageEditRequest.Size)) content.Add(new StringContent(imageEditRequest.Size), "size");
-            if (!string.IsNullOrWhiteSpace(imageEditRequest.ResponseFormat)) content.Add(new StringContent(imageEditRequest.Size), "response_format");
+            if (!string.IsNullOrWhiteSpace(imageEditRequest.ResponseFormat)) content.Add(new StringContent(imageEditRequest.ResponseFormat), "response_format");
             if (!string.IsNullOrWhiteSpace(imageEditRequest.User)) content.Add(new StringContent(imageEditRequest.User), "user");
 
             return content;
