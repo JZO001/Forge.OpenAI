@@ -1,4 +1,4 @@
-# Forge.OpenAI is a C#.NET client library for OpenAI API, using GPT-3, 3.5 and 4, DALL-E 2, Whisper, etc.
+# Forge.OpenAI is a C#.NET client library for OpenAI API, using GPT-3, 3.5 and 4, DALL-E 2, DALL-E 3, Whisper, etc.
 OpenAI API client library for .NET. It supports OpenAI and Azure-OpenAI APIs. This library was developed for public usage and it is free to use.
 Supported .NET versions:
 
