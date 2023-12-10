@@ -21,7 +21,7 @@ namespace FineTuningJob
         static async Task Main(string[] args)
         {
             // This example demonstrates, how you can fine tune a model with the information you provide.
-            // More information: https://platform.openai.com/docs/guides/fine-tuning
+            // More information: https://platform.openai.com/docs/api-reference/fine-tuning
             //
             // The very first step to create an account at OpenAI: https://platform.openai.com/
             // Using the loggedIn account, navigate to https://platform.openai.com/account/api-keys
