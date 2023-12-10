@@ -8,7 +8,7 @@ namespace Forge.OpenAI.Models.ChatCompletions
     {
 
         [JsonPropertyName("choices")]
-        public List<ChatChoice> Choices { get; set; } = new List<ChatChoice>();
+        public IReadOnlyList<ChatChoice> Choices { get; set; } = new List<ChatChoice>();
 
     }
 

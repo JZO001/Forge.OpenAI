@@ -12,12 +12,18 @@ namespace Forge.OpenAI.Models.Moderations
         {
         }
 
-        /// <summary>Gets or sets the categories.</summary>
+        /// <summary>
+        /// Gets or sets the categories.
+        /// https://platform.openai.com/docs/api-reference/moderations/object
+        /// </summary>
         /// <value>The categories.</value>
         [JsonPropertyName("categories")]
         public ModerationCategories Categories { get; set; }
 
-        /// <summary>Gets or sets the categories scores.</summary>
+        /// <summary>
+        /// Gets or sets the categories scores.
+        /// https://platform.openai.com/docs/api-reference/moderations/object
+        /// </summary>
         /// <value>The scores.</value>
         [JsonPropertyName("category_scores")]
         public ModerationCategoriesScores Scores { get; set; }

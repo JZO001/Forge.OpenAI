@@ -17,7 +17,7 @@ namespace Forge.OpenAI.Models.FineTunes
         /// <summary>Gets the events.</summary>
         /// <value>The events.</value>
         [JsonPropertyName("data")]
-        public List<FineTuneJobEvent> Events { get; set; }
+        public IReadOnlyList<FineTuneJobEvent> Events { get; set; }
 
     }
 

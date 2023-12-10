@@ -18,6 +18,13 @@ namespace Forge.OpenAI.Models.ChatCompletions
         [JsonPropertyName("usage")]
         public Usage Usage { get; set; }
 
+        /// <summary>
+        /// This fingerprint represents the backend configuration that the model runs with. Can be used in conjunction with the seed request parameter to understand when backend changes have been made that might impact determinism.
+        /// </summary>
+        /// <value>The system fingerprint.</value>
+        [JsonPropertyName("system_fingerprint")]
+        public string SystemFingerprint { get; set; }
+
     }
 
 }

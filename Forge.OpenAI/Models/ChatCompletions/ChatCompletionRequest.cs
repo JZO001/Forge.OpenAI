@@ -1,5 +1,6 @@
 ﻿using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Settings;
+using Forge.OpenAI.Factories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,6 +13,9 @@ namespace Forge.OpenAI.Models.ChatCompletions
     /// <summary>Represents a chat completion request message</summary>
     public class ChatCompletionRequest : RequestBase
     {
+
+        public const string RESPONSE_FORMAT_JSON = "json_object";
+        public const string RESPONSE_FORMAT_TEXT = "text";
 
         /// <summary>Initializes a new instance of the <see cref="ChatCompletionRequest" /> class.</summary>
         /// <param name="chatMessage">The chat message.</param>
@@ -159,6 +163,33 @@ namespace Forge.OpenAI.Models.ChatCompletions
         [JsonPropertyName("presence_penalty")]
         public double? PresencePenalty { get; set; }
 
+        /// <summary>Gets or sets the response format.</summary>
+        /// <value>
+        ///   <a href="https://platform.openai.com/docs/api-reference/chat/create#chat-create-response_format">https://platform.openai.com/docs/api-reference/chat/create#chat-create-response_format</a>
+        /// </value>
+        [JsonPropertyName("response_format")]
+        public ChatResponseFormat ResponseFormat { get; set; }
+
+        /// <summary>Sets the set response format with enum.</summary>
+        /// <value>The set response format with enum.</value>
+        [JsonIgnore]
+        public ChatResponseFormats? SetResponseFormatWithEnum
+        {
+            set
+            {
+                if (value == null)
+                {
+                    ResponseFormat = null;
+                    return;
+                }
+
+                ResponseFormat = new ChatResponseFormat
+                {
+                    Type = value == ChatResponseFormats.Json ? RESPONSE_FORMAT_JSON : RESPONSE_FORMAT_TEXT
+                };
+            }
+        }
+
         /// <summary>
         /// Number between -2.0 and 2.0. <br/>
         /// Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. <br/>
@@ -179,13 +210,55 @@ namespace Forge.OpenAI.Models.ChatCompletions
         /// <see href="https://platform.openai.com/docs/api-reference/chat/create#chat/create-logit_bias" />
         /// </summary>
         [JsonPropertyName("logit_bias")]
-        public Dictionary<string, double> LogitBias { get; set; }
+        public IDictionary<string, double> LogitBias { get; set; }
 
         /// <summary>
         /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. <a href="https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids">Learn more</a>.
         /// </summary>
         [JsonPropertyName("user")]
         public string User { get; set; }
+
+        /// <summary>
+        /// This feature is in Beta. If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result. Determinism is not guaranteed, and you should refer to the system_fingerprint response parameter to monitor changes in the backend.
+        /// </summary>
+        /// <value>
+        /// <see href="https://platform.openai.com/docs/api-reference/chat/create#chat-create-seed" />
+        /// </value>
+        [JsonPropertyName("seed")]
+        public int? Seed { get; set; }
+
+        /// <summary>A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for.</summary>
+        /// <value>
+        /// <see href="https://platform.openai.com/docs/api-reference/chat/create#chat-create-tools" />
+        /// </value>
+        [JsonPropertyName("tools")]
+        public IEnumerable<ChatTool> Tools { get; set; }
+
+        /// <summary>
+        /// Controls which (if any) function is called by the model. none means the model will not call a function and instead generates a message. auto means the model can pick between generating a message or calling a function. Specifying a particular function via {"type: "function", "function": {"name": "my_function"}} forces the model to call that function.
+        /// </summary>
+        /// <value>
+        /// <see href="https://platform.openai.com/docs/api-reference/chat/create#chat-create-tool_choice" />
+        /// </value>
+        [JsonPropertyName("tool_choice")]
+        public ChatToolChoice ToolChoice { get; set; }
+
+        /// <summary>
+        /// Controls which (if any) function is called by the model.
+        /// https://platform.openai.com/docs/api-reference/chat/create#chat-create-function_call
+        /// </summary>
+        /// <value>The function call.</value>
+        [JsonPropertyName("function_call")]
+        [Obsolete]
+        public FunctionDescriptor FunctionCall { get; set; }
+
+        /// <summary>
+        /// A list of functions the model may generate JSON inputs for.
+        /// https://platform.openai.com/docs/api-reference/chat/create#chat-create-functions
+        /// </summary>
+        [JsonPropertyName("functions")]
+        [Obsolete]
+        public IEnumerable<FunctionDescriptor> Functions { get; set; }
 
     }
 

@@ -14,6 +14,7 @@ namespace Forge.OpenAI.Services
 {
 
     /// <summary>Represents the fine tune service</summary>
+    [Obsolete]
     public class FineTuneService : IFineTuneService
     {
 
@@ -118,7 +119,7 @@ namespace Forge.OpenAI.Services
         /// WARNING: method will block until cancelling with CancellationToken,
         /// or the Fine Tune Job cancel called on the API.
         /// </summary>
-        /// <param name="fineTuneId">The fine tune identifier.</param>
+        /// <param name="fineTuneId">The fine tuning job identifier.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         ///   FineTuneJobEvent
@@ -151,7 +152,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<FineTuneDeleteModelResponse>> DeleteAsync(string model, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(model)) return new HttpOperationResult<FineTuneDeleteModelResponse>(new ArgumentNullException(nameof(model)), System.Net.HttpStatusCode.BadRequest);
-            return await _apiHttpService.DeleteAsync<FineTuneDeleteModelResponse>(string.Format(GetModelDeleteUri(), model), cancellationToken).ConfigureAwait(false);
+            return await _apiHttpService.DeleteAsync<FineTuneDeleteModelResponse>(string.Format(GetDeleteUri(), model), cancellationToken).ConfigureAwait(false);
         }
 
         private string GetCreateUri()
@@ -184,7 +185,7 @@ namespace Forge.OpenAI.Services
             return string.Format(_providerEndpointService.BuildBaseUri(), _options.FineTuneCancelUri);
         }
 
-        private string GetModelDeleteUri()
+        private string GetDeleteUri()
         {
             return string.Format(_providerEndpointService.BuildBaseUri(), _options.FineTuneDeleteModelUri);
         }

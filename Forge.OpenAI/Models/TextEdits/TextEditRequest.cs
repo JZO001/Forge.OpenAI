@@ -1,5 +1,6 @@
 ﻿using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Settings;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -7,6 +8,7 @@ namespace Forge.OpenAI.Models.TextEdits
 {
 
     /// <summary>Represents a text edit request</summary>
+    [Obsolete]
     public class TextEditRequest : RequestBase
     {
 

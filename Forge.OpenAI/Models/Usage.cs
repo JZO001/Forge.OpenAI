@@ -7,11 +7,6 @@ namespace Forge.OpenAI.Models
     public class Usage
     {
 
-        /// <summary>Initializes a new instance of the <see cref="Usage" /> class.</summary>
-        public Usage()
-        {
-        }
-
         /// <summary>Gets the used prompt tokens.</summary>
         /// <value>The prompt tokens.</value>
         [JsonPropertyName("prompt_tokens")]

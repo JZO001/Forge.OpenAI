@@ -15,6 +15,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="MultipleApiKeyUsage.csproj.vspscc" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\..\Forge.OpenAI\Forge.OpenAI.csproj" />
 	</ItemGroup>
 

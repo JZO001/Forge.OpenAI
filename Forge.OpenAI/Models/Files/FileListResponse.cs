@@ -17,7 +17,7 @@ namespace Forge.OpenAI.Models.Files
         /// <summary>Gets the list of files.</summary>
         /// <value>The files.</value>
         [JsonPropertyName("data")]
-        public List<FileData> Files { get; set; }
+        public IReadOnlyList<FileData> Files { get; set; }
 
     }
 

@@ -50,7 +50,7 @@ namespace ChatCompletions
             if (response.IsSuccess)
             {
                 Console.WriteLine();
-                response.Result!.Choices.ForEach(c => Console.WriteLine(c.Message.Content));
+                response.Result!.Choices.ToList().ForEach(c => Console.WriteLine(c.Message.Content));
 
                 Console.WriteLine();
 
@@ -60,7 +60,7 @@ namespace ChatCompletions
                 response = await openAi.ChatCompletionService.GetAsync(request, CancellationToken.None);
                 if (response.IsSuccess)
                 {
-                    response.Result!.Choices.ForEach(c => Console.WriteLine(c.Message.Content));
+                    response.Result!.Choices.ToList().ForEach(c => Console.WriteLine(c.Message.Content));
                 }
                 else
                 {

@@ -17,7 +17,7 @@ namespace Forge.OpenAI.Models.Embeddings
         /// <summary>Gets the embedding response data.</summary>
         /// <value>The data.</value>
         [JsonPropertyName("data")]
-        public List<EmbeddingsResponseData> Data { get; set; }
+        public IReadOnlyList<EmbeddingsResponseData> Data { get; set; }
 
         /// <summary>Gets the token usage numbers.</summary>
         /// <value>The usage.</value>

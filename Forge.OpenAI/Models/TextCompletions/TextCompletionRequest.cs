@@ -14,6 +14,7 @@ namespace Forge.OpenAI.Models.TextCompletions
     /// <see href="https://beta.openai.com/docs/api-reference/completions">the OpenAI docs</see>,
     /// although some have been renames or expanded into single/multiple properties for ease of use.
     /// </summary>
+    [Obsolete]
     public class TextCompletionRequest : RequestBase
     {
 

@@ -41,7 +41,7 @@ namespace Images.Create
             {
                 Console.WriteLine(response.Result!);
 
-                response.Result!.ImageData.ForEach(imageData => OpenUrl(imageData.ImageUrl));
+                response.Result!.ImageData.ToList().ForEach(imageData => OpenUrl(imageData.ImageUrl));
             }
             else
             {

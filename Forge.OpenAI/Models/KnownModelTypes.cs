@@ -13,17 +13,14 @@ namespace Forge.OpenAI.Models
         public const string AdaSearchDocument = "ada-search-document";
         public const string AdaSearchQuery = "ada-search-query";
         public const string AdaSimilarity = "ada-similarity";
-        public const string Ada_20200503 = "ada:2020-05-03";
-
-        public const string AudioTranscribeDeprecated = "audio-transcribe-deprecated";
 
         public const string Babbage = "babbage";
+        public const string Babbage002 = "babbage-002";
         public const string BabbageCodeSearchCode = "babbage-code-search-code";
         public const string BabbageCodeSearchText = "babbage-code-search-text";
         public const string BabbageSearchDocument = "babbage-search-document";
         public const string BabbageSearchQuery = "babbage-search-query";
         public const string BabbageSimilarity = "babbage-similarity";
-        public const string Babbage_20200503 = "babbage:2020-05-03";
 
         public const string CodeCushman001 = "code-cushman-001";
         public const string CodeDavinci002 = "code-davinci-002";
@@ -38,26 +35,36 @@ namespace Forge.OpenAI.Models
         public const string CurieSearchDocument = "curie-search-document";
         public const string CurieSearchQuery = "curie-search-query";
         public const string CurieSimilarity = "curie-similarity";
-        public const string Curie_20200503 = "curie:2020-05-03";
-
-        public const string Cushman_20200503 = "cushman:2020-05-03";
 
         public const string Davinci = "davinci";
+        public const string Davinci002 = "davinci-002";
         public const string DavinciIf_3_0_0 = "davinci-if:3.0.0";
         public const string DavinciInstructBeta = "davinci-instruct-beta";
         public const string DavinciInstructBeta_2_0_0 = "davinci-instruct-beta:2.0.0";
         public const string DavinciSearchDocument = "davinci-search-document";
         public const string DavinciSearchQuery = "davinci-search-query";
         public const string DavinciSimilarity = "davinci-similarity";
-        public const string Davinci_20200503 = "davinci:2020-05-03";
+
+        public const string Dall_E_2 = "dall-e-2";
+        public const string Dall_E_3 = "dall-e-3";
 
         public const string Gpt3_5Turbo = "gpt-3.5-turbo";
-        public const string Gpt3_5Turbo0301 = "gpt-3.5-turbo-0301";
+        public const string Gpt3_5Turbo_0301 = "gpt-3.5-turbo-0301";
+        public const string Gpt3_5Turbo_16k = "gpt-3.5-turbo-16k";
+        public const string Gpt3_5Turbo_0613 = "gpt-3.5-turbo-0613";
+        public const string Gpt3_5Turbo_1106 = "gpt-3.5-turbo-1106";
+        public const string Gpt3_5Turbo_16k_0613 = "gpt-3.5-turbo-16k-0613";
+        public const string Gpt3_5Turbo_Instruct = "gpt-3.5-turbo-instruct";
+        public const string Gpt3_5Turbo_Instruct_0914 = "gpt-3.5-turbo-instruct-0914";
 
         public const string Gpt_4 = "gpt-4";
         public const string Gpt_4_0314 = "gpt-4-0314";
         public const string Gpt_4_32k = "gpt-4-32k";
         public const string Gpt_4_32k_0314 = "gpt-4-32k-0314";
+        public const string Gpt_4_0613 = "gpt-4-0613";
+        public const string Gpt_4_32k_0613 = "gpt-4-32k-0613";
+        public const string Gpt_4_1106_preview = "gpt-4-1106-preview";
+        public const string Gpt_4_vision_preview = "gpt-4-vision-preview";
 
         public const string IfCurieV2 = "if-curie-v2";
         public const string IfDavinciV2 = "if-davinci-v2";
@@ -98,6 +105,11 @@ namespace Forge.OpenAI.Models
         public const string TextSimilarityBabbage001 = "text-similarity-babbage-001";
         public const string TextSimilarityCurie001 = "text-similarity-curie-001";
         public const string TextSimilarityDavinci001 = "text-similarity-davinci-001";
+
+        public const string Tts_1 = "tts-1";
+        public const string Tts_1_1106 = "tts-1-1106";
+        public const string Tts_1_hd = "tts-1-hd";
+        public const string Tts_1_Hd1106 = "tts-1-hd-1106";
 
         public const string Whisper1 = "whisper-1";
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

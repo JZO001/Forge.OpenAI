@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Forge.OpenAI.Models.TextCompletions
 {
@@ -6,6 +7,7 @@ namespace Forge.OpenAI.Models.TextCompletions
     /// <summary>
     /// Represents a completion choice
     /// </summary>
+    [Obsolete]
     public class Choice
     {
 

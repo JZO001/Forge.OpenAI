@@ -1,5 +1,6 @@
 ﻿using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Models.TextCompletions;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -7,6 +8,7 @@ namespace Forge.OpenAI.Models.TextEdits
 {
 
     /// <summary>Represents a text edit response</summary>
+    [Obsolete]
     public class TextEditResponse : ResponseBase
     {
 
@@ -18,7 +20,7 @@ namespace Forge.OpenAI.Models.TextEdits
         /// <summary>Gets the choices based on the requested text edit number in the request</summary>
         /// <value>The choices.</value>
         [JsonPropertyName("choices")]
-        public List<Choice> Choices { get; set; }
+        public IReadOnlyList<Choice> Choices { get; set; }
 
         /// <summary>Gets the token usage numbers.</summary>
         /// <value>The usage.</value>

@@ -17,6 +17,7 @@ namespace Forge.OpenAI.Services
     /// Given a prompt, the model will return one or more predicted completions, <br />
     /// and can also return the probabilities of alternative tokens at each position.
     /// </summary>
+    [Obsolete]
     public class TextCompletionService : ITextCompletionService
     {
 

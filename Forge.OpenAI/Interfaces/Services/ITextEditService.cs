@@ -1,5 +1,6 @@
 ﻿using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Models.TextEdits;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace Forge.OpenAI.Interfaces.Services
 {
 
     /// <summary>Represents a text edit service</summary>
+    [Obsolete]
     public interface ITextEditService
     {
 

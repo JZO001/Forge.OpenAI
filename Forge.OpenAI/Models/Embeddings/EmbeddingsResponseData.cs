@@ -21,7 +21,7 @@ namespace Forge.OpenAI.Models.Embeddings
         /// <summary>Gets or sets the embedding.</summary>
         /// <value>The embedding.</value>
         [JsonPropertyName("embedding")]
-        public List<double> Embedding { get; set; }
+        public IReadOnlyList<double> Embedding { get; set; }
 
         /// <summary>Gets or sets the index.</summary>
         /// <value>The index.</value>

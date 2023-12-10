@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Forge.OpenAI.Interfaces.Infrastructure
 {
@@ -95,11 +96,25 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
         /// <summary>Gets the response content as stream and copy data into the result stream</summary>
         /// <param name="uri">The URI.</param>
         /// <param name="resultStream">The result stream.</param>
+        /// <param name="data">The request content.</param>
+        /// <param name="contentFactory">The content factory.</param>
+        /// <param name="httpMethod">The http method.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         ///   Task
         /// </returns>
-        Task<HttpOperationResult<Stream>> GetContentAsStream(string uri, Stream resultStream, CancellationToken cancellationToken = default);
+        Task<HttpOperationResult<Stream>> GetContentAsStream<TData>(string uri, 
+            Stream resultStream,
+#if NETCOREAPP3_1_OR_GREATER
+            TData? data,
+            Func<TData?, CancellationToken, Task<HttpContent>>? contentFactory = null,
+#else
+            TData data,
+            Func<TData, CancellationToken, Task<HttpContent>> contentFactory = null,
+#endif
+            HttpMethod httpMethod = null,
+            CancellationToken cancellationToken = default)
+            where TData : class;
 
     }
 

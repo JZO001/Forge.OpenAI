@@ -13,6 +13,7 @@ namespace Forge.OpenAI.Services
 {
 
     /// <summary>Represents a text edit service</summary>
+    [Obsolete]
     public class TextEditService : ITextEditService
     {
 

@@ -159,6 +159,7 @@ namespace Forge.OpenAI.Services
             if (!string.IsNullOrWhiteSpace(imageEditRequest.Size)) content.Add(new StringContent(imageEditRequest.Size), "size");
             if (!string.IsNullOrWhiteSpace(imageEditRequest.ResponseFormat)) content.Add(new StringContent(imageEditRequest.ResponseFormat), "response_format");
             if (!string.IsNullOrWhiteSpace(imageEditRequest.User)) content.Add(new StringContent(imageEditRequest.User), "user");
+            if (!string.IsNullOrWhiteSpace(imageEditRequest.Model)) content.Add(new StringContent(imageEditRequest.Model), "model");
 
             return content;
         }
@@ -191,6 +192,7 @@ namespace Forge.OpenAI.Services
             if (!string.IsNullOrWhiteSpace(imageVariationRequest.Size)) content.Add(new StringContent(imageVariationRequest.Size), "size");
             if (!string.IsNullOrWhiteSpace(imageVariationRequest.ResponseFormat)) content.Add(new StringContent(imageVariationRequest.Size), "response_format");
             if (!string.IsNullOrWhiteSpace(imageVariationRequest.User)) content.Add(new StringContent(imageVariationRequest.User), "user");
+            if (!string.IsNullOrWhiteSpace(imageVariationRequest.Model)) content.Add(new StringContent(imageVariationRequest.Model), "model");
 
             return content;
         }

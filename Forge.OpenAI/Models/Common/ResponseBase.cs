@@ -33,6 +33,15 @@ namespace Forge.OpenAI.Models.Common
         [JsonPropertyName("object")]
         public string Object { get; set; }
 
+        /// <summary>Represents the state of the error</summary>
+        /// <value>True, if there is no error object presents.</value>
+        [JsonIgnore]
+        public bool IsSuccess => Error == null;
+
+        /// <summary>Gets the error.</summary>
+        /// <value>The error.</value>
+        [JsonPropertyName("error")] 
+        public Error Error { get; set; }
 
         /// <summary>
         /// The server-side processing time as reported by the API.  This can be useful for debugging where a delay occurs.

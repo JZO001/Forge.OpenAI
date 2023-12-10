@@ -17,7 +17,7 @@ namespace Forge.OpenAI.Models.FineTunes
         /// <summary>Gets the fine tune jobs.</summary>
         /// <value>The jobs.</value>
         [JsonPropertyName("data")]
-        public List<FineTuneJobData> Jobs { get; set; }
+        public IReadOnlyList<FineTuneJobData> Jobs { get; set; }
 
     }
 

@@ -59,7 +59,7 @@ namespace Files
                     Console.WriteLine("Retrieve file(s) data");
                     Console.WriteLine();
 
-                    fileListResult.Result!.Files.ForEach(fileData =>
+                    fileListResult.Result!.Files.ToList().ForEach(fileData =>
                     {
                         Console.WriteLine($"Retrieving file data, id: {fileData.Id}");
                         Console.WriteLine();
@@ -80,7 +80,7 @@ namespace Files
                     Console.WriteLine("Downloading file(s)...");
                     Console.WriteLine();
 
-                    fileListResult.Result!.Files.ForEach(fileData =>
+                    fileListResult.Result!.Files.ToList().ForEach(fileData =>
                     {
                         Console.WriteLine($"Downloading file, id: {fileData.Id}");
                         Console.WriteLine();
@@ -104,7 +104,7 @@ namespace Files
                     Console.WriteLine("Delete file(s)");
                     Console.WriteLine();
 
-                    fileListResult.Result!.Files.ForEach(fileData =>
+                    fileListResult.Result!.Files.ToList().ForEach(fileData =>
                     {
                         Console.WriteLine($"Deleting file, id: {fileData.Id}");
                         Console.WriteLine();

@@ -17,7 +17,7 @@ namespace Forge.OpenAI.Models.Images
         /// <summary>Gets the created/edited/modified image data.</summary>
         /// <value>The image data.</value>
         [JsonPropertyName("data")]
-        public List<ImageData> ImageData { get; set; }
+        public IReadOnlyList<ImageData> ImageData { get; set; }
 
     }
 

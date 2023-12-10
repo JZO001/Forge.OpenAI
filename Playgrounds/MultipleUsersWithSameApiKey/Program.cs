@@ -62,7 +62,7 @@ namespace MultipleUsersWithSameApiKey
             if (response.IsSuccess)
             {
                 Console.WriteLine();
-                response.Result!.Completions.ForEach(c => Console.WriteLine(c.Text));
+                response.Result!.Completions.ToList().ForEach(c => Console.WriteLine(c.Text));
             }
             else
             {

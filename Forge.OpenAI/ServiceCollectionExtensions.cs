@@ -7,7 +7,6 @@ using Forge.OpenAI.Services.Endpoints;
 using Forge.OpenAI.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Reflection;
 
 namespace Forge.OpenAI
 {
@@ -85,6 +84,8 @@ namespace Forge.OpenAI
                 .AddSingleton<IImageService, ImageService>()
                 .AddSingleton<IFileService, FileService>()
                 .AddSingleton<IFineTuneService, FineTuneService>()
+                .AddSingleton<IFineTuningJobService, FineTuningJobService>()
+                .AddSingleton<ISpeechService, SpeechService>()
                 .AddSingleton<ITranscriptionService, TranscriptionService>()
                 .AddSingleton<ITranslationService, TranslationService>()
                 .AddSingleton<IChatCompletionService, ChatCompletionService>()

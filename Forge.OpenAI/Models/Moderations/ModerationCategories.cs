@@ -24,11 +24,35 @@ namespace Forge.OpenAI.Models.Moderations
         [JsonPropertyName("hate/threatening")]
         public bool HateThreatening { get; set; }
 
+        /// <summary>Gets or sets a value indicating whether this <see cref="ModerationCategories" /> is harassment.</summary>
+        /// <value>
+        ///   <c>true</c> if harassment; otherwise, <c>false</c>.</value>
+        [JsonPropertyName("harassment")]
+        public bool Harassment { get; set; }
+
+        /// <summary>Gets or sets a value indicating whether [harassment threatening].</summary>
+        /// <value>
+        ///   <c>true</c> if [harassment threatening]; otherwise, <c>false</c>.</value>
+        [JsonPropertyName("harassment/threatening")]
+        public bool HarassmentThreatening { get; set; }
+
         /// <summary>Gets or sets a value indicating whether [self harm].</summary>
         /// <value>
         ///   <c>true</c> if [self harm]; otherwise, <c>false</c>.</value>
         [JsonPropertyName("self-harm")]
         public bool SelfHarm { get; set; }
+
+        /// <summary>Gets or sets a value indicating whether [self harm intent].</summary>
+        /// <value>
+        ///   <c>true</c> if [self harm intent]; otherwise, <c>false</c>.</value>
+        [JsonPropertyName("self-harm/intent")]
+        public bool SelfHarmIntent { get; set; }
+
+        /// <summary>Gets or sets a value indicating whether [self harm instructions].</summary>
+        /// <value>
+        ///   <c>true</c> if [self harm instructions]; otherwise, <c>false</c>.</value>
+        [JsonPropertyName("self-harm/instructions")]
+        public bool SelfHarmInstructions { get; set; }
 
         /// <summary>Gets or sets a value indicating whether this <see cref="ModerationCategories" /> is sexual.</summary>
         /// <value>

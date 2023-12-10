@@ -1,4 +1,5 @@
 ﻿using Forge.OpenAI.Models.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
@@ -7,6 +8,7 @@ namespace Forge.OpenAI.Models.FineTunes
 {
 
     /// <summary>Represents a request to create a fine tune job</summary>
+    [Obsolete]
     public class FineTuneCreateRequest : RequestBase
     {
 

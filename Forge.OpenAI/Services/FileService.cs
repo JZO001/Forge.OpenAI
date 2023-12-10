@@ -143,7 +143,7 @@ namespace Forge.OpenAI.Services
             if (string.IsNullOrWhiteSpace(fileId)) return new HttpOperationResult<Stream>(new ArgumentNullException(nameof(fileId)), System.Net.HttpStatusCode.BadRequest);
             if (resultStream == null) return new HttpOperationResult<Stream>(new ArgumentNullException(nameof(resultStream)), System.Net.HttpStatusCode.BadRequest);
 
-            return await _apiHttpService.GetContentAsStream(string.Format(GetDownloadFileUri(), fileId), resultStream, cancellationToken).ConfigureAwait(false);
+            return await _apiHttpService.GetContentAsStream<object>(string.Format(GetDownloadFileUri(), fileId), resultStream, null, null, HttpMethod.Get, cancellationToken).ConfigureAwait(false);
         }
 
         private string GetFileListUri()

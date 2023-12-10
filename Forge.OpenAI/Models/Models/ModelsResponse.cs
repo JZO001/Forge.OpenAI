@@ -17,7 +17,7 @@ namespace Forge.OpenAI.Models.Models
         /// <summary>Gets the available models.</summary>
         /// <value>The models.</value>
         [JsonPropertyName("data")]
-        public List<Model> Models { get; set; }
+        public IReadOnlyList<Model> Models { get; set; }
 
     }
 

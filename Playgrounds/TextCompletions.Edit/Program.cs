@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace TestCompletions.Edit
 {
+    [Obsolete]
     internal class Program
     {
 
@@ -35,7 +36,7 @@ namespace TestCompletions.Edit
             
             if (response.IsSuccess)
             {
-                response.Result!.Choices.ForEach(c => Console.WriteLine(c.Text)); // output: Are you happy with your order?
+                response.Result!.Choices.ToList().ForEach(c => Console.WriteLine(c.Text)); // output: Are you happy with your order?
             }
             else
             {

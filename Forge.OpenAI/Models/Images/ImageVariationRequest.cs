@@ -42,10 +42,20 @@ namespace Forge.OpenAI.Models.Images
             User = user;
         }
 
-        /// <summary>Gets or sets the image to edit.</summary>
+        /// <summary>
+        /// The image to use as the basis for the variation(s). Must be a valid PNG file, less than 4MB, and square.
+        /// https://platform.openai.com/docs/api-reference/images/createVariation#images-createvariation-image
+        /// </summary>
         /// <value>The image.</value>
+        [JsonPropertyName("image")]
         [Required]
         public BinaryContentData Image { get; set; }
+
+        /// <summary>The model to use for image generation.</summary>
+        /// <value>The model.</value>
+        [JsonPropertyName("model")]
+        [Required]
+        public string Model { get; set; } = KnownModelTypes.Dall_E_2;
 
         /// <summary>
         /// The number of images to generate. Must be between 1 and 10.

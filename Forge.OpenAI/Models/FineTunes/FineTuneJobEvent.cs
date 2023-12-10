@@ -38,11 +38,6 @@ namespace Forge.OpenAI.Models.FineTunes
         [JsonPropertyName("message")]
         public string Message { get; set; }
 
-        /// <summary>Performs an implicit conversion from <see cref="FineTuneJobEvent" /> to <see cref="System.String" />.</summary>
-        /// <param name="data">The data.</param>
-        /// <returns>The result of the conversion.</returns>
-        public static implicit operator string(FineTuneJobEvent data) => data?.ToString();
-
     }
 
 }

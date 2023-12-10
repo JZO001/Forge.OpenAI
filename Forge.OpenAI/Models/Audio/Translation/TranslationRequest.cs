@@ -10,6 +10,13 @@ namespace Forge.OpenAI.Models.Audio.Translation
     public class TranslationRequest : RequestBase
     {
 
+        // https://platform.openai.com/docs/api-reference/audio/createTranslation#audio-createtranslation-response_format
+        public const string RESPONSE_FORMAT_JSON = "json";
+        public const string RESPONSE_FORMAT_TEXT = "text";
+        public const string RESPONSE_FORMAT_SRT = "srt";
+        public const string RESPONSE_FORMAT_VERBOSE_JSON = "verbose_json";
+        public const string RESPONSE_FORMAT_VTT = "vtt";
+
         /// <summary>Initializes a new instance of the <see cref="TranslationRequest" /> class.</summary>
         public TranslationRequest()
         {
@@ -56,7 +63,7 @@ namespace Forge.OpenAI.Models.Audio.Translation
         /// <see href="https://platform.openai.com/docs/api-reference/audio/create#audio/create-response_format" />
         /// </summary>
         [JsonPropertyName("response_format")]
-        public string ResponseFormat { get; set; }
+        public string ResponseFormat { get; set; } = RESPONSE_FORMAT_JSON;
 
         /// <summary>
         /// The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit.

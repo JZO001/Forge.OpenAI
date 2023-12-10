@@ -10,6 +10,12 @@ namespace Forge.OpenAI.Models.Images
     public class ImageCreateRequest : RequestBase
     {
 
+        public const string QUALITY_STANDARD = "standard";
+        public const string QUALITY_HD = "hd";
+
+        public const string STYLE_VIVID = "vivid";
+        public const string STYLE_NATURAL = "natural";
+
         /// <summary>Initializes a new instance of the <see cref="ImageCreateRequest" /> class.</summary>
         public ImageCreateRequest()
         {
@@ -66,6 +72,12 @@ namespace Forge.OpenAI.Models.Images
         [JsonPropertyName("prompt")]
         public string Prompt { get; set; }
 
+        /// <summary>The model to use for image generation.</summary>
+        /// <value>The model.</value>
+        [JsonPropertyName("model")]
+        [Required]
+        public string Model { get; set; } = KnownModelTypes.Dall_E_3;
+
         /// <summary>
         /// The number of images to generate. Must be between 1 and 10.
         /// If not set, the default is 1.
@@ -74,9 +86,30 @@ namespace Forge.OpenAI.Models.Images
         public int NumberOfCreatedImages { get; set; } = 1;
 
         /// <summary>
+        /// The quality of the image that will be generated. 
+        /// hd creates images with finer details and greater consistency across the image. 
+        /// This param is only supported for dall-e-3.
+        /// </summary>
+        /// <value>The quality.</value>
+        [JsonPropertyName("quality")]
+        [Required]
+        public string Quality { get; set; } = QUALITY_STANDARD;
+
+        /// <summary>
+        /// The style of the generated images. 
+        /// Must be one of vivid or natural. 
+        /// Vivid causes the model to lean towards generating hyper-real and dramatic images. 
+        /// Natural causes the model to produce more natural, less hyper-real looking images. 
+        /// This param is only supported for dall-e-3.</summary>
+        /// <value>The style.</value>
+        [JsonPropertyName("style")]
+        [Required]
+        public string Style { get; set; } = STYLE_VIVID;
+
+        /// <summary>
         /// The size of the generated images. It can be one of 256x256, 512x512, or 1024x1024.
         /// If not set, the default is 1024x1024.
-        /// https://platform.openai.com/docs/api-reference/images/create
+        /// https://platform.openai.com/docs/api-reference/images/create#images-create-size
         /// </summary>
         [JsonPropertyName("size")]
         public string Size { get; set; }

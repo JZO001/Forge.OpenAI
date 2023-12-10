@@ -20,6 +20,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Models\Assistants\AssistantRequestBase.cs" />
+	  <Compile Remove="Models\Assistants\AssistantResponseBase.cs" />
+	  <Compile Remove="Models\Assistants\CreateAssistantRequest.cs" />
+	  <Compile Remove="Models\Assistants\CreateAssistantResponse.cs" />
+	  <Compile Remove="Models\Assistants\ModifyAssistantRequest.cs" />
+	  <Compile Remove="Models\Assistants\ModifyAssistantResponse.cs" />
+	  <Compile Remove="Models\Assistants\Tool.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Remove="Forge.OpenAI.csproj.vspscc" />
 		<None Remove="Forge.OpenAI.xml" />
 	</ItemGroup>
@@ -37,12 +47,13 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/JZO001/Forge.OpenAI</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<AssemblyVersion>1.1.7.0</AssemblyVersion>
+		<AssemblyVersion>1.2.0.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageTags>OpenAI, Azure-OpenAI, Azure-OpenAI-API, ChatGPT, GPT4, GPT-4, GPT-4-API, GPT35, GPT-35, GPT-35-API, GPT3, GPT-3, GPT-3-API, DALLE, DALL-E, DALL-E-API, OpenAi, openAi, azure, Whisper, AI, ML, dotnet, dotnetcore, machine-learning, sdk, forge, translation, transcription, chat, chatbot, image, image-processing, embedding, embedding-models, moderation, text-completion, fine-tune, dotNet, csharp</PackageTags>
 		<PackageReleaseNotes>
+			v1.2.0 - FineTuning Job API support, existing APIs updated to the latest versions
 			v1.1.7 - .NET 8 support and a fix for the ImageService, ImageEditRequest issue, https://github.com/JZO001/Forge.OpenAI/pull/3
 			v1.1.6 - Usage is always null bug fixed in ChatCompletionResponse and TextEditResponse
 			v1.1.5 - Name field for the chat message. PromptLossWeight field of FineTuneCreateRequest is not mandatory (nullable). Azure endpoint default API version changed.
@@ -120,6 +131,13 @@
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
+		<None Include="Models\Assistants\AssistantRequestBase.cs" />
+		<None Include="Models\Assistants\AssistantResponseBase.cs" />
+		<None Include="Models\Assistants\CreateAssistantRequest.cs" />
+		<None Include="Models\Assistants\CreateAssistantResponse.cs" />
+		<None Include="Models\Assistants\ModifyAssistantRequest.cs" />
+		<None Include="Models\Assistants\ModifyAssistantResponse.cs" />
+		<None Include="Models\Assistants\Tool.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -128,8 +146,4 @@
 	  </None>
 	</ItemGroup>
 	
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="echo F|xcopy /r /y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;$(SolutionDir).Output\$(TargetFramework)\$(TargetName).dll&quot;&#xD;&#xA;echo F|xcopy /r /y &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(SolutionDir).Output\$(TargetFramework)\$(TargetName).pdb&quot;&#xD;&#xA;echo F|xcopy /r /y &quot;$(TargetDir)$(TargetName).xml&quot; &quot;$(SolutionDir).Output\$(TargetFramework)\$(TargetName).xml&quot;&#xD;&#xA;" />
-	</Target>
-
 </Project>

@@ -67,16 +67,22 @@ namespace Forge.OpenAI.Models.Images
         [Required]
         public BinaryContentData Image { get; set; }
 
-        /// <summary>Gets or sets the mask image.</summary>
-        /// <value>The mask.</value>
-        public BinaryContentData Mask { get; set; }
-
         /// <summary>
         /// A text description of the desired image(s). The maximum length is 1000 characters.
         /// </summary>
         [Required]
         [JsonPropertyName("prompt")]
         public string Prompt { get; set; }
+
+        /// <summary>Gets or sets the mask image.</summary>
+        /// <value>The mask.</value>
+        public BinaryContentData Mask { get; set; }
+
+        /// <summary>The model to use for image generation.</summary>
+        /// <value>The model.</value>
+        [JsonPropertyName("model")]
+        [Required]
+        public string Model { get; set; } = KnownModelTypes.Dall_E_2;
 
         /// <summary>
         /// The number of images to generate. Must be between 1 and 10.

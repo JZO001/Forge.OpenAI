@@ -15,6 +15,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Forge.OpenAI.Infrastructure
 {
@@ -143,11 +144,25 @@ namespace Forge.OpenAI.Infrastructure
         /// <summary>Gets the response content as stream and copy data into the result stream</summary>
         /// <param name="uri">The URI.</param>
         /// <param name="resultStream">The result stream.</param>
+        /// <param name="data">The request content.</param>
+        /// <param name="contentFactory">The content factory.</param>
+        /// <param name="httpMethod">The http method.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         ///   Task
         /// </returns>
-        public async Task<HttpOperationResult<Stream>> GetContentAsStream(string uri, Stream resultStream, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResult<Stream>> GetContentAsStream<TData>(string uri, 
+            Stream resultStream,
+#if NETCOREAPP3_1_OR_GREATER
+            TData? data,
+            Func<TData?, CancellationToken, Task<HttpContent>>? contentFactory = null,
+#else
+            TData data,
+            Func<TData, CancellationToken, Task<HttpContent>> contentFactory = null,
+#endif
+            HttpMethod httpMethod = null,
+            CancellationToken cancellationToken = default)
+            where TData : class
         {
             return await ErrorHandlerContextAsync(async (IApiHttpLoggerContext logContext) =>
             {
@@ -156,8 +171,19 @@ namespace Forge.OpenAI.Infrastructure
 
                 HttpOperationResult<Stream> result = new HttpOperationResult<Stream>(resultStream);
 
-                using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri))
+                using (HttpRequestMessage request = new HttpRequestMessage(httpMethod ?? HttpMethod.Get, uri))
                 {
+                    if (contentFactory != null)
+                    {
+                        // construct the content with a factory method
+                        request.Content = await contentFactory(data, cancellationToken);
+                    }
+                    else if (data != null)
+                    {
+                        // default contruction method
+                        request.Content = new StringContent(JsonSerializer.Serialize(data, _options.JsonSerializerOptions), Encoding.UTF8, "application/json");
+                    }
+
                     _providerEndpointService.ConfigureHttpRequestHeaders(request.Headers);
 
                     using (HttpClient httpClient = _httpClientFactory.GetHttpClient())

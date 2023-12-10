@@ -23,6 +23,7 @@ namespace Forge.OpenAI.Services
         /// <param name="fileService">The file service.</param>
         /// <param name="fineTuneService">The fine tune service.</param>
         /// <param name="transcriptionService">The transcription service.</param>
+        /// <param name="speechService">The speech service.</param>
         /// <param name="translationService">The translation service.</param>
         /// <param name="chatCompletionService">The chat completion service.</param>
         /// <exception cref="System.ArgumentNullException">
@@ -42,6 +43,8 @@ namespace Forge.OpenAI.Services
         /// or
         /// fineTuneService
         /// or
+        /// speechService
+        /// or
         /// transcriptionService
         /// or
         /// translationService
@@ -54,6 +57,8 @@ namespace Forge.OpenAI.Services
             IImageService imageService,
             IFileService fileService,
             IFineTuneService fineTuneService,
+            IFineTuningJobService fineTuningJobService,
+            ISpeechService speechService,
             ITranscriptionService transcriptionService,
             ITranslationService translationService,
             IChatCompletionService chatCompletionService)
@@ -66,6 +71,8 @@ namespace Forge.OpenAI.Services
             if (imageService == null) throw new ArgumentNullException(nameof(imageService));
             if (fileService == null) throw new ArgumentNullException(nameof(fileService));
             if (fineTuneService == null) throw new ArgumentNullException(nameof(fineTuneService));
+            if (fineTuningJobService == null) throw new ArgumentNullException(nameof(fineTuningJobService));
+            if (speechService == null) throw new ArgumentNullException(nameof(speechService));
             if (transcriptionService == null) throw new ArgumentNullException(nameof(transcriptionService));
             if (translationService == null) throw new ArgumentNullException(nameof(translationService));
             if (chatCompletionService == null) throw new ArgumentNullException(nameof(chatCompletionService));
@@ -78,6 +85,8 @@ namespace Forge.OpenAI.Services
             ImageService = imageService;
             FileService = fileService;
             FineTuneService = fineTuneService;
+            FineTuningJobService = fineTuningJobService;
+            SpeechService = speechService;
             TranscriptionService = transcriptionService;
             TranslationService = translationService;
             ChatCompletionService = chatCompletionService;
@@ -104,6 +113,8 @@ namespace Forge.OpenAI.Services
             ImageService = new ImageService(options, apiHttpService, providerEndpointService);
             FileService = new FileService(options, apiHttpService, providerEndpointService);
             FineTuneService = new FineTuneService(options, apiHttpService, providerEndpointService);
+            FineTuningJobService = new FineTuningJobService(options, apiHttpService, providerEndpointService);
+            SpeechService = new SpeechService(options, apiHttpService, providerEndpointService);
             TranscriptionService = new TranscriptionService(options, apiHttpService, providerEndpointService);
             TranslationService = new TranslationService(options, apiHttpService, providerEndpointService);
             ChatCompletionService = new ChatCompletionService(options, apiHttpService, providerEndpointService);
@@ -158,10 +169,12 @@ namespace Forge.OpenAI.Services
 
         /// <summary>Gets the text completion service.</summary>
         /// <value>The text completion service.</value>
+        [Obsolete]
         public ITextCompletionService TextCompletionService { get; }
 
         /// <summary>Gets the text edit service.</summary>
         /// <value>The text edit service.</value>
+        [Obsolete]
         public ITextEditService TextEditService { get; }
 
         /// <summary>Gets the moderation service.</summary>
@@ -182,7 +195,16 @@ namespace Forge.OpenAI.Services
 
         /// <summary>Gets the fine tune service.</summary>
         /// <value>The fine tune service.</value>
+        [Obsolete]
         public IFineTuneService FineTuneService { get; }
+
+        /// <summary>Gets the fine tuning job service.</summary>
+        /// <value>The fine tuning job service.</value>
+        public IFineTuningJobService FineTuningJobService { get; }
+
+        /// <summary>Gets the speech service.</summary>
+        /// <value>The speech service.</value>
+        public ISpeechService SpeechService { get; }
 
         /// <summary>Gets the transcription service.</summary>
         /// <value>The transcription service.</value>

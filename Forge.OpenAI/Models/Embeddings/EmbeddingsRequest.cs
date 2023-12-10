@@ -8,9 +8,12 @@ using Forge.OpenAI.Settings;
 namespace Forge.OpenAI.Models.Embeddings
 {
 
-    /// <summary>Reqpresents and embedding request. <a href="https://platform.openai.com/docs/api-reference/embeddings/create">https://platform.openai.com/docs/api-reference/embeddings/create</a></summary>
+    /// <summary>Reqpresents and embedding request. <a href="https://platform.openai.com/docs/api-reference/embeddings">https://platform.openai.com/docs/api-reference/embeddings</a></summary>
     public class EmbeddingsRequest : RequestBase
     {
+
+        public const string ENCODING_FORMAT_FLOAT = "float";
+        public const string ENCODING_FORMAT_BASE64 = "base64";
 
         /// <summary>Initializes a new instance of the <see cref="EmbeddingsRequest" /> class.</summary>
         public EmbeddingsRequest()
@@ -99,6 +102,11 @@ namespace Forge.OpenAI.Models.Embeddings
         /// </summary>
         [JsonPropertyName("user")]
         public string User { get; set; }
+
+        /// <summary>Gets or sets the encoding format.</summary>
+        /// <value>https://platform.openai.com/docs/api-reference/embeddings/create#embeddings-create-encoding_format</value>
+        [JsonPropertyName("encoding_format")]
+        public string EncodingFormat { get; set; } = ENCODING_FORMAT_FLOAT;
 
     }
 

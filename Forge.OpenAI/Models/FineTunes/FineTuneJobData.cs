@@ -29,22 +29,33 @@ namespace Forge.OpenAI.Models.FineTunes
         /// <param name="validationFiles">The validation files.</param>
         /// <param name="trainingFiles">The training files.</param>
         /// <param name="updatedAtUnixTime">The updated at unix time.</param>
-        public FineTuneJobData(string id, string @object, string model, long createdAtUnixTime, List<FineTuneJobEvent> events, 
-            string fineTunedModel, FineTuneHyperParams hyperParams, string organizationId, 
-            List<FileData> resultFiles, string status, List<FileData> validationFiles, List<FileData> trainingFiles, int updatedAtUnixTime)
+        public FineTuneJobData(
+            string id, 
+            string @object, 
+            string model, 
+            long createdAtUnixTime, 
+            IEnumerable<FineTuneJobEvent> events, 
+            string fineTunedModel, 
+            FineTuneHyperParams hyperParams, 
+            string organizationId,
+            IEnumerable<FileData> resultFiles, 
+            string status,
+            IEnumerable<FileData> validationFiles,
+            IEnumerable<FileData> trainingFiles, 
+            int updatedAtUnixTime)
         {
             Id = id;
             Object = @object;
             Model = model;
             CreatedAtUnixTime = createdAtUnixTime;
-            Events = events;
+            Events = new List<FineTuneJobEvent>(events).AsReadOnly();
             FineTunedModel = fineTunedModel;
             HyperParams = hyperParams;
             OrganizationId = organizationId;
-            ResultFiles = resultFiles;
+            ResultFiles = new List<FileData>(resultFiles).AsReadOnly();
             Status = status;
-            ValidationFiles = validationFiles;
-            TrainingFiles = trainingFiles;
+            ValidationFiles = new List<FileData>(validationFiles).AsReadOnly();
+            TrainingFiles = new List<FileData>(trainingFiles).AsReadOnly();
             UpdatedAtUnixTime = updatedAtUnixTime;
         }
 
@@ -76,7 +87,7 @@ namespace Forge.OpenAI.Models.FineTunes
         /// <summary>Gets the events.</summary>
         /// <value>The events.</value>
         [JsonPropertyName("events")]
-        public List<FineTuneJobEvent> Events { get; set; }
+        public IReadOnlyList<FineTuneJobEvent> Events { get; set; }
 
         /// <summary>Gets the fine tuned model.</summary>
         /// <value>The fine tuned model.</value>
@@ -96,7 +107,7 @@ namespace Forge.OpenAI.Models.FineTunes
         /// <summary>Gets the result files.</summary>
         /// <value>The result files.</value>
         [JsonPropertyName("result_files")]
-        public List<FileData> ResultFiles { get; set; }
+        public IReadOnlyList<FileData> ResultFiles { get; set; }
 
         /// <summary>Gets the status.</summary>
         /// <value>The status.</value>
@@ -106,12 +117,12 @@ namespace Forge.OpenAI.Models.FineTunes
         /// <summary>Gets the validation files.</summary>
         /// <value>The validation files.</value>
         [JsonPropertyName("validation_files")]
-        public List<FileData> ValidationFiles { get; set; }
+        public IReadOnlyList<FileData> ValidationFiles { get; set; }
 
         /// <summary>Gets the training files.</summary>
         /// <value>The training files.</value>
         [JsonPropertyName("training_files")]
-        public List<FileData> TrainingFiles { get; set; }
+        public IReadOnlyList<FileData> TrainingFiles { get; set; }
 
         /// <summary>Gets the updated at unix time.</summary>
         /// <value>The updated at unix time.</value>

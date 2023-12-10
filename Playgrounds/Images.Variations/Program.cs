@@ -30,6 +30,10 @@ namespace Images.Variations
                     services.AddForgeOpenAI(options =>
                     {
                         options.AuthenticationInfo = builder.Configuration["OpenAI:ApiKey"]!;
+                        
+                        // optional: you can set the timeout for the HttpClient
+                        // sometimes a gateway timeout happens when the image is too big or it takes too long to process
+                        options.HttpClientTimeoutInMilliseconds = 60000 * 3; // for the demo, it is 3 minutes now
                     });
                 })
                 .Build();
@@ -37,9 +41,9 @@ namespace Images.Variations
             IOpenAIService openAi = host.Services.GetService<IOpenAIService>()!;
 
             ImageVariationRequest request = new ImageVariationRequest();
-            request.Image = new BinaryContentData() { ContentName = "Original Image", SourceStream = File.OpenRead("image_original.png") };
+            request.Image = new BinaryContentData() { ContentName = "Original Image", SourceStream = File.OpenRead("image_original_star_wars.png") };
             request.NumberOfVariationImages = 2; // create 2 variations
-            
+
             using (request.Image.SourceStream)
             {
                 HttpOperationResult<ImageVariationResponse> response = await openAi.ImageService.VariateImageAsync(request, CancellationToken.None);
@@ -47,7 +51,7 @@ namespace Images.Variations
                 {
                     Console.WriteLine(response.Result!);
 
-                    response.Result!.ImageData.ForEach(imageData => OpenUrl(imageData.ImageUrl));
+                    response.Result!.ImageData.ToList().ForEach(imageData => OpenUrl(imageData.ImageUrl));
                 }
                 else
                 {

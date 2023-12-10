@@ -12,6 +12,8 @@ x >= dotNetCore 3.1,
 
 .NET 7.0
 
+.NET 8.0
+
 Works with Blazor WebAssembly and Blazor Server.
 
 

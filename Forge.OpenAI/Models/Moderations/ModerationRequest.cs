@@ -78,7 +78,6 @@ namespace Forge.OpenAI.Models.Moderations
         /// Accuracy of text-moderation-stable may be slightly lower than for text-moderation-latest. <br />
         /// <see href="https://beta.openai.com/docs/api-reference/moderations/create#moderations/create-model" />
         /// </summary>
-        [Required]
         [JsonPropertyName("model")]
         public string Model { get; set; }
 

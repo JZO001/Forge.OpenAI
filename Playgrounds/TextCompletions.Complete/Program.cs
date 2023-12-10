@@ -11,6 +11,7 @@ namespace TextCompletions.Complete
 {
 
 #pragma warning disable S1118 // Utility classes should not have public constructors
+    [Obsolete]
     internal class Program
 #pragma warning restore S1118 // Utility classes should not have public constructors
     {
@@ -55,7 +56,7 @@ namespace TextCompletions.Complete
             if (response.IsSuccess)
             {
                 Console.WriteLine();
-                response.Result!.Completions.ForEach(c => Console.WriteLine(c.Text));
+                response.Result!.Completions.ToList().ForEach(c => Console.WriteLine(c.Text));
 
                 Console.WriteLine();
 
@@ -65,7 +66,7 @@ namespace TextCompletions.Complete
                 response = await openAi.TextCompletionService.GetAsync(request, CancellationToken.None);
                 if (response.IsSuccess)
                 {
-                    response.Result!.Completions.ForEach(c => Console.WriteLine(c.Text));
+                    response.Result!.Completions.ToList().ForEach(c => Console.WriteLine(c.Text));
                 }
                 else
                 {

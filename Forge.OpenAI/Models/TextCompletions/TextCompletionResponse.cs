@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Forge.OpenAI.Models.Common;
 
@@ -8,6 +9,7 @@ namespace Forge.OpenAI.Models.TextCompletions
     /// <summary>
     /// Represents a text completion response
     /// </summary>
+    [Obsolete]
     public class TextCompletionResponse : ResponseBase
     {
 
@@ -21,7 +23,7 @@ namespace Forge.OpenAI.Models.TextCompletions
         /// The completions returned by the API.  Depending on your request, there may be 1 or many choices.
         /// </summary>
         [JsonPropertyName("choices")]
-        public List<Choice> Completions { get; set; }
+        public IReadOnlyList<Choice> Completions { get; set; }
 
     }
 

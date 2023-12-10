@@ -22,6 +22,11 @@ namespace Forge.OpenAI.Models.Images
         [JsonPropertyName("b64_json")]
         public string Base64Data { get; set; }
 
+        /// <summary>The prompt that was used to generate the image, if there was any revision to the prompt.</summary>
+        /// <value>The revised prompt.</value>
+        [JsonPropertyName("revised_prompt")]
+        public string RevisedPrompt { get; private set; }
+
     }
 
 }

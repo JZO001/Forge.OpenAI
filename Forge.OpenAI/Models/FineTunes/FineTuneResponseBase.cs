@@ -8,6 +8,7 @@ namespace Forge.OpenAI.Models.FineTunes
 {
 
     /// <summary>Represents a standard response with fine tune job data</summary>
+    [Obsolete]
     public abstract class FineTuneResponseBase : ResponseBase
     {
 
@@ -34,7 +35,7 @@ namespace Forge.OpenAI.Models.FineTunes
         /// <summary>Gets the events.</summary>
         /// <value>The events.</value>
         [JsonPropertyName("events")]
-        public List<FineTuneJobEvent> Events { get; set; }
+        public IReadOnlyList<FineTuneJobEvent> Events { get; set; }
 
         /// <summary>Gets the fine tuned model.</summary>
         /// <value>The fine tuned model.</value>
@@ -54,7 +55,7 @@ namespace Forge.OpenAI.Models.FineTunes
         /// <summary>Gets the result files.</summary>
         /// <value>The result files.</value>
         [JsonPropertyName("result_files")]
-        public List<FileData> ResultFiles { get; set; }
+        public IReadOnlyList<FileData> ResultFiles { get; set; }
 
         /// <summary>Gets the status.</summary>
         /// <value>The status.</value>
@@ -64,12 +65,12 @@ namespace Forge.OpenAI.Models.FineTunes
         /// <summary>Gets the validation files.</summary>
         /// <value>The validation files.</value>
         [JsonPropertyName("validation_files")]
-        public List<FileData> ValidationFiles { get; set; }
+        public IReadOnlyList<FileData> ValidationFiles { get; set; }
 
         /// <summary>Gets the training files.</summary>
         /// <value>The training files.</value>
         [JsonPropertyName("training_files")]
-        public List<FileData> TrainingFiles { get; set; }
+        public IReadOnlyList<FileData> TrainingFiles { get; set; }
 
         /// <summary>Gets the updated at unix time.</summary>
         /// <value>The updated at unix time.</value>

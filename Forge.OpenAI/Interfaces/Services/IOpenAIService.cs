@@ -1,4 +1,6 @@
-﻿namespace Forge.OpenAI.Interfaces.Services
+﻿using System;
+
+namespace Forge.OpenAI.Interfaces.Services
 {
 
     /// <summary>Represents the OpenAI service</summary>
@@ -11,10 +13,12 @@
 
         /// <summary>Gets the text completion service.</summary>
         /// <value>The text completion service.</value>
+        [Obsolete]
         ITextCompletionService TextCompletionService { get; }
 
         /// <summary>Gets the text edit service.</summary>
         /// <value>The text edit service.</value>
+        [Obsolete]
         ITextEditService TextEditService { get; }
 
         /// <summary>Gets the moderation service.</summary>
@@ -35,7 +39,16 @@
 
         /// <summary>Gets the fine tune service.</summary>
         /// <value>The fine tune service.</value>
+        [Obsolete]
         IFineTuneService FineTuneService { get; }
+
+        /// <summary>Gets the fine tuning job service.</summary>
+        /// <value>The fine tuning job service.</value>
+        IFineTuningJobService FineTuningJobService { get; }
+
+        /// <summary>Gets the speech service.</summary>
+        /// <value>The speech service.</value>
+        ISpeechService SpeechService { get; }
 
         /// <summary>Gets the transcription service.</summary>
         /// <value>The transcription service.</value>

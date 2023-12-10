@@ -71,6 +71,12 @@ namespace Forge.OpenAI.Infrastructure
                 _logger?.LogDebug($"HttpMessageHandler presents, BaseAddress: {_options.BaseAddress}");
                 httpClient = new HttpClient(_options.HttpMessageHandlerFactory()) { BaseAddress = new Uri(_options.BaseAddress) };
             }
+
+            if (_options.HttpClientTimeoutInMilliseconds.HasValue)
+            {
+                httpClient.Timeout = TimeSpan.FromMilliseconds(_options.HttpClientTimeoutInMilliseconds.Value);
+            }
+
             return httpClient
 #if NETCOREAPP3_1_OR_GREATER
                 !

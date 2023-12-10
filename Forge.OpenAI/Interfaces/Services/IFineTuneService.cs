@@ -9,6 +9,7 @@ namespace Forge.OpenAI.Interfaces.Services
 {
 
     /// <summary>Represents the fine tune service</summary>
+    [Obsolete]
     public interface IFineTuneService
     {
 

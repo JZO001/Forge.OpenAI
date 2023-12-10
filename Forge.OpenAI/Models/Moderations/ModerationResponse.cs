@@ -22,7 +22,7 @@ namespace Forge.OpenAI.Models.Moderations
         /// <summary>Gets or sets the results of the request inputs.</summary>
         /// <value>The results.</value>
         [JsonPropertyName("results")]
-        public List<ModerationResult> Results { get; set; }
+        public IReadOnlyList<ModerationResult> Results { get; set; }
 
     }
 

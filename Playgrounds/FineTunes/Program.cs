@@ -10,8 +10,10 @@ using Microsoft.Extensions.Hosting;
 namespace FineTunes
 {
 
+    [Obsolete]
     internal class Program
     {
+
         static async Task Main(string[] args)
         {
             // This example demonstrates, how you can fine tune a model with the information you provide.
@@ -59,7 +61,7 @@ namespace FineTunes
                     HttpOperationResult<FineTuneListResponse> listResponse = await openAi.FineTuneService.GetAsync(CancellationToken.None);
                     if (listResponse.IsSuccess)
                     {
-                        listResponse.Result!.Jobs.ForEach(job =>
+                        listResponse.Result!.Jobs.ToList().ForEach(job =>
                         {
                             Console.WriteLine(job);
                             Console.WriteLine();

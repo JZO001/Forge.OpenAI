@@ -48,13 +48,19 @@ namespace Forge.OpenAI.Settings
         /// <value>The models URI.</value>
         public string ModelsUri { get; set; } = OpenAIDefaultOptions.DefaultModelsUri;
 
+
+
         /// <summary>Gets or sets the completions URI.</summary>
         /// <value>The completions URI.</value>
+        [Obsolete]
         public string TextCompletionsUri { get; set; } = OpenAIDefaultOptions.DefaultTextCompletionsUri;
 
         /// <summary>Gets or sets the text edit URI.</summary>
         /// <value>The text edit URI.</value>
+        [Obsolete]
         public string TextEditUri { get; set; } = OpenAIDefaultOptions.DefaultTextEditUri;
+
+
 
         /// <summary>Gets or sets the moderation URI.</summary>
         /// <value>The moderation URI.</value>
@@ -96,33 +102,74 @@ namespace Forge.OpenAI.Settings
         /// <value>The file delete URI.</value>
         public string FileDeleteUri { get; set; } = OpenAIDefaultOptions.DefaultFileDeleteUri;
 
+
+
         /// <summary>Gets or sets the default fine tune create URI.</summary>
         /// <value>The default fine tune create URI.</value>
+        [Obsolete]
         public string FineTuneCreateUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuneCreateUri;
 
         /// <summary>Gets or sets the default fine tune list URI.</summary>
         /// <value>The default fine tune list URI.</value>
+        [Obsolete]
         public string FineTuneListUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuneListUri;
 
         /// <summary>Gets or sets the fine tune get URI.</summary>
         /// <value>The default fine tune get URI.</value>
+        [Obsolete]
         public string FineTuneGetUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuneGetUri;
 
         /// <summary>Gets or sets the fine tune cancel URI.</summary>
         /// <value>The default fine tune cancel URI.</value>
+        [Obsolete]
         public string FineTuneCancelUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuneCancelUri;
 
         /// <summary>Gets or sets the fine tune events URI.</summary>
         /// <value>The default fine tune events URI.</value>
+        [Obsolete]
         public string FineTuneEventsUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuneEventsUri;
 
         /// <summary>Gets or sets the fine tune streamed events URI.</summary>
         /// <value>The fine tune streamed events URI.</value>
+        [Obsolete]
         public string FineTuneStreamedEventsUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuneStreamedEventsUri;
 
         /// <summary>Gets or sets the fine tune delete model URI.</summary>
         /// <value>The default fine tune delete model URI.</value>
+        [Obsolete]
         public string FineTuneDeleteModelUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuneDeleteModelUri;
+
+
+
+        /// <summary>Gets or sets the default fine tuning job create URI.</summary>
+        /// <value>The default fine tune create URI.</value>
+        public string FineTuningJobCreateUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuningJobCreateUri;
+
+        /// <summary>Gets or sets the default fine tuning job list URI.</summary>
+        /// <value>The default fine tune list URI.</value>
+        public string FineTuningJobListUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuningJobListUri;
+
+        /// <summary>Gets or sets the fine tuning job get URI.</summary>
+        /// <value>The default fine tune get URI.</value>
+        public string FineTuningJobGetUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuningJobGetUri;
+
+        /// <summary>Gets or sets the fine tuning job cancel URI.</summary>
+        /// <value>The default fine tune cancel URI.</value>
+        public string FineTuningJobCancelUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuningJobCancelUri;
+
+        /// <summary>Gets or sets the fine tuning job events URI.</summary>
+        /// <value>The default fine tune events URI.</value>
+        public string FineTuningJobEventsUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuningJobEventsUri;
+
+        /// <summary>Gets or sets the fine tuning job streamed events URI.</summary>
+        /// <value>The fine tune streamed events URI.</value>
+        public string FineTuningJobStreamedEventsUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuningJobStreamedEventsUri;
+
+
+
+        /// <summary>Gets or sets the audio speech URI.</summary>
+        /// <value>The audio speech URI.</value>
+        public string AudioSpeechUri { get; set; } = OpenAIDefaultOptions.DefaultAudioSpeechUri;
 
         /// <summary>Gets or sets the audio transcript URI.</summary>
         /// <value>The audio transcript URI.</value>
@@ -144,6 +191,10 @@ namespace Forge.OpenAI.Settings
         /// <summary>Gets or sets the log requests and responses folder.</summary>
         /// <value>The log requests and responses folder.</value>
         public string LogRequestsAndResponsesFolder { get; set; } = OpenAIDefaultOptions.DefaultLogRequestsAndResponsesFolder;
+
+        /// <summary>Gets or sets the default HTTP client timeout in milliseconds.</summary>
+        /// <value>The default HTTP client timeout in milliseconds.</value>
+        public int? HttpClientTimeoutInMilliseconds { get; set; } = OpenAIDefaultOptions.DefaultHttpClientTimeoutInMilliseconds;
 
         /// <summary>Gets or sets the json serializer options.</summary>
         /// <value>The json serializer options.</value>
