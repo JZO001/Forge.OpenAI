@@ -18,9 +18,4 @@ namespace Forge.OpenAI.Models.Common
 
     }
 
-        [JsonPropertyName("message")]
-        public string Message { get; set; }
-
-        /// <summary>Gets the type of the message.</summary>
-        /// <value>The type.</value>
 }
