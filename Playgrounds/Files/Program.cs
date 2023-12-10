@@ -39,7 +39,7 @@ namespace Files
 
             FileUploadRequest uploadRequest = new FileUploadRequest();
             uploadRequest.File = new BinaryContentData() { ContentName = "training", SourceStream = File.OpenRead("training.jsonl") };
-            uploadRequest.Purpose = "fine-tune";
+            uploadRequest.Purpose = FileUploadRequest.PURPOSE_FINE_TUNE;
 
             HttpOperationResult<FileUploadResponse> responseUpload = await openAi.FileService.UploadFileAsync(uploadRequest, CancellationToken.None);
             if (responseUpload.IsSuccess)
@@ -80,6 +80,7 @@ namespace Files
                     Console.WriteLine("Downloading file(s)...");
                     Console.WriteLine();
 
+                    // WARNING: downloading training files for free accounts is not allowed by OpenAI
                     fileListResult.Result!.Files.ToList().ForEach(fileData =>
                     {
                         Console.WriteLine($"Downloading file, id: {fileData.Id}");

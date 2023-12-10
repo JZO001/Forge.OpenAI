@@ -1,5 +1,6 @@
 ﻿using Forge.OpenAI.Models.Common;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading;
@@ -12,6 +13,10 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
     /// <summary>Represents an API Http service interface</summary>
     public interface IApiHttpService
     {
+
+        /// <summary>Gets the default request headers in scope of the current Api Http Service</summary>
+        /// <value>The default request headers.</value>
+        IDictionary<string, string> DefaultRequestHeaders { get; }
 
         /// <summary>Gets data</summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>

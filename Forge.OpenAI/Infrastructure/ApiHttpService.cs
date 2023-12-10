@@ -93,6 +93,10 @@ namespace Forge.OpenAI.Infrastructure
         {
         }
 
+        /// <summary>Gets the default request headers in scope of the current Api Http Service</summary>
+        /// <value>The default request headers.</value>
+        public IDictionary<string, string> DefaultRequestHeaders { get; } = new Dictionary<string, string>();
+
         /// <summary>Gets data</summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="uri">The URI.</param>
@@ -185,6 +189,7 @@ namespace Forge.OpenAI.Infrastructure
                     }
 
                     _providerEndpointService.ConfigureHttpRequestHeaders(request.Headers);
+                    ApplyDefaultRequestHeaders(request.Headers);
 
                     using (HttpClient httpClient = _httpClientFactory.GetHttpClient())
                     {
@@ -308,6 +313,7 @@ namespace Forge.OpenAI.Infrastructure
             using (HttpRequestMessage request = new HttpRequestMessage(httpMethod, uri))
             {
                 _providerEndpointService.ConfigureHttpRequestHeaders(request.Headers);
+                ApplyDefaultRequestHeaders(request.Headers);
 
                 if (data != null)
                 {
@@ -434,6 +440,7 @@ namespace Forge.OpenAI.Infrastructure
                     }
 
                     _providerEndpointService.ConfigureHttpRequestHeaders(request.Headers);
+                    ApplyDefaultRequestHeaders(request.Headers);
 
                     using (HttpClient httpClient = _httpClientFactory.GetHttpClient())
                     {
@@ -661,6 +668,14 @@ namespace Forge.OpenAI.Infrastructure
                 HttpOperationResult error = new HttpOperationResult(ex, System.Net.HttpStatusCode.BadRequest);
                 logContext?.LogAsync(error, cancellationToken);
                 return error;
+            }
+        }
+
+        protected void ApplyDefaultRequestHeaders(HttpRequestHeaders headers)
+        {
+            foreach (KeyValuePair<string, string> header in DefaultRequestHeaders)
+            {
+                headers.Add(header.Key, header.Value);
             }
         }
 
