@@ -32,6 +32,7 @@ Works with Blazor WebAssembly and Blazor Server.
  * [Image interaction API](https://github.com/JZO001/Forge.OpenAI/wiki/Image-interaction-API)
  * [Acquire the available models using OoenAI API](https://github.com/JZO001/Forge.OpenAI/wiki/Acquire-the-available-models-using-OpenAI-API)
  * [Fine-tune or "Teach" an OpenAI model using the API (Legacy)](https://github.com/JZO001/Forge.OpenAI/wiki/Fine-tune-or-%22Teach%22-an-OpenAI-model-using-the-API-(Legacy))
+ * [Fine-tuning Job or "Teach" an OpenAI model using the API](https://github.com/JZO001/Forge.OpenAI/wiki/Fine-tuning-jobs-or-%22Teach%22-an-OpenAI-model-using-the-API))
  * [Files](https://github.com/JZO001/Forge.OpenAI/wiki/Files)
  * [Moderations](https://github.com/JZO001/Forge.OpenAI/wiki/Moderations)
  * [Embeddings](https://github.com/JZO001/Forge.OpenAI/wiki/Embeddings)
