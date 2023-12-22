@@ -1,0 +1,55 @@
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using Forge.OpenAI.Factories;
+
+namespace Forge.OpenAI.Models.Assistants
+{
+
+    /// <summary>
+    /// https://platform.openai.com/docs/api-reference/assistants/object#assistants/object-tools
+    /// </summary>
+    public class Tool
+    {
+
+        public const string RETRIEVAL = "retrieval";
+        public const string CODE_INTERPRETER = "code_interpreter";
+        public const string FUNCTION = "function";
+
+        /// <summary>Initializes a new instance of the <see cref="Tool" /> class.</summary>
+        public Tool()
+        {
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="Tool" /> class.</summary>
+        /// <param name="function">The function.</param>
+        /// <exception cref="System.ArgumentNullException">function</exception>
+        public Tool(FunctionDescriptor function)
+        {
+            if (function == null) throw new System.ArgumentNullException(nameof(function));
+
+            Type = FUNCTION;
+            Function = function;
+        }
+
+        /// <summary>The type of tool being defined</summary>
+        /// <value>The type.</value>
+        [JsonPropertyName("type")]
+        public string Type { get; set; } = RETRIEVAL;
+
+        /// <summary>Function tool</summary>
+        /// <value>The function.</value>
+        [JsonPropertyName("function")]
+        public FunctionDescriptor Function { get; set; }
+
+        /// <summary>Converts to string.</summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
+        public override string ToString() => JsonSerializer.Serialize(this, GetType());
+
+        /// <summary>Performs an implicit conversion from <see cref="Tool" /> to <see cref="System.String" />.</summary>
+        /// <param name="data">The data.</param>
+        /// <returns>The result of the conversion.</returns>
+        public static implicit operator string(Tool data) => data?.ToString();
+
+    }
+
+}

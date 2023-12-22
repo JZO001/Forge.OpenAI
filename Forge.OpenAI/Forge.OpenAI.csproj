@@ -20,16 +20,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Models\Assistants\AssistantRequestBase.cs" />
-	  <Compile Remove="Models\Assistants\AssistantResponseBase.cs" />
-	  <Compile Remove="Models\Assistants\CreateAssistantRequest.cs" />
-	  <Compile Remove="Models\Assistants\CreateAssistantResponse.cs" />
-	  <Compile Remove="Models\Assistants\ModifyAssistantRequest.cs" />
-	  <Compile Remove="Models\Assistants\ModifyAssistantResponse.cs" />
-	  <Compile Remove="Models\Assistants\Tool.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<None Remove="Forge.OpenAI.csproj.vspscc" />
 		<None Remove="Forge.OpenAI.xml" />
 	</ItemGroup>
@@ -131,13 +121,6 @@
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Include="Models\Assistants\AssistantRequestBase.cs" />
-		<None Include="Models\Assistants\AssistantResponseBase.cs" />
-		<None Include="Models\Assistants\CreateAssistantRequest.cs" />
-		<None Include="Models\Assistants\CreateAssistantResponse.cs" />
-		<None Include="Models\Assistants\ModifyAssistantRequest.cs" />
-		<None Include="Models\Assistants\ModifyAssistantResponse.cs" />
-		<None Include="Models\Assistants\Tool.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

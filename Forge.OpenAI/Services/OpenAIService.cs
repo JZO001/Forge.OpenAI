@@ -26,6 +26,8 @@ namespace Forge.OpenAI.Services
         /// <param name="speechService">The speech service.</param>
         /// <param name="translationService">The translation service.</param>
         /// <param name="chatCompletionService">The chat completion service.</param>
+        /// <param name="assistantService">The assistant service.</param>
+        /// <param name="assistantFileService">The assistant file service.</param>
         /// <exception cref="System.ArgumentNullException">
         /// modelService
         /// or
@@ -48,6 +50,12 @@ namespace Forge.OpenAI.Services
         /// transcriptionService
         /// or
         /// translationService
+        /// or
+        /// chatCompletionService
+        /// or
+        /// assistantService
+        /// or
+        /// assistantFileService
         /// </exception>
         public OpenAIService(IModelService modelService,
             ITextCompletionService textCompletionService,
@@ -61,7 +69,9 @@ namespace Forge.OpenAI.Services
             ISpeechService speechService,
             ITranscriptionService transcriptionService,
             ITranslationService translationService,
-            IChatCompletionService chatCompletionService)
+            IChatCompletionService chatCompletionService,
+            IAssistantService assistantService,
+            IAssistantFileService assistantFileService)
         {
             if (modelService == null) throw new ArgumentNullException(nameof(modelService));
             if (textCompletionService == null) throw new ArgumentNullException(nameof(textCompletionService));
@@ -76,6 +86,8 @@ namespace Forge.OpenAI.Services
             if (transcriptionService == null) throw new ArgumentNullException(nameof(transcriptionService));
             if (translationService == null) throw new ArgumentNullException(nameof(translationService));
             if (chatCompletionService == null) throw new ArgumentNullException(nameof(chatCompletionService));
+            if (assistantService == null) throw new ArgumentNullException(nameof(assistantService));
+            if (assistantFileService == null) throw new ArgumentNullException(nameof(assistantFileService));
 
             ModelService = modelService;
             TextCompletionService = textCompletionService;
@@ -90,6 +102,8 @@ namespace Forge.OpenAI.Services
             TranscriptionService = transcriptionService;
             TranslationService = translationService;
             ChatCompletionService = chatCompletionService;
+            AssistantService = assistantService;
+            AssistantFileService = assistantFileService;
         }
 
         /// <summary>Initializes a new instance of the <see cref="OpenAIService" /> class.</summary>
@@ -118,6 +132,8 @@ namespace Forge.OpenAI.Services
             TranscriptionService = new TranscriptionService(options, apiHttpService, providerEndpointService);
             TranslationService = new TranslationService(options, apiHttpService, providerEndpointService);
             ChatCompletionService = new ChatCompletionService(options, apiHttpService, providerEndpointService);
+            AssistantService = new AssistantService(options, apiHttpService, providerEndpointService);
+            AssistantFileService = new AssistantFileService(options, apiHttpService, providerEndpointService);
         }
 
         /// <summary>Creates a new service instance with individual options.</summary>
@@ -218,6 +234,13 @@ namespace Forge.OpenAI.Services
         /// <value>The chat completion service.</value>
         public IChatCompletionService ChatCompletionService { get; }
 
+        /// <summary>Gets the assistant service.</summary>
+        /// <value>The assistant service.</value>
+        public IAssistantService AssistantService { get; }
+
+        /// <summary>Gets the assistant file service.</summary>
+        /// <value>The assistant file service.</value>
+        public IAssistantFileService AssistantFileService { get; }
     }
 
 }

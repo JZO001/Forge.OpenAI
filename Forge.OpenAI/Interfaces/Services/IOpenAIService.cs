@@ -62,6 +62,14 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <value>The chat completion service.</value>
         IChatCompletionService ChatCompletionService { get; }
 
+        /// <summary>Gets the assistant service.</summary>
+        /// <value>The assistant service.</value>
+        IAssistantService AssistantService { get; }
+
+        /// <summary>Gets the assistant file service.</summary>
+        /// <value>The assistant file service.</value>
+        IAssistantFileService AssistantFileService { get; }
+
     }
 
 }

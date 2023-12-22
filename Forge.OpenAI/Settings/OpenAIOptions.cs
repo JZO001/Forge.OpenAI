@@ -183,6 +183,46 @@ namespace Forge.OpenAI.Settings
         /// <value>The chat completions URI.</value>
         public string ChatCompletionsUri { get; set; } = OpenAIDefaultOptions.DefaultChatCompletionsUri;
 
+
+
+        /// <summary>Gets or sets the assistant create URI.</summary>
+        /// <value>The assistant create URI.</value>
+        public string AssistantCreateUri { get; set; } = OpenAIDefaultOptions.DefaultAssistantCreateUri;
+
+        /// <summary>Gets or sets the assistant get URI.</summary>
+        /// <value>The assistant get URI.</value>
+        public string AssistantGetUri { get; set; } = OpenAIDefaultOptions.DefaultAssistantGetUri;
+
+        /// <summary>Gets or sets the assistant list URI.</summary>
+        /// <value>The assistant list URI.</value>
+        public string AssistantListUri { get; set; } = OpenAIDefaultOptions.DefaultAssistantListUri;
+
+        /// <summary>Gets or sets the assistant modify URI.</summary>
+        /// <value>The assistant modify URI.</value>
+        public string AssistantModifyUri { get; set; } = OpenAIDefaultOptions.DefaultAssistantModifyUri;
+
+        /// <summary>Gets or sets the assistant delete URI.</summary>
+        /// <value>The default delete URI.</value>
+        public string AssistantDeleteUri { get; set; } = OpenAIDefaultOptions.DefaultAssistantDeleteUri;
+
+        /// <summary>Gets or sets the assistant file create URI.</summary>
+        /// <value>The assistant file create URI.</value>
+        public string AssistantFileCreateUri { get; set; } = OpenAIDefaultOptions.DefaultAssistantFileCreateUri;
+
+        /// <summary>Gets or sets the assistant file get URI.</summary>
+        /// <value>The assistant file get URI.</value>
+        public string AssistantFileGetUri { get; set; } = OpenAIDefaultOptions.DefaultAssistantFileGetUri;
+
+        /// <summary>Gets or sets the assistant file list URI.</summary>
+        /// <value>The assistant file list URI.</value>
+        public string AssistantFileListUri { get; set; } = OpenAIDefaultOptions.DefaultAssistantFileListUri;
+
+        /// <summary>Gets or sets the assistant file delete URI.</summary>
+        /// <value>The assistant file delete URI.</value>
+        public string AssistantFileDeleteUri { get; set; } = OpenAIDefaultOptions.DefaultAssistantFileDeleteUri;
+
+
+
         /// <summary>Gets or sets a value indicating whether [log requests and responses].</summary>
         /// <value>
         ///   <c>true</c> if [log requests and responses]; otherwise, <c>false</c>.</value>

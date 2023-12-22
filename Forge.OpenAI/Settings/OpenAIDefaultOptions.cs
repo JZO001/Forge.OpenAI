@@ -195,6 +195,45 @@ namespace Forge.OpenAI.Settings
         /// <value>The default chat completions URI.</value>
         public static string DefaultChatCompletionsUri { get; set; } = "chat/completions";
 
+
+        /// <summary>Gets or sets the default assistant create URI.</summary>
+        /// <value>The default assistant create URI.</value>
+        public static string DefaultAssistantCreateUri { get; set; } = "assistants";
+
+        /// <summary>Gets or sets the default assistant get URI.</summary>
+        /// <value>The default assistant get URI.</value>
+        public static string DefaultAssistantGetUri { get; set; } = "assistants/{0}";
+
+        /// <summary>Gets or sets the default assistant list URI.</summary>
+        /// <value>The default assistant list URI.</value>
+        public static string DefaultAssistantListUri { get; set; } = "assistants";
+
+        /// <summary>Gets or sets the default assistant modify URI.</summary>
+        /// <value>The default assistant modify URI.</value>
+        public static string DefaultAssistantModifyUri { get; set; } = "assistants/{0}";
+
+        /// <summary>Gets or sets the default assistant delete URI.</summary>
+        /// <value>The default assistant delete URI.</value>
+        public static string DefaultAssistantDeleteUri { get; set; } = "assistants/{0}";
+
+        /// <summary>Gets or sets the default assistant file create URI.</summary>
+        /// <value>The default assistant file create URI.</value>
+        public static string DefaultAssistantFileCreateUri { get; set; } = "assistants/{0}/files";
+
+        /// <summary>Gets or sets the default assistant file get URI.</summary>
+        /// <value>The default assistant file get URI.</value>
+        public static string DefaultAssistantFileGetUri { get; set; } = "assistants/{0}/files/{1}";
+
+        /// <summary>Gets or sets the default assistant file list URI.</summary>
+        /// <value>The default assistant file list URI.</value>
+        public static string DefaultAssistantFileListUri { get; set; } = "assistants/{0}/files";
+
+        /// <summary>Gets or sets the default assistant file delete URI.</summary>
+        /// <value>The default assistant file delete URI.</value>
+        public static string DefaultAssistantFileDeleteUri { get; set; } = "assistants/{0}/files/{1}";
+
+
+
         /// <summary>Gets or sets a value indicating whether [default log requests and responses].</summary>
         /// <value>
         ///   <c>true</c> if [default log requests and responses]; otherwise, <c>false</c>.</value>

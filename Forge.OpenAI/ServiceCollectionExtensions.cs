@@ -89,6 +89,8 @@ namespace Forge.OpenAI
                 .AddSingleton<ITranscriptionService, TranscriptionService>()
                 .AddSingleton<ITranslationService, TranslationService>()
                 .AddSingleton<IChatCompletionService, ChatCompletionService>()
+                .AddSingleton<IAssistantService, AssistantService>()
+                .AddSingleton<IAssistantFileService, AssistantFileService>()
                 .AddSingleton<IOpenAIService, OpenAIService>();
         }
 
