@@ -223,6 +223,24 @@ namespace Forge.OpenAI.Settings
 
 
 
+        /// <summary>Gets or sets the thread create URI.</summary>
+        /// <value>The thread create URI.</value>
+        public string ThreadCreateUri { get; set; } = OpenAIDefaultOptions.DefaultThreadCreateUri;
+
+        /// <summary>Gets or sets the thread get URI.</summary>
+        /// <value>The thread get URI.</value>
+        public string ThreadGetUri { get; set; } = OpenAIDefaultOptions.DefaultThreadGetUri;
+
+        /// <summary>Gets or sets the thread modify URI.</summary>
+        /// <value>The thread modify URI.</value>
+        public string ThreadModifyUri { get; set; } = OpenAIDefaultOptions.DefaultThreadModifyUri;
+
+        /// <summary>Gets or sets the thread delete URI.</summary>
+        /// <value>The default delete URI.</value>
+        public string ThreadDeleteUri { get; set; } = OpenAIDefaultOptions.DefaultThreadDeleteUri;
+
+
+
         /// <summary>Gets or sets a value indicating whether [log requests and responses].</summary>
         /// <value>
         ///   <c>true</c> if [log requests and responses]; otherwise, <c>false</c>.</value>

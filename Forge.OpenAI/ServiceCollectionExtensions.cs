@@ -63,7 +63,7 @@ namespace Forge.OpenAI
                 .Configure<OpenAIOptions>(configureOptions =>
                 {
                     configureOptions.AIServiceProviderType = AIServiceProviderTypeEnum.Azure;
-                    configureOptions.BaseAddress = OpenAIDefaultOptions.DefaultAzureBaseAddress;
+                    configureOptions.BaseAddress = string.Format(OpenAIDefaultOptions.DefaultAzureBaseAddress, OpenAIDefaultOptions.DefaultAzureResourceName);
                     configure?.Invoke(configureOptions);
                 });
         }
@@ -91,7 +91,8 @@ namespace Forge.OpenAI
                 .AddSingleton<IChatCompletionService, ChatCompletionService>()
                 .AddSingleton<IAssistantService, AssistantService>()
                 .AddSingleton<IAssistantFileService, AssistantFileService>()
-                .AddSingleton<IOpenAIService, OpenAIService>();
+                .AddSingleton<IOpenAIService, OpenAIService>()
+                .AddSingleton<IThreadsService, ThreadsService>();
         }
 
     }

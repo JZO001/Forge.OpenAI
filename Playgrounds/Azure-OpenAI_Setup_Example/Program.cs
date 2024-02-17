@@ -18,6 +18,10 @@ namespace Azure_OpenAI_Setup_Example
             // Prerequisites: https://learn.microsoft.com/en-us/azure/cognitive-services/openai/quickstart?tabs=command-line&pivots=programming-language-studio
             // Documentation: https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference
 
+            // setup the configuration
+            OpenAIDefaultOptions.DefaultAzureResourceName = "YourAzureResourceName";
+            OpenAIDefaultOptions.DefaultAzureDeploymentId = "YourAzureDeploymentId";
+
             using var host = Host.CreateDefaultBuilder(args)
                 .ConfigureServices((builder, services) =>
                 {
@@ -26,8 +30,11 @@ namespace Azure_OpenAI_Setup_Example
                     services.AddForgeAzureOpenAI(options =>
                     {
                         options.AuthenticationInfo = settings.AuthenticationInfo;
-                        options.AzureResourceName = settings.AzureResourceName;
-                        options.AzureDeploymentId = settings.AzureDeploymentId;
+
+                        // optionally, you can override here also these settings
+                        //options.AzureResourceName = settings.AzureResourceName;
+                        //options.AzureDeploymentId = settings.AzureDeploymentId;
+                        //options.BaseAddress = string.Format("https://{0}.openai.azure.com", "YourAzureResourceName");
                     });
                 })
                 .Build();

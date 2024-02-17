@@ -1,6 +1,4 @@
-﻿using System.Reflection.Emit;
-
-namespace Forge.OpenAI.Models
+﻿namespace Forge.OpenAI.Models
 {
 
     /// <summary>Known AI model types</summary>
@@ -53,6 +51,7 @@ namespace Forge.OpenAI.Models
         public const string Gpt3_5Turbo_16k = "gpt-3.5-turbo-16k";
         public const string Gpt3_5Turbo_0613 = "gpt-3.5-turbo-0613";
         public const string Gpt3_5Turbo_1106 = "gpt-3.5-turbo-1106";
+        public const string Gpt3_5Turbo_0125 = "gpt-3.5-turbo-0125";
         public const string Gpt3_5Turbo_16k_0613 = "gpt-3.5-turbo-16k-0613";
         public const string Gpt3_5Turbo_Instruct = "gpt-3.5-turbo-instruct";
         public const string Gpt3_5Turbo_Instruct_0914 = "gpt-3.5-turbo-instruct-0914";
@@ -64,7 +63,9 @@ namespace Forge.OpenAI.Models
         public const string Gpt_4_0613 = "gpt-4-0613";
         public const string Gpt_4_32k_0613 = "gpt-4-32k-0613";
         public const string Gpt_4_1106_preview = "gpt-4-1106-preview";
+        public const string Gpt_4_0125_preview = "gpt-4-0125-preview";
         public const string Gpt_4_vision_preview = "gpt-4-vision-preview";
+        public const string Gpt_4_turbo_preview = "gpt-4-turbo-preview";
 
         public const string IfCurieV2 = "if-curie-v2";
         public const string IfDavinciV2 = "if-davinci-v2";
@@ -88,9 +89,12 @@ namespace Forge.OpenAI.Models
         public const string TextDavinci_001 = "text-davinci:001";
 
         public const string TextEmbeddingAda002 = "text-embedding-ada-002";
+        public const string TextEmbeddingV3Small = "text-embedding-3-small";
+        public const string TextEmbeddingV3Large = "text-embedding-3-large";
 
         public const string TextModerationStable = "text-moderation-stable";
         public const string TextModerationLatest = "text-moderation-latest";
+        public const string TextModeration007 = "text-moderation-007";
 
         public const string TextSearchAdaDoc001 = "text-search-ada-doc-001";
         public const string TextSearchAdaQuery001 = "text-search-ada-query-001";

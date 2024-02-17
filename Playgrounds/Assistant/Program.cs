@@ -59,7 +59,7 @@ namespace Assistant
                 Console.WriteLine(createResult.Result!); 
                 Console.WriteLine();
 
-                // demo: hot to query the assistant by id
+                // demo: how to query the assistant by id
                 HttpOperationResult<AssistantResponse> queryResult = await openAi.AssistantService.GetAsync(createResult.Result!.Id, CancellationToken.None);
                 if (queryResult.IsSuccess)
                 {

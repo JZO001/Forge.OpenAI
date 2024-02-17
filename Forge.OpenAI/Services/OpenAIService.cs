@@ -71,7 +71,8 @@ namespace Forge.OpenAI.Services
             ITranslationService translationService,
             IChatCompletionService chatCompletionService,
             IAssistantService assistantService,
-            IAssistantFileService assistantFileService)
+            IAssistantFileService assistantFileService,
+            IThreadsService threadsService)
         {
             if (modelService == null) throw new ArgumentNullException(nameof(modelService));
             if (textCompletionService == null) throw new ArgumentNullException(nameof(textCompletionService));
@@ -88,6 +89,7 @@ namespace Forge.OpenAI.Services
             if (chatCompletionService == null) throw new ArgumentNullException(nameof(chatCompletionService));
             if (assistantService == null) throw new ArgumentNullException(nameof(assistantService));
             if (assistantFileService == null) throw new ArgumentNullException(nameof(assistantFileService));
+            if (threadsService == null) throw new ArgumentNullException(nameof(threadsService));
 
             ModelService = modelService;
             TextCompletionService = textCompletionService;
@@ -104,6 +106,7 @@ namespace Forge.OpenAI.Services
             ChatCompletionService = chatCompletionService;
             AssistantService = assistantService;
             AssistantFileService = assistantFileService;
+            ThreadsService = threadsService;
         }
 
         /// <summary>Initializes a new instance of the <see cref="OpenAIService" /> class.</summary>
@@ -134,6 +137,7 @@ namespace Forge.OpenAI.Services
             ChatCompletionService = new ChatCompletionService(options, apiHttpService, providerEndpointService);
             AssistantService = new AssistantService(options, apiHttpService, providerEndpointService);
             AssistantFileService = new AssistantFileService(options, apiHttpService, providerEndpointService);
+            ThreadsService = new ThreadsService(options, apiHttpService, providerEndpointService);
         }
 
         /// <summary>Creates a new service instance with individual options.</summary>
@@ -241,6 +245,11 @@ namespace Forge.OpenAI.Services
         /// <summary>Gets the assistant file service.</summary>
         /// <value>The assistant file service.</value>
         public IAssistantFileService AssistantFileService { get; }
+
+        /// <summary>Gets the thread file service.</summary>
+        /// <value>The thread file service.</value>
+        public IThreadsService ThreadsService { get; }
+
     }
 
 }

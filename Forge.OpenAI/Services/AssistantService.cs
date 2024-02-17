@@ -95,7 +95,7 @@ namespace Forge.OpenAI.Services
             return await _apiHttpService.GetAsync<AssistantListResponse>(GetListUri(request), cancellationToken).ConfigureAwait(false);
         }
 
-        /// <summary>Deletes a assistant asynchronously</summary>
+        /// <summary>Modifies a assistant asynchronously</summary>
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>

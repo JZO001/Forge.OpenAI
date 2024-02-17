@@ -39,7 +39,7 @@ namespace AssistantFile
 
             IOpenAIService openAi = host.Services.GetService<IOpenAIService>()!;
 
-            // demo: first upload a tranng file, a knowledge file, which the assistant can use to answer questions
+            // demo: first upload a training file, a knowledge file, which the assistant can use to answer questions
             FileUploadRequest uploadRequest = new FileUploadRequest();
             uploadRequest.File = new BinaryContentData() { ContentName = "training", SourceStream = File.OpenRead("LearningGuideWindows10.docx") };
             uploadRequest.Purpose = FileUploadRequest.PURPOSE_ASSISTANTS;

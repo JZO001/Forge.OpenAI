@@ -38,11 +38,6 @@ namespace Forge.OpenAI.Authentication
         {
             if (string.IsNullOrWhiteSpace(apiKey)) throw new ArgumentNullException(nameof(apiKey));
 
-            if (!apiKey.Contains("sk-"))
-            {
-                throw new ArgumentException($"{apiKey} parameter must start with 'sk-'");
-            }
-
             ApiKey = apiKey;
         }
 
@@ -57,11 +52,6 @@ namespace Forge.OpenAI.Authentication
         {
             if (!string.IsNullOrWhiteSpace(organization))
             {
-                if (!organization.Contains("org-"))
-                {
-                    throw new ArgumentException($"{nameof(organization)} parameter must start with 'org-'");
-                }
-
                 Organization = organization;
             }
         }
@@ -75,12 +65,7 @@ namespace Forge.OpenAI.Authentication
             set
             {
                 if (string.IsNullOrWhiteSpace(value)) throw new ArgumentNullException(nameof(value));
-
-                if (!value.Contains("sk-"))
-                {
-                    throw new ArgumentException($"{value} parameter must start with 'sk-'");
-                }
-
+                
                 _apiKey = value;
             }
         }
@@ -91,22 +76,7 @@ namespace Forge.OpenAI.Authentication
         public string Organization 
         { 
             get => _organization;
-            set
-            {
-                if (!string.IsNullOrWhiteSpace(value))
-                {
-                    if (!value.Contains("org-"))
-                    {
-                        throw new ArgumentException($"{nameof(value)} parameter must start with 'org-'");
-                    }
-
-                    _organization = value;
-                }
-                else
-                {
-                    _organization = value;
-                }
-            }
+            set { _organization = value; }
         }
 
         /// <summary>

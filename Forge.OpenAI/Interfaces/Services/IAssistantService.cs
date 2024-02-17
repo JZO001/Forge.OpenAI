@@ -38,7 +38,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// </returns>
         Task<HttpOperationResult<AssistantListResponse>> GetAsync(AssistantListRequest request, CancellationToken cancellationToken = default);
 
-        /// <summary>Deletes a assistant asynchronously</summary>
+        /// <summary>Modifies a assistant asynchronously</summary>
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>

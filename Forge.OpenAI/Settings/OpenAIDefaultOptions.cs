@@ -233,6 +233,22 @@ namespace Forge.OpenAI.Settings
         public static string DefaultAssistantFileDeleteUri { get; set; } = "assistants/{0}/files/{1}";
 
 
+        /// <summary>Gets or sets the default threads create URI.</summary>
+        /// <value>The default threads create URI.</value>
+        public static string DefaultThreadCreateUri { get; set; } = "threads";
+
+        /// <summary>Gets or sets the default threads get URI.</summary>
+        /// <value>The default threads get URI.</value>
+        public static string DefaultThreadGetUri { get; set; } = "threads/{0}";
+
+        /// <summary>Gets or sets the default threads modify URI.</summary>
+        /// <value>The default threads modify URI.</value>
+        public static string DefaultThreadModifyUri { get; set; } = "threads/{0}";
+
+        /// <summary>Gets or sets the default threads delete URI.</summary>
+        /// <value>The default threads delete URI.</value>
+        public static string DefaultThreadDeleteUri { get; set; } = "threads/{0}";
+
 
         /// <summary>Gets or sets a value indicating whether [default log requests and responses].</summary>
         /// <value>

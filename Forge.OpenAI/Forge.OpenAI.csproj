@@ -30,19 +30,20 @@
 		<Copyright></Copyright>
 		<PackageId>$(AssemblyName)</PackageId>
 		<Title>Forge OpenAI, ChatGPT API for .NET clients</Title>
-		<Description>OpenAI C# / .NET library, using GPT-3, 3.5 and 4, DALL-E 2, Whisper, etc. It supports OpenAI and Azure-OpenAI APIs, dependency injections. Developed for public and free usage.</Description>
+		<Description>OpenAI C# / .NET library, using GPT-4, 3.5 and 3, DALL-E 3, DALL-E 2, Whisper, etc. It supports OpenAI and Azure-OpenAI APIs, dependency injections. Developed for public and free usage.</Description>
 		<PackageIcon>Forge.OpenAI.png</PackageIcon>
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
 		<Authors>Zoltan Juhasz</Authors>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/JZO001/Forge.OpenAI</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<AssemblyVersion>1.2.0.0</AssemblyVersion>
+		<AssemblyVersion>1.2.1.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<PackageTags>OpenAI, Azure-OpenAI, Azure-OpenAI-API, ChatGPT, GPT4, GPT-4, GPT-4-API, GPT35, GPT-35, GPT-35-API, GPT3, GPT-3, GPT-3-API, DALLE, DALL-E, DALL-E-API, OpenAi, openAi, azure, Whisper, AI, ML, dotnet, dotnetcore, machine-learning, sdk, forge, translation, transcription, chat, chatbot, image, image-processing, embedding, embedding-models, moderation, text-completion, fine-tune, dotNet, csharp</PackageTags>
+		<PackageTags>OpenAI, Azure-OpenAI, Azure-OpenAI-API, ChatGPT, GPT4, GPT-4, GPT-4-API, GPT35, GPT-35, GPT-35-API, GPT3, GPT-3, GPT-3-API, DALLE, DALL-E, DALL-E-API, OpenAi, openAi, azure, assistant, threads, Whisper, AI, ML, dotnet, dotnetcore, machine-learning, sdk, forge, translation, transcription, chat, chatbot, image, image-processing, embedding, embedding-models, moderation, text-completion, fine-tune, dotNet, csharp</PackageTags>
 		<PackageReleaseNotes>
+			v1.2.1 - Assistant API support, threads API support, bugfixes
 			v1.2.0 - FineTuning Job API support, existing APIs updated to the latest versions
 			v1.1.7 - .NET 8 support and a fix for the ImageService, ImageEditRequest issue, https://github.com/JZO001/Forge.OpenAI/pull/3
 			v1.1.6 - Usage is always null bug fixed in ChatCompletionResponse and TextEditResponse
