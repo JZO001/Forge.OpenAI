@@ -48,7 +48,7 @@ namespace Forge.OpenAI.Models.Assistants
         /// Tools can be of types 'code_interpreter', 'retrieval', or 'function'.
         /// </summary>
         [JsonPropertyName("tools")]
-        public List<Tool> Tools { get; set; }
+        public IList<Tool> Tools { get; set; }
 
         /// <summary>
         /// A list of file IDs attached to this assistant.
@@ -56,7 +56,7 @@ namespace Forge.OpenAI.Models.Assistants
         /// Files are ordered by their creation date in ascending order.
         /// </summary>
         [JsonPropertyName("file_ids")]
-        public List<string> FileIds { get; set; }
+        public IList<string> FileIds { get; set; }
 
         /// <summary>
         /// Set of 16 key-value pairs that can be attached to an object.
@@ -65,7 +65,7 @@ namespace Forge.OpenAI.Models.Assistants
         /// https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-metadata
         /// </summary>
         [JsonPropertyName("metadata")]
-        public Dictionary<string, string> Metadata { get; set; }
+        public IDictionary<string, string> Metadata { get; set; }
 
     }
 

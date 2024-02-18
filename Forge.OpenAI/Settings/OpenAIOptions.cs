@@ -266,6 +266,43 @@ namespace Forge.OpenAI.Settings
         public string MessageFileListUri { get; set; } = OpenAIDefaultOptions.DefaultMessageFileListUri;
 
 
+        /// <summary>Gets or sets the run create URI.</summary>
+        /// <value>The run create URI.</value>
+        public string RunCreateUri { get; set; } = OpenAIDefaultOptions.DefaultRunCreateUri;
+
+        /// <summary>Gets or sets the thread and run create URI.</summary>
+        /// <value>The thread and run create URI.</value>
+        public string RunThreadAndRunCreateUri { get; set; } = OpenAIDefaultOptions.DefaultRunThreadAndRunCreateUri;
+
+        /// <summary>Gets or sets the run get URI.</summary>
+        /// <value>The run get URI.</value>
+        public string RunGetUri { get; set; } = OpenAIDefaultOptions.DefaultRunGetUri;
+
+        /// <summary>Gets or sets the run list URI.</summary>
+        /// <value>The run list URI.</value>
+        public string RunListUri { get; set; } = OpenAIDefaultOptions.DefaultRunListUri;
+
+        /// <summary>Gets or sets the run modify URI.</summary>
+        /// <value>The run modify URI.</value>
+        public string RunModifyUri { get; set; } = OpenAIDefaultOptions.DefaultRunModifyUri;
+
+        /// <summary>Gets or sets the run tool outputs to run URI.</summary>
+        /// <value>The run modify URI.</value>
+        public string RunSubmitToolOutputsToRunUri { get; set; } = OpenAIDefaultOptions.DefaultRunSubmitToolOutputsToRunUri;
+
+        /// <summary>Gets or sets the run cancel URI.</summary>
+        /// <value>The run cancel URI.</value>
+        public string RunCancelUri { get; set; } = OpenAIDefaultOptions.DefaultRunCancelUri;
+
+        /// <summary>Gets or sets the run steps get URI.</summary>
+        /// <value>The run steps get URI.</value>
+        public string RunStepsGetUri { get; set; } = OpenAIDefaultOptions.DefaultRunStepsGetUri;
+
+        /// <summary>Gets or sets the run steps list URI.</summary>
+        /// <value>The run steps list URI.</value>
+        public string RunStepsListUri { get; set; } = OpenAIDefaultOptions.DefaultRunStepsListUri;
+
+
 
         /// <summary>Gets or sets a value indicating whether [log requests and responses].</summary>
         /// <value>

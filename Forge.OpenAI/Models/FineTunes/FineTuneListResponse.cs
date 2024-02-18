@@ -1,11 +1,13 @@
 ﻿using Forge.OpenAI.Models.Common;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using System;
 
 namespace Forge.OpenAI.Models.FineTunes
 {
 
     /// <summary>Represents the response of the fine tune jobs list</summary>
+    [Obsolete]
     public class FineTuneListResponse : ResponseBase
     {
 

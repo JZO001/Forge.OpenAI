@@ -23,18 +23,10 @@ namespace Forge.OpenAI.Models.Embeddings
 
         /// <summary>Initializes a new instance of the <see cref="EmbeddingsRequest" /> class.</summary>
         /// <param name="model">The model.</param>
-        public EmbeddingsRequest(string model)
-        {
-            Model = string.IsNullOrWhiteSpace(model) ? OpenAIDefaultOptions.DefaultEmbeddingsModel : model;
-        }
-
-        /// <summary>Initializes a new instance of the <see cref="EmbeddingsRequest" /> class.</summary>
-        /// <param name="model">The model.</param>
         /// <param name="inputTextsForEmbeddings">The input.</param>
-        public EmbeddingsRequest(string model, List<string> inputTextsForEmbeddings) 
-            : this(model)
+        public EmbeddingsRequest(string model, List<string> inputTextsForEmbeddings = null) : this()
         {
-            InputTextsForEmbeddings.AddRange(inputTextsForEmbeddings);
+            if (inputTextsForEmbeddings != null) InputTextsForEmbeddings = new List<string>(inputTextsForEmbeddings);
         }
 
         /// <summary>Initializes a new instance of the <see cref="EmbeddingsRequest" /> class.</summary>
@@ -64,7 +56,7 @@ namespace Forge.OpenAI.Models.Embeddings
         /// </summary>
         [Required]
         [JsonPropertyName("input")]
-        public List<string> InputTextsForEmbeddings { get; set; } = new List<string>();
+        public IList<string> InputTextsForEmbeddings { get; set; }
 
         /// <summary>
         /// For convenience, if you are only requesting a single text, set it here

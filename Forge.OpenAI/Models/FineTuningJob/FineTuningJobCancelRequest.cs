@@ -13,8 +13,8 @@ namespace Forge.OpenAI.Models.FineTuningJob
 
         /// <summary>The ID of the fine-tuning job to cancel.</summary>
         /// <value>The fine tuning job identifier.</value>
-        [JsonPropertyName("fine_tuning_job_id")]
         [Required]
+        [JsonPropertyName("fine_tuning_job_id")]
         public string FineTuningJobId { get; set; }
 
     }

@@ -86,7 +86,6 @@ namespace Forge.OpenAI.Models.Models
 
         /// <summary>The time when the result was generated.</summary>
         [JsonIgnore]
-
         public DateTime? Created => CreatedUnixTime.HasValue ? (DateTime?)(DateTimeOffset.FromUnixTimeSeconds(CreatedUnixTime.Value).DateTime) : null;
 
         /// <summary>Gets the owner of the model.</summary>
@@ -97,7 +96,7 @@ namespace Forge.OpenAI.Models.Models
         /// <summary>Gets the permissions.</summary>
         /// <value>The permissions.</value>
         [JsonPropertyName("permission")]
-        public List<ModelPermission> Permissions { get; set; }
+        public IList<ModelPermission> Permissions { get; set; }
 
         /// <summary>Gets the root model.</summary>
         /// <value>The root.</value>

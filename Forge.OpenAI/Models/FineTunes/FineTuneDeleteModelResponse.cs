@@ -1,5 +1,6 @@
 ﻿using Forge.OpenAI.Models.Common;
 using System.Text.Json.Serialization;
+using System;
 
 namespace Forge.OpenAI.Models.FineTunes
 {
@@ -8,6 +9,7 @@ namespace Forge.OpenAI.Models.FineTunes
     /// Represents a response of a fine tune model deletion request
     /// https://platform.openai.com/docs/api-reference/fine-tunes/delete-model
     /// </summary>
+    [Obsolete]
     public class FineTuneDeleteModelResponse : ResponseBase
     {
 

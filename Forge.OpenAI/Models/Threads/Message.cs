@@ -40,7 +40,7 @@ namespace Forge.OpenAI.Models.Threads
         /// Useful for tools like 'retrieval' and 'code_interpreter' that can access and use files.
         /// </summary>
         [JsonPropertyName("file_ids")]
-        public List<string> FileIds { get; set; }
+        public IList<string> FileIds { get; set; }
 
         /// <summary>
         /// Set of 16 key-value pairs that can be attached to an object.
@@ -48,7 +48,7 @@ namespace Forge.OpenAI.Models.Threads
         /// Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long.
         /// </summary>
         [JsonPropertyName("metadata")]
-        public Dictionary<string, string> Metadata { get; set; }
+        public IDictionary<string, string> Metadata { get; set; }
 
     }
 

@@ -50,14 +50,14 @@ namespace Forge.OpenAI.Models.Files
 
         /// <summary>Gets the status.</summary>
         /// <value>The status.</value>
-        [JsonPropertyName("status")]
         [Obsolete]
+        [JsonPropertyName("status")]
         public string Status { get; set; }
 
         /// <summary>Gets the status details.</summary>
         /// <value>The status details.</value>
-        [JsonPropertyName("status_details")]
         [Obsolete]
+        [JsonPropertyName("status_details")]
         public string StatusDetails { get; set; }
 
         /// <summary>Performs an implicit conversion from <see cref="FileData" /> to <see cref="System.String" />.</summary>

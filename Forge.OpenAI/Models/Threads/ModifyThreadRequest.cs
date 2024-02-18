@@ -12,8 +12,8 @@ namespace Forge.OpenAI.Models.Threads
 
         /// <summary>The ID of the thread to modify.</summary>
         /// <value>The thread identifier.</value>
-        [JsonIgnore]
         [Required]
+        [JsonIgnore]
         public string ThreadId { get; set; }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace Forge.OpenAI.Models.Threads
         /// Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long.
         /// </summary>
         [JsonPropertyName("metadata")]
-        public Dictionary<string, string> Metadata { get; set; }
+        public IDictionary<string, string> Metadata { get; set; }
 
     }
 

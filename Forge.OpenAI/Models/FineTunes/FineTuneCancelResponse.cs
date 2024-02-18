@@ -1,7 +1,10 @@
-﻿namespace Forge.OpenAI.Models.FineTunes
+﻿using System;
+
+namespace Forge.OpenAI.Models.FineTunes
 {
 
     /// <summary>Represents the response of a fine tune job cancel request</summary>
+    [Obsolete]
     public class FineTuneCancelResponse : FineTuneResponseBase
     {
 

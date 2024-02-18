@@ -52,8 +52,8 @@ namespace Forge.OpenAI.Models.ChatCompletions
 
         /// <summary>The function that the model called.</summary>
         /// <value>The function.</value>
-        [JsonPropertyName("function_Call")]
         [Obsolete]
+        [JsonPropertyName("function_Call")]
         public ChatFunctionCall FunctionCall { get; set; }
 
         /// <summary>Creates the chat message with role and content specified</summary>

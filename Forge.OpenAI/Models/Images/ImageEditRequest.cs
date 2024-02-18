@@ -80,8 +80,8 @@ namespace Forge.OpenAI.Models.Images
 
         /// <summary>The model to use for image generation.</summary>
         /// <value>The model.</value>
-        [JsonPropertyName("model")]
         [Required]
+        [JsonPropertyName("model")]
         public string Model { get; set; } = KnownModelTypes.Dall_E_2;
 
         /// <summary>

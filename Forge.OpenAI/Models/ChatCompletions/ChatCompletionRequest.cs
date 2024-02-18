@@ -248,16 +248,16 @@ namespace Forge.OpenAI.Models.ChatCompletions
         /// https://platform.openai.com/docs/api-reference/chat/create#chat-create-function_call
         /// </summary>
         /// <value>The function call.</value>
-        [JsonPropertyName("function_call")]
         [Obsolete]
+        [JsonPropertyName("function_call")]
         public FunctionDescriptor FunctionCall { get; set; }
 
         /// <summary>
         /// A list of functions the model may generate JSON inputs for.
         /// https://platform.openai.com/docs/api-reference/chat/create#chat-create-functions
         /// </summary>
-        [JsonPropertyName("functions")]
         [Obsolete]
+        [JsonPropertyName("functions")]
         public IEnumerable<FunctionDescriptor> Functions { get; set; }
 
     }

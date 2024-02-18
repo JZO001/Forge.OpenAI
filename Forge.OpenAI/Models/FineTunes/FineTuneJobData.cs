@@ -7,6 +7,7 @@ namespace Forge.OpenAI.Models.FineTunes
 {
 
     /// <summary>Represents a fine tune job</summary>
+    [Obsolete]
     public class FineTuneJobData
     {
 

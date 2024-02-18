@@ -82,6 +82,14 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <value>The message file service.</value>
         IMessageFileService MessageFileService { get; }
 
+        /// <summary>Gets the run service.</summary>
+        /// <value>The run service.</value>
+        IRunService RunService { get; }
+
+        /// <summary>Gets the run step service.</summary>
+        /// <value>The run step service.</value>
+        IRunStepService RunStepService { get; }
+
     }
 
 }

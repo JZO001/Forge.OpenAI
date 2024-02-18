@@ -83,7 +83,9 @@ namespace Forge.OpenAI.Services
             IAssistantFileService assistantFileService,
             IThreadsService threadsService,
             IMessageService messagesService,
-            IMessageFileService messageFileService)
+            IMessageFileService messageFileService,
+            IRunService runService,
+            IRunStepService runStepService)
         {
             if (modelService == null) throw new ArgumentNullException(nameof(modelService));
             if (textCompletionService == null) throw new ArgumentNullException(nameof(textCompletionService));
@@ -103,6 +105,8 @@ namespace Forge.OpenAI.Services
             if (threadsService == null) throw new ArgumentNullException(nameof(threadsService));
             if (messagesService == null) throw new ArgumentNullException(nameof(messagesService));
             if (messageFileService == null) throw new ArgumentNullException(nameof(messageFileService));
+            if (runService == null) throw new ArgumentNullException(nameof(runService));
+            if (runStepService == null) throw new ArgumentNullException(nameof(runStepService));
 
             ModelService = modelService;
             TextCompletionService = textCompletionService;
@@ -122,6 +126,8 @@ namespace Forge.OpenAI.Services
             ThreadsService = threadsService;
             MessagesService = messagesService;
             MessageFileService = messageFileService;
+            RunService = runService;
+            RunStepService = runStepService;
         }
 
         /// <summary>Initializes a new instance of the <see cref="OpenAIService" /> class.</summary>
@@ -274,6 +280,14 @@ namespace Forge.OpenAI.Services
         /// <summary>Gets the message file service.</summary>
         /// <value>The message file service.</value>
         public IMessageFileService MessageFileService { get; }
+
+        /// <summary>Gets the run service.</summary>
+        /// <value>The run service.</value>
+        public IRunService RunService { get; }
+
+        /// <summary>Gets the run step service.</summary>
+        /// <value>The run step service.</value>
+        public IRunStepService RunStepService { get; }
 
     }
 

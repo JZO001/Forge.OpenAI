@@ -31,6 +31,14 @@ namespace Forge.OpenAI.Models.Assistants
             Function = function;
         }
 
+        [JsonPropertyName("id")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string Id { get; set; }
+
+        [JsonPropertyName("index")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public int? Index { get; set; }
+
         /// <summary>The type of tool being defined</summary>
         /// <value>The type.</value>
         [JsonPropertyName("type")]

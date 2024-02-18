@@ -13,8 +13,8 @@ namespace Forge.OpenAI.Models.FineTuningJob
         /// <summary>
         /// The ID of the fine-tuning job to get events for.
         /// </summary>
-        [JsonIgnore]
         [Required]
+        [JsonIgnore]
         public string FineTuningJobId { get; set; }
 
     }

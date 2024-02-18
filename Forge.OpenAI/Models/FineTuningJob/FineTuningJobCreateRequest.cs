@@ -13,8 +13,8 @@ namespace Forge.OpenAI.Models.FineTuningJob
         /// The name of the model to fine-tune. You can select one of the
         /// <see href="https://platform.openai.com/docs/guides/fine-tuning/what-models-can-be-fine-tuned">supported models</see>
         /// </summary>
-        [JsonPropertyName("model")]
         [Required]
+        [JsonPropertyName("model")]
         public string Model { get; set; } = KnownModelTypes.Gpt3_5Turbo_1106;
 
         /// <summary>
@@ -25,8 +25,8 @@ namespace Forge.OpenAI.Models.FineTuningJob
         /// <code>fine-tune</code>.
         /// See the <see href="https://platform.openai.com/docs/guides/fine-tuning">fine-tuning guide</see> for more details.
         /// </summary>
-        [JsonPropertyName("training_file")]
         [Required]
+        [JsonPropertyName("training_file")]
         public string TrainingFileId { get; set; }
 
         /// <summary>

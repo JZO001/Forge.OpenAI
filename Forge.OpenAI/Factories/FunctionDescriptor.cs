@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Forge.OpenAI.Factories
 {
@@ -11,6 +12,7 @@ namespace Forge.OpenAI.Factories
         /// Required. The name of the function to be called. Must be a-z, A-Z, 0-9,
         /// or contain underscores and dashes, with a maximum length of 64.
         /// </summary>
+        [Required]
         [JsonPropertyName("name")]
         public string Name { get; set; }
 

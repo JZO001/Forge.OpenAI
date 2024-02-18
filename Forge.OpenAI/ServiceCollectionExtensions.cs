@@ -94,7 +94,9 @@ namespace Forge.OpenAI
                 .AddSingleton<IOpenAIService, OpenAIService>()
                 .AddSingleton<IThreadsService, ThreadsService>()
                 .AddSingleton<IMessageService, MessageService>()
-                .AddSingleton<IMessageFileService, MessageFileService>();
+                .AddSingleton<IMessageFileService, MessageFileService>()
+                .AddSingleton<IRunService, RunService>()
+                .AddSingleton<IRunStepService, RunStepService>();
         }
 
     }

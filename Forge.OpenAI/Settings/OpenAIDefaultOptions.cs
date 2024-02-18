@@ -275,6 +275,43 @@ namespace Forge.OpenAI.Settings
         public static string DefaultMessageFileListUri { get; set; } = "threads/{0}/messages/{1}/files";
 
 
+        /// <summary>Gets or sets the default run create URI.</summary>
+        /// <value>The default run create URI.</value>
+        public static string DefaultRunCreateUri { get; set; } = "threads/{0}/runs";
+
+        /// <summary>Gets or sets the default thread and run create URI.</summary>
+        /// <value>The default thread and run create URI.</value>
+        public static string DefaultRunThreadAndRunCreateUri { get; set; } = "threads/runs";
+
+        /// <summary>Gets or sets the default run get URI.</summary>
+        /// <value>The default run get URI.</value>
+        public static string DefaultRunGetUri { get; set; } = "threads/{0}/runs/{1}";
+
+        /// <summary>Gets or sets the default run list URI.</summary>
+        /// <value>The default run list URI.</value>
+        public static string DefaultRunListUri { get; set; } = "threads/{0}/runs";
+
+        /// <summary>Gets or sets the default run modify URI.</summary>
+        /// <value>The default run modify URI.</value>
+        public static string DefaultRunModifyUri { get; set; } = "threads/{0}/runs/{1}";
+
+        /// <summary>Gets or sets the default run tool outputs to run URI.</summary>
+        /// <value>The default run modify URI.</value>
+        public static string DefaultRunSubmitToolOutputsToRunUri { get; set; } = "threads/{0}/runs/{1}/submit_tool_outputs";
+
+        /// <summary>Gets or sets the default run cancel URI.</summary>
+        /// <value>The default run cancel URI.</value>
+        public static string DefaultRunCancelUri { get; set; } = "threads/{0}/runs/{1}/cancel";
+
+        /// <summary>Gets or sets the default run steps get URI.</summary>
+        /// <value>The default run steps get URI.</value>
+        public static string DefaultRunStepsGetUri { get; set; } = "threads/{0}/runs/{1}/steps/{2}";
+
+        /// <summary>Gets or sets the default run steps list URI.</summary>
+        /// <value>The default run steps list URI.</value>
+        public static string DefaultRunStepsListUri { get; set; } = "threads/{0}/runs/{1}/steps";
+
+
         /// <summary>Gets or sets a value indicating whether [default log requests and responses].</summary>
         /// <value>
         ///   <c>true</c> if [default log requests and responses]; otherwise, <c>false</c>.</value>

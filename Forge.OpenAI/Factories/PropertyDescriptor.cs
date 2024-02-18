@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace Forge.OpenAI.Factories
@@ -11,6 +12,7 @@ namespace Forge.OpenAI.Factories
         /// <summary>
         ///     Required. Function parameter object type. Default value is "object".
         /// </summary>
+        [Required]
         [JsonPropertyName("type")]
         public string Type { get; set; } = "object";
 

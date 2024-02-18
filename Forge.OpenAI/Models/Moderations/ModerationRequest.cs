@@ -22,7 +22,7 @@ namespace Forge.OpenAI.Models.Moderations
         /// <param name="inputTextsToClassify">The inputs.</param>
         public ModerationRequest(IEnumerable<string> inputTextsToClassify) : this()
         {
-            InputTextsToClassify.AddRange(inputTextsToClassify);
+            InputTextsToClassify = new List<string>(inputTextsToClassify);
         }
 
         /// <summary>Initializes a new instance of the <see cref="ModerationRequest" /> class.</summary>
@@ -39,7 +39,7 @@ namespace Forge.OpenAI.Models.Moderations
         /// </summary>
         [Required]
         [JsonPropertyName("input")]
-        public List<string> InputTextsToClassify { get; set; } = new List<string>();
+        public IList<string> InputTextsToClassify { get; set; }
 
         /// <summary>
         /// For convenience, if you are only requesting a single text, set it here

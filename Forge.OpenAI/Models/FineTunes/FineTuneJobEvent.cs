@@ -5,6 +5,7 @@ namespace Forge.OpenAI.Models.FineTunes
 {
 
     /// <summary>Represents a fine tune job event</summary>
+    [Obsolete]
     public class FineTuneJobEvent
     {
 

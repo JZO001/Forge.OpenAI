@@ -12,8 +12,8 @@ namespace Forge.OpenAI.Models.Assistants
 
         /// <summary>The ID of the assistant to modify.</summary>
         /// <value>The assistant identifier.</value>
-        [JsonIgnore]
         [Required]
+        [JsonIgnore]
         public string AssistantId { get; set; }
 
     }

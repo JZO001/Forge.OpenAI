@@ -1,9 +1,11 @@
 ﻿using System.Text.Json.Serialization;
+using System;
 
 namespace Forge.OpenAI.Models.FineTunes
 {
 
     /// <summary>Represents the fune tune hyper parameters for a response</summary>
+    [Obsolete]
     public class FineTuneHyperParams
     {
 
