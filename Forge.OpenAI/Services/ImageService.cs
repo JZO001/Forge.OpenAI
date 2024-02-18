@@ -49,45 +49,51 @@ namespace Forge.OpenAI.Services
         }
 
         /// <summary>Creates new image(s) asynchronously</summary>
-        /// <param name="imageCreateRequest">The image create request.</param>
+        /// <param name="request">The image create request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         ///   ImageCreateResponse
         /// </returns>
-        public async Task<HttpOperationResult<ImageCreateResponse>> CreateImageAsync(ImageCreateRequest imageCreateRequest, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResult<ImageCreateResponse>> CreateImageAsync(ImageCreateRequest request, CancellationToken cancellationToken = default)
         {
-            var validationResult = imageCreateRequest.Validate<ImageCreateResponse>();
+            if (request == null) return new HttpOperationResult<ImageCreateResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
+            var validationResult = request.Validate<ImageCreateResponse>();
             if (validationResult != null) return validationResult;
             
-            return await _apiHttpService.PostAsync<ImageCreateRequest, ImageCreateResponse>(GetCreateUri(), imageCreateRequest, null, cancellationToken).ConfigureAwait(false);
+            return await _apiHttpService.PostAsync<ImageCreateRequest, ImageCreateResponse>(GetCreateUri(), request, null, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>Edits an image asynchronously</summary>
-        /// <param name="imageEditRequest">The image edit request.</param>
+        /// <param name="request">The image edit request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         ///   ImageEditResponse
         /// </returns>
-        public async Task<HttpOperationResult<ImageEditResponse>> EditImageAsync(ImageEditRequest imageEditRequest, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResult<ImageEditResponse>> EditImageAsync(ImageEditRequest request, CancellationToken cancellationToken = default)
         {
-            var validationResult = imageEditRequest.Validate<ImageEditResponse>();
+            if (request == null) return new HttpOperationResult<ImageEditResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
+            var validationResult = request.Validate<ImageEditResponse>();
             if (validationResult != null) return validationResult;
             
-            return await _apiHttpService.PostAsync<ImageEditRequest, ImageEditResponse>(GetEditUri(), imageEditRequest, ImageEditHttpContentFactoryAsync, cancellationToken).ConfigureAwait(false);
+            return await _apiHttpService.PostAsync<ImageEditRequest, ImageEditResponse>(GetEditUri(), request, ImageEditHttpContentFactoryAsync, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>Variates an image asynchronously</summary>
-        /// <param name="imageVariationRequest">The image variation request.</param>
+        /// <param name="request">The image variation request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         ///   ImageVariationResponse
         /// </returns>
-        public async Task<HttpOperationResult<ImageVariationResponse>> VariateImageAsync(ImageVariationRequest imageVariationRequest, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResult<ImageVariationResponse>> VariateImageAsync(ImageVariationRequest request, CancellationToken cancellationToken = default)
         {
-            var validationResult = imageVariationRequest.Validate<ImageVariationResponse>();
+            if (request == null) return new HttpOperationResult<ImageVariationResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
+            var validationResult = request.Validate<ImageVariationResponse>();
             if (validationResult != null) return validationResult;
             
-            return await _apiHttpService.PostAsync<ImageVariationRequest, ImageVariationResponse>(GetVariationUri(), imageVariationRequest, ImageVariationHttpContentFactoryAsync, cancellationToken).ConfigureAwait(false);
+            return await _apiHttpService.PostAsync<ImageVariationRequest, ImageVariationResponse>(GetVariationUri(), request, ImageVariationHttpContentFactoryAsync, cancellationToken).ConfigureAwait(false);
         }
 
         private string GetCreateUri()

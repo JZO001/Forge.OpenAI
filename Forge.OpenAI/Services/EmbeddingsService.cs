@@ -55,6 +55,8 @@ namespace Forge.OpenAI.Services
         /// </returns>
         public async Task<HttpOperationResult<EmbeddingsResponse>> GetAsync(EmbeddingsRequest request, CancellationToken cancellationToken = default)
         {
+            if (request == null) return new HttpOperationResult<EmbeddingsResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
             var validationResult = request.Validate<EmbeddingsResponse>();
             if (validationResult != null) return validationResult;
 

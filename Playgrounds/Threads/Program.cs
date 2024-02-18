@@ -46,7 +46,7 @@ namespace Threads
             {
                 Messages = new List<Message>()
                 {
-                    new Message("Hello, I am a user")
+                    new Message("Hello, how are you?")
                 }
             };
 

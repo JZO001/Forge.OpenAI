@@ -250,6 +250,31 @@ namespace Forge.OpenAI.Settings
         public static string DefaultThreadDeleteUri { get; set; } = "threads/{0}";
 
 
+        /// <summary>Gets or sets the default message create URI.</summary>
+        /// <value>The default message create URI.</value>
+        public static string DefaultMessageCreateUri { get; set; } = "threads/{0}/messages";
+
+        /// <summary>Gets or sets the default message list URI.</summary>
+        /// <value>The default message list URI.</value>
+        public static string DefaultMessageListUri { get; set; } = "threads/{0}/messages";
+
+        /// <summary>Gets or sets the default message get URI.</summary>
+        /// <value>The default message get URI.</value>
+        public static string DefaultMessageGetUri { get; set; } = "threads/{0}/messages/{1}";
+
+        /// <summary>Gets or sets the default message modify URI.</summary>
+        /// <value>The default message modify URI.</value>
+        public static string DefaultMessageModifyUri { get; set; } = "threads/{0}/messages/{1}";
+
+        /// <summary>Gets or sets the default message file get URI.</summary>
+        /// <value>The default message file get URI.</value>
+        public static string DefaultMessageFileGetUri { get; set; } = "threads/{0}/messages/{1}/files/{2}";
+
+        /// <summary>Gets or sets the default message file list URI.</summary>
+        /// <value>The default message file list URI.</value>
+        public static string DefaultMessageFileListUri { get; set; } = "threads/{0}/messages/{1}/files";
+
+
         /// <summary>Gets or sets a value indicating whether [default log requests and responses].</summary>
         /// <value>
         ///   <c>true</c> if [default log requests and responses]; otherwise, <c>false</c>.</value>

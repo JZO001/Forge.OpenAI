@@ -70,9 +70,17 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <value>The assistant file service.</value>
         IAssistantFileService AssistantFileService { get; }
 
-        /// <summary>Gets the thread file service.</summary>
-        /// <value>The thread file service.</value>
+        /// <summary>Gets the thread service.</summary>
+        /// <value>The thread service.</value>
         IThreadsService ThreadsService { get; }
+
+        /// <summary>Gets the message service.</summary>
+        /// <value>The message service.</value>
+        IMessageService MessagesService { get; }
+
+        /// <summary>Gets the message file service.</summary>
+        /// <value>The message file service.</value>
+        IMessageFileService MessageFileService { get; }
 
     }
 

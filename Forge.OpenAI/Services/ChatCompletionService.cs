@@ -56,6 +56,8 @@ namespace Forge.OpenAI.Services
         /// </returns>
         public async Task<HttpOperationResult<ChatCompletionResponse>> GetAsync(ChatCompletionRequest request, CancellationToken cancellationToken = default)
         {
+            if (request == null) return new HttpOperationResult<ChatCompletionResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
             var validationResult = request.Validate<ChatCompletionResponse>();
             if (validationResult != null) return validationResult;
 
@@ -71,6 +73,8 @@ namespace Forge.OpenAI.Services
         /// </returns>
         public async Task<HttpOperationResult> GetStreamAsync(ChatCompletionRequest request, Action<HttpOperationResult<ChatCompletionStreamedResponse>> resultCallback, CancellationToken cancellationToken = default)
         {
+            if (request == null) return new HttpOperationResult(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
             var validationResult = request.Validate();
             if (validationResult != null) return validationResult;
             request.Stream = true;

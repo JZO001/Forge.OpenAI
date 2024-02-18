@@ -1,10 +1,12 @@
-﻿using System.Text.Json.Serialization;
+﻿using Forge.OpenAI.Models.Common;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Forge.OpenAI.Models.Audio.Speech
 {
 
     /// <summary>https://platform.openai.com/docs/api-reference/audio/createSpeech</summary>
-    public class SpeechRequest
+    public class SpeechRequest : RequestBase
     {
 
         public const string VOICE_ALLOY = "alloy";
@@ -22,18 +24,21 @@ namespace Forge.OpenAI.Models.Audio.Speech
         /// <summary>
         /// One of the available TTS models: tts-1 or tts-1-hd
         /// </summary>
+        [Required]
         [JsonPropertyName("model")]
         public string Model { get; set; } = KnownModelTypes.Tts_1;
 
         /// <summary>
         /// The text to generate audio for. The maximum length is 4096 characters.
         /// </summary>
+        [Required]
         [JsonPropertyName("input")]
         public string Input { get; set; }
 
         /// <summary>
         /// The voice to use when generating the audio. Supported voices are alloy, echo, fable, onyx, nova, and shimmer
         /// </summary>
+        [Required]
         [JsonPropertyName("voice")]
         public string Voice { get; set; } = VOICE_ALLOY;
 

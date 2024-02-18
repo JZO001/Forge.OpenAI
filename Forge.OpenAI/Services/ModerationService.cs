@@ -55,8 +55,11 @@ namespace Forge.OpenAI.Services
         /// </returns>
         public async Task<HttpOperationResult<ModerationResponse>> GetAsync(ModerationRequest request, CancellationToken cancellationToken = default)
         {
+            if (request == null) return new HttpOperationResult<ModerationResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
             var validationResult = request.Validate<ModerationResponse>();
             if (validationResult != null) return validationResult;
+
             return await _apiHttpService.PostAsync<ModerationRequest, ModerationResponse>(GetUri(), request, null, cancellationToken).ConfigureAwait(false);
         }
 

@@ -11,28 +11,28 @@ namespace Forge.OpenAI.Interfaces.Services
     {
 
         /// <summary>Creates new image(s) asynchronously</summary>
-        /// <param name="imageCreateRequest">The image create request.</param>
+        /// <param name="request">The image create request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         ///   ImageCreateResponse
         /// </returns>
-        Task<HttpOperationResult<ImageCreateResponse>> CreateImageAsync(ImageCreateRequest imageCreateRequest, CancellationToken cancellationToken = default);
+        Task<HttpOperationResult<ImageCreateResponse>> CreateImageAsync(ImageCreateRequest request, CancellationToken cancellationToken = default);
 
         /// <summary>Edits an image asynchronously</summary>
-        /// <param name="imageEditRequest">The image edit request.</param>
+        /// <param name="request">The image edit request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         ///   ImageEditResponse
         /// </returns>
-        Task<HttpOperationResult<ImageEditResponse>> EditImageAsync(ImageEditRequest imageEditRequest, CancellationToken cancellationToken = default);
+        Task<HttpOperationResult<ImageEditResponse>> EditImageAsync(ImageEditRequest request, CancellationToken cancellationToken = default);
 
         /// <summary>Variates an image asynchronously</summary>
-        /// <param name="imageVariationRequest">The image variation request.</param>
+        /// <param name="request">The image variation request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         ///   ImageVariationResponse
         /// </returns>
-        Task<HttpOperationResult<ImageVariationResponse>> VariateImageAsync(ImageVariationRequest imageVariationRequest, CancellationToken cancellationToken = default);
+        Task<HttpOperationResult<ImageVariationResponse>> VariateImageAsync(ImageVariationRequest request, CancellationToken cancellationToken = default);
 
     }
 

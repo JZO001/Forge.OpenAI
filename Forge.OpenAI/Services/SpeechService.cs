@@ -51,18 +51,22 @@ namespace Forge.OpenAI.Services
         }
 
         /// <summary>Create a sőeech.</summary>
-        /// <param name="speechRequest">The request parameters.</param>
+        /// <param name="request">The request parameters.</param>
         /// <param name="resultStream">The result stream.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         ///   Output Stream, which can receive the data from the underlying network stream.
         /// </returns>
-        public async Task<HttpOperationResult<Stream>> CreateSpeechAsync(SpeechRequest speechRequest, Stream resultStream, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResult<Stream>> CreateSpeechAsync(SpeechRequest request, Stream resultStream, CancellationToken cancellationToken = default)
         {
-            if (speechRequest == null) return new HttpOperationResult<Stream>(new ArgumentNullException(nameof(resultStream)), System.Net.HttpStatusCode.BadRequest);
+            if (request == null) return new HttpOperationResult<Stream>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
+            var validationResult = request.Validate<Stream>();
+            if (validationResult != null) return validationResult;
+
             if (resultStream == null) return new HttpOperationResult<Stream>(new ArgumentNullException(nameof(resultStream)), System.Net.HttpStatusCode.BadRequest);
 
-            return await _apiHttpService.GetContentAsStream(GetDownloadFileUri(), resultStream, speechRequest, null, HttpMethod.Post, cancellationToken).ConfigureAwait(false);
+            return await _apiHttpService.GetContentAsStream(GetDownloadFileUri(), resultStream, request, null, HttpMethod.Post, cancellationToken).ConfigureAwait(false);
         }
 
         private string GetDownloadFileUri()

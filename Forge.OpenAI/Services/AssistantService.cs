@@ -66,8 +66,11 @@ namespace Forge.OpenAI.Services
         /// </returns>
         public async Task<HttpOperationResult<AssistantResponse>> CreateAsync(CreateAssistantRequest request, CancellationToken cancellationToken = default)
         {
+            if (request == null) return new HttpOperationResult<AssistantResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+            
             var validationResult = request.Validate<AssistantResponse>();
             if (validationResult != null) return validationResult;
+            
             return await _apiHttpService.PostAsync<CreateAssistantRequest, AssistantResponse>(GetCreateUri(), request, null, cancellationToken).ConfigureAwait(false);
         }
 
@@ -81,6 +84,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<AssistantResponse>> GetAsync(string assistantId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(assistantId)) return new HttpOperationResult<AssistantResponse>(new ArgumentNullException(nameof(assistantId)), System.Net.HttpStatusCode.BadRequest);
+            
             return await _apiHttpService.GetAsync<AssistantResponse>(GetUri(assistantId), cancellationToken).ConfigureAwait(false);
         }
 
@@ -103,8 +107,11 @@ namespace Forge.OpenAI.Services
         /// </returns>
         public async Task<HttpOperationResult<AssistantResponse>> ModifyAsync(ModifyAssistantRequest request, CancellationToken cancellationToken = default)
         {
+            if (request == null) return new HttpOperationResult<AssistantResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+            
             var validationResult = request.Validate<AssistantResponse>();
             if (validationResult != null) return validationResult;
+            
             return await _apiHttpService.PostAsync<ModifyAssistantRequest, AssistantResponse>(GetModifyUri(request), request, null, cancellationToken).ConfigureAwait(false);
         }
 
@@ -117,6 +124,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<DeleteStateResponse>> DeleteAsync(string assistantId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(assistantId)) return new HttpOperationResult<DeleteStateResponse>(new ArgumentNullException(nameof(assistantId)), System.Net.HttpStatusCode.BadRequest);
+            
             return await _apiHttpService.DeleteAsync<DeleteStateResponse>(GetDeleteUri(assistantId), cancellationToken).ConfigureAwait(false);
         }
 

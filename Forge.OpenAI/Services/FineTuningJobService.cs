@@ -58,8 +58,11 @@ namespace Forge.OpenAI.Services
         /// </returns>
         public async Task<HttpOperationResult<FineTuningJobResponse>> CreateAsync(FineTuningJobCreateRequest request, CancellationToken cancellationToken = default)
         {
+            if (request == null) return new HttpOperationResult<FineTuningJobResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
             var validationResult = request.Validate<FineTuningJobResponse>();
             if (validationResult != null) return validationResult;
+
             return await _apiHttpService.PostAsync<FineTuningJobCreateRequest, FineTuningJobResponse>(GetCreateUri(), request, null, cancellationToken).ConfigureAwait(false);
         }
 
@@ -83,6 +86,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<FineTuningJobResponse>> GetAsync(string fineTuneJobId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(fineTuneJobId)) return new HttpOperationResult<FineTuningJobResponse>(new ArgumentNullException(nameof(fineTuneJobId)), System.Net.HttpStatusCode.BadRequest);
+            
             return await _apiHttpService.GetAsync<FineTuningJobResponse>(string.Format(GetUri(), fineTuneJobId), cancellationToken).ConfigureAwait(false);
         }
 
@@ -95,6 +99,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<FineTuningJobEvent>> GetEventsAsync(string fineTuneJobId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(fineTuneJobId)) return new HttpOperationResult<FineTuningJobEvent>(new ArgumentNullException(nameof(fineTuneJobId)), System.Net.HttpStatusCode.BadRequest);
+            
             return await _apiHttpService.GetAsync<FineTuningJobEvent>(GetEventsUri(fineTuneJobId), cancellationToken).ConfigureAwait(false);
         }
 
@@ -112,6 +117,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult> GetEventsAsStreamAsync(string fineTuningJobId, Action<HttpOperationResult<FineTuningJobEvent>> resultCallback, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(fineTuningJobId)) return new HttpOperationResult(new ArgumentNullException(nameof(fineTuningJobId)), System.Net.HttpStatusCode.BadRequest);
+            
             return await _apiHttpService.StreamedGetAsync(GetStreamedEventsUri(fineTuningJobId), resultCallback, cancellationToken).ConfigureAwait(false);
         }
 
@@ -121,7 +127,7 @@ namespace Forge.OpenAI.Services
         /// WARNING: method will block until cancelling with CancellationToken,
         /// or the Fine Tuning Job cancel called on the API.
         /// </summary>
-        /// <param name="fineTuneJobId">The fine tuning job identifier.</param>
+        /// <param name="fineTuningJobId">The fine tuning job identifier.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         ///   FineTuningJobEvent
@@ -129,6 +135,7 @@ namespace Forge.OpenAI.Services
         public IAsyncEnumerable<HttpOperationResult<FineTuningJobEvent>> GetEventsAsStreamAsync(string fineTuningJobId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(fineTuningJobId)) return RequestBase.GetValidationResultAsAsyncEnumerable<FineTuningJobEvent>(new HttpOperationResult<FineTuningJobEvent>(new ArgumentNullException(nameof(fineTuningJobId)), System.Net.HttpStatusCode.BadRequest));
+            
             return _apiHttpService.StreamedGetAsync<FineTuningJobEvent>(GetStreamedEventsUri(fineTuningJobId), cancellationToken);
         }
 #endif
@@ -142,6 +149,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<FineTuningJobResponse>> CancelAsync(string fineTuneJobId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(fineTuneJobId)) return new HttpOperationResult<FineTuningJobResponse>(new ArgumentNullException(nameof(fineTuneJobId)), System.Net.HttpStatusCode.BadRequest);
+            
             return await _apiHttpService.PostAsync<object, FineTuningJobResponse>(GetCancelUri(fineTuneJobId), null, null, cancellationToken).ConfigureAwait(false);
         }
 

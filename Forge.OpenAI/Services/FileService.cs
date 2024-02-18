@@ -67,6 +67,8 @@ namespace Forge.OpenAI.Services
         /// </returns>
         public async Task<HttpOperationResult<FileUploadResponse>> UploadFileAsync(FileUploadRequest request, CancellationToken cancellationToken = default)
         {
+            if (request == null) return new HttpOperationResult<FileUploadResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
             var validationResult = request.Validate<FileUploadResponse>();
             if (validationResult != null) return validationResult;
 

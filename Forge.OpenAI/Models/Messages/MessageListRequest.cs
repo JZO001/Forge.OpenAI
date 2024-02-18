@@ -1,24 +1,24 @@
-﻿using Forge.OpenAI.Models.Common;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Forge.OpenAI.Models.Common;
 
-namespace Forge.OpenAI.Models.Assistants
+namespace Forge.OpenAI.Models.Messages
 {
 
     /// <summary>
-    /// https://platform.openai.com/docs/api-reference/assistants/listAssistantFiles
+    /// https://platform.openai.com/docs/api-reference/messages/listMessages
     /// </summary>
-    public class AssistantFileListRequest : RequestBase
+    public class MessageListRequest : RequestBase
     {
 
         public const string ORDER_ASC = "asc";
         public const string ORDER_DESC = "desc";
 
-        /// <summary>The ID of the assistant to modify.</summary>
-        /// <value>The assistant identifier.</value>
+        /// <summary>The ID of the thread to create a message for.</summary>
+        /// <value>The thread identifier.</value>
         [JsonIgnore]
         [Required]
-        public string AssistantId { get; set; }
+        public string ThreadId { get; set; }
 
         /// <summary>
         /// A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.

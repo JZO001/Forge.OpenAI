@@ -241,6 +241,32 @@ namespace Forge.OpenAI.Settings
 
 
 
+        /// <summary>Gets or sets the message create URI.</summary>
+        /// <value>The message create URI.</value>
+        public string MessageCreateUri { get; set; } = OpenAIDefaultOptions.DefaultMessageCreateUri;
+
+        /// <summary>Gets or sets the message list URI.</summary>
+        /// <value>The message list URI.</value>
+        public string MessageListUri { get; set; } = OpenAIDefaultOptions.DefaultMessageListUri;
+
+        /// <summary>Gets or sets the message get URI.</summary>
+        /// <value>The message get URI.</value>
+        public string MessageGetUri { get; set; } = OpenAIDefaultOptions.DefaultMessageGetUri;
+
+        /// <summary>Gets or sets the message modify URI.</summary>
+        /// <value>The message modify URI.</value>
+        public string MessageModifyUri { get; set; } = OpenAIDefaultOptions.DefaultMessageModifyUri;
+
+        /// <summary>Gets or sets the message file get URI.</summary>
+        /// <value>The message file get URI.</value>
+        public string MessageFileGetUri { get; set; } = OpenAIDefaultOptions.DefaultMessageFileGetUri;
+
+        /// <summary>Gets or sets the message file list URI.</summary>
+        /// <value>The message file list URI.</value>
+        public string MessageFileListUri { get; set; } = OpenAIDefaultOptions.DefaultMessageFileListUri;
+
+
+
         /// <summary>Gets or sets a value indicating whether [log requests and responses].</summary>
         /// <value>
         ///   <c>true</c> if [log requests and responses]; otherwise, <c>false</c>.</value>

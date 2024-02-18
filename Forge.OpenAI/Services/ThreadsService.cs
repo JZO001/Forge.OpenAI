@@ -60,8 +60,11 @@ namespace Forge.OpenAI.Services
         /// </returns>
         public async Task<HttpOperationResult<CreateThreadResponse>> CreateAsync(CreateThreadRequest request, CancellationToken cancellationToken = default)
         {
+            if (request == null) return new HttpOperationResult<CreateThreadResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+            
             var validationResult = request.Validate<CreateThreadResponse>();
             if (validationResult != null) return validationResult;
+            
             return await _apiHttpService.PostAsync<CreateThreadRequest, CreateThreadResponse>(GetCreateUri(), request, null, cancellationToken).ConfigureAwait(false);
         }
 
@@ -74,6 +77,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<RetrieveThreadResponse>> GetAsync(string threadId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(threadId)) return new HttpOperationResult<RetrieveThreadResponse>(new ArgumentNullException(nameof(threadId)), System.Net.HttpStatusCode.BadRequest);
+            
             return await _apiHttpService.GetAsync<RetrieveThreadResponse>(GetUri(threadId), cancellationToken).ConfigureAwait(false);
         }
 
@@ -85,8 +89,11 @@ namespace Forge.OpenAI.Services
         /// </returns>
         public async Task<HttpOperationResult<ModifyThreadResponse>> ModifyAsync(ModifyThreadRequest request, CancellationToken cancellationToken = default)
         {
+            if (request == null) return new HttpOperationResult<ModifyThreadResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+            
             var validationResult = request.Validate<ModifyThreadResponse>();
             if (validationResult != null) return validationResult;
+            
             return await _apiHttpService.PostAsync<ModifyThreadRequest, ModifyThreadResponse>(GetModifyUri(request), request, null, cancellationToken).ConfigureAwait(false);
         }
 
@@ -99,6 +106,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<DeleteThreadResponse>> DeleteAsync(string threadId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(threadId)) return new HttpOperationResult<DeleteThreadResponse>(new ArgumentNullException(nameof(threadId)), System.Net.HttpStatusCode.BadRequest);
+            
             return await _apiHttpService.DeleteAsync<DeleteThreadResponse>(GetDeleteUri(threadId), cancellationToken).ConfigureAwait(false);
         }
 

@@ -64,8 +64,11 @@ namespace Forge.OpenAI.Services
         /// </returns>
         public async Task<HttpOperationResult<AssistantFileResponse>> CreateAsync(CreateAssistantFileRequest request, CancellationToken cancellationToken = default)
         {
+            if (request == null) return new HttpOperationResult<AssistantFileResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
             var validationResult = request.Validate<AssistantFileResponse>();
             if (validationResult != null) return validationResult;
+
             return await _apiHttpService.PostAsync<CreateAssistantFileRequest, AssistantFileResponse>(GetCreateUri(request.AssistantId), request, null, cancellationToken).ConfigureAwait(false);
         }
 
@@ -80,7 +83,8 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<AssistantFileResponse>> GetAsync(string assistantId, string fileId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(assistantId)) return new HttpOperationResult<AssistantFileResponse>(new ArgumentNullException(nameof(assistantId)), System.Net.HttpStatusCode.BadRequest);
-            if (string.IsNullOrWhiteSpace(fileId)) return new HttpOperationResult<AssistantFileResponse>(new ArgumentNullException(nameof(assistantId)), System.Net.HttpStatusCode.BadRequest);
+            if (string.IsNullOrWhiteSpace(fileId)) return new HttpOperationResult<AssistantFileResponse>(new ArgumentNullException(nameof(fileId)), System.Net.HttpStatusCode.BadRequest);
+            
             return await _apiHttpService.GetAsync<AssistantFileResponse>(GetUri(assistantId, fileId), cancellationToken).ConfigureAwait(false);
         }
 
@@ -92,6 +96,11 @@ namespace Forge.OpenAI.Services
         /// </returns>
         public async Task<HttpOperationResult<AssistantFileListResponse>> GetAsync(AssistantFileListRequest request, CancellationToken cancellationToken = default)
         {
+            if (request == null) return new HttpOperationResult<AssistantFileListResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
+            var validationResult = request.Validate<AssistantFileListResponse>();
+            if (validationResult != null) return validationResult;
+
             return await _apiHttpService.GetAsync<AssistantFileListResponse>(GetListUri(request), cancellationToken).ConfigureAwait(false);
         }
 
@@ -105,7 +114,8 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<DeleteStateResponse>> DeleteAsync(string assistantId, string fileId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(assistantId)) return new HttpOperationResult<DeleteStateResponse>(new ArgumentNullException(nameof(assistantId)), System.Net.HttpStatusCode.BadRequest);
-            if (string.IsNullOrWhiteSpace(fileId)) return new HttpOperationResult<DeleteStateResponse>(new ArgumentNullException(nameof(assistantId)), System.Net.HttpStatusCode.BadRequest);
+            if (string.IsNullOrWhiteSpace(fileId)) return new HttpOperationResult<DeleteStateResponse>(new ArgumentNullException(nameof(fileId)), System.Net.HttpStatusCode.BadRequest);
+            
             return await _apiHttpService.DeleteAsync<DeleteStateResponse>(GetDeleteUri(assistantId, fileId), cancellationToken).ConfigureAwait(false);
         }
 
@@ -122,20 +132,19 @@ namespace Forge.OpenAI.Services
         private string GetListUri(AssistantFileListRequest request)
         {
             StringBuilder sb = new StringBuilder(string.Format(_providerEndpointService.BuildBaseUri(), string.Format(_options.AssistantFileListUri, request.AssistantId)));
-            if (request != null)
-            {
-                List<string> queryParams = new List<string>();
 
-                if (!string.IsNullOrEmpty(request.Order)) queryParams.Add($"order={WebUtility.UrlEncode(request.Order)}");
+            List<string> queryParams = new List<string>();
 
-                if (!string.IsNullOrEmpty(request.After)) queryParams.Add($"after={WebUtility.UrlEncode(request.After)}");
+            if (!string.IsNullOrEmpty(request.Order)) queryParams.Add($"order={WebUtility.UrlEncode(request.Order)}");
 
-                if (request.Limit.HasValue) queryParams.Add($"limit={request.Limit.Value}");
+            if (!string.IsNullOrEmpty(request.After)) queryParams.Add($"after={WebUtility.UrlEncode(request.After)}");
 
-                if (!string.IsNullOrEmpty(request.Before)) queryParams.Add($"before={WebUtility.UrlEncode(request.Before)}");
+            if (request.Limit.HasValue) queryParams.Add($"limit={request.Limit.Value}");
 
-                if (queryParams.Count > 0) sb.Append($"?{string.Join("&", queryParams)}");
-            }
+            if (!string.IsNullOrEmpty(request.Before)) queryParams.Add($"before={WebUtility.UrlEncode(request.Before)}");
+
+            if (queryParams.Count > 0) sb.Append($"?{string.Join("&", queryParams)}");
+
             return sb.ToString();
         }
 

@@ -57,8 +57,11 @@ namespace Forge.OpenAI.Services
         /// </returns>
         public async Task<HttpOperationResult<FineTuneCreateResponse>> CreateAsync(FineTuneCreateRequest request, CancellationToken cancellationToken = default)
         {
+            if (request == null) return new HttpOperationResult<FineTuneCreateResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
             var validationResult = request.Validate<FineTuneCreateResponse>();
             if (validationResult != null) return validationResult;
+
             return await _apiHttpService.PostAsync<FineTuneCreateRequest, FineTuneCreateResponse>(GetCreateUri(), request, null, cancellationToken).ConfigureAwait(false);
         }
 
@@ -81,6 +84,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<FineTuneJobDataResponse>> GetAsync(string fineTuneId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(fineTuneId)) return new HttpOperationResult<FineTuneJobDataResponse>(new ArgumentNullException(nameof(fineTuneId)), System.Net.HttpStatusCode.BadRequest);
+            
             return await _apiHttpService.GetAsync<FineTuneJobDataResponse>(string.Format(GetUri(), fineTuneId), cancellationToken).ConfigureAwait(false);
         }
 
@@ -93,6 +97,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<FineTuneJobEventsResponse>> GetEventsAsync(string fineTuneId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(fineTuneId)) return new HttpOperationResult<FineTuneJobEventsResponse>(new ArgumentNullException(nameof(fineTuneId)), System.Net.HttpStatusCode.BadRequest);
+            
             return await _apiHttpService.GetAsync<FineTuneJobEventsResponse>(string.Format(GetEventsUri(), fineTuneId), cancellationToken).ConfigureAwait(false);
         }
 
@@ -110,6 +115,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult> GetEventsAsStreamAsync(string fineTuneId, Action<HttpOperationResult<FineTuneJobEvent>> resultCallback, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(fineTuneId)) return new HttpOperationResult(new ArgumentNullException(nameof(fineTuneId)), System.Net.HttpStatusCode.BadRequest);
+            
             return await _apiHttpService.StreamedGetAsync(string.Format(GetStreamedEventsUri(), fineTuneId), resultCallback, cancellationToken).ConfigureAwait(false);
         }
 
@@ -127,6 +133,7 @@ namespace Forge.OpenAI.Services
         public IAsyncEnumerable<HttpOperationResult<FineTuneJobEvent>> GetEventsAsStreamAsync(string fineTuneId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(fineTuneId)) return RequestBase.GetValidationResultAsAsyncEnumerable<FineTuneJobEvent>(new HttpOperationResult<FineTuneJobEvent>(new ArgumentNullException(nameof(fineTuneId)), System.Net.HttpStatusCode.BadRequest));
+            
             return _apiHttpService.StreamedGetAsync<FineTuneJobEvent>(string.Format(GetStreamedEventsUri(), fineTuneId), cancellationToken);
         }
 #endif
@@ -140,6 +147,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<FineTuneCancelResponse>> CancelAsync(string fineTuneId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(fineTuneId)) return new HttpOperationResult<FineTuneCancelResponse>(new ArgumentNullException(nameof(fineTuneId)), System.Net.HttpStatusCode.BadRequest);
+            
             return await _apiHttpService.PostAsync<object, FineTuneCancelResponse>(string.Format(GetCancelUri(), fineTuneId), null, null, cancellationToken).ConfigureAwait(false);
         }
 
@@ -152,6 +160,7 @@ namespace Forge.OpenAI.Services
         public async Task<HttpOperationResult<FineTuneDeleteModelResponse>> DeleteAsync(string model, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(model)) return new HttpOperationResult<FineTuneDeleteModelResponse>(new ArgumentNullException(nameof(model)), System.Net.HttpStatusCode.BadRequest);
+            
             return await _apiHttpService.DeleteAsync<FineTuneDeleteModelResponse>(string.Format(GetDeleteUri(), model), cancellationToken).ConfigureAwait(false);
         }
 

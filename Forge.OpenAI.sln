@@ -61,6 +61,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssistantFile", "Playground
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threads", "Playgrounds\Threads\Threads.csproj", "{150E09C1-6B29-4FA5-BE92-62FE04639B74}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messages", "Playgrounds\Messages\Messages.csproj", "{E7EBE7FC-7AE1-4816-9DCF-F28765CC4BBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -155,6 +157,10 @@ Global
 		{150E09C1-6B29-4FA5-BE92-62FE04639B74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{150E09C1-6B29-4FA5-BE92-62FE04639B74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{150E09C1-6B29-4FA5-BE92-62FE04639B74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7EBE7FC-7AE1-4816-9DCF-F28765CC4BBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7EBE7FC-7AE1-4816-9DCF-F28765CC4BBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7EBE7FC-7AE1-4816-9DCF-F28765CC4BBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7EBE7FC-7AE1-4816-9DCF-F28765CC4BBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -181,6 +187,7 @@ Global
 		{735BCF1A-6D65-48A8-A14D-1608AC6F756A} = {7B047CA9-973E-4C16-8985-2708C61E8C7D}
 		{564424C1-A38E-49EE-861A-FE38E4EED502} = {7B047CA9-973E-4C16-8985-2708C61E8C7D}
 		{150E09C1-6B29-4FA5-BE92-62FE04639B74} = {7B047CA9-973E-4C16-8985-2708C61E8C7D}
+		{E7EBE7FC-7AE1-4816-9DCF-F28765CC4BBD} = {7B047CA9-973E-4C16-8985-2708C61E8C7D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {614B2A5B-ACA8-4878-A1D1-D7B09FFB81E8}

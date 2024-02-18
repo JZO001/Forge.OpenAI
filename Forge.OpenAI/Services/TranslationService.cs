@@ -55,8 +55,11 @@ namespace Forge.OpenAI.Services
         /// <returns>TranscriptionResponse</returns>
         public async Task<HttpOperationResult<TranslationResponse>> GetAsync(TranslationRequest request, CancellationToken cancellationToken = default)
         {
+            if (request == null) return new HttpOperationResult<TranslationResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
             var validationResult = request.Validate<TranslationResponse>();
             if (validationResult != null) return validationResult;
+
             return await _apiHttpService.PostAsync<TranslationRequest, TranslationResponse>(GetTranscriptUri(), request, TranslateHttpContentFactoryAsync, cancellationToken).ConfigureAwait(false);
         }
 
