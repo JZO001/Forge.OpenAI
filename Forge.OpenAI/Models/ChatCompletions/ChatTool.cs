@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Forge.OpenAI.Factories;
 
 namespace Forge.OpenAI.Models.ChatCompletions
 {
@@ -12,7 +13,7 @@ namespace Forge.OpenAI.Models.ChatCompletions
         public string Type { get; set; }
 
         [JsonPropertyName("function")]
-        public ChatToolFunction Function { get; set; }
+        public FunctionDescriptor Function { get; set; }
 
     }
 
