@@ -161,6 +161,8 @@ namespace Forge.OpenAI.Services
             ThreadsService = new ThreadsService(options, apiHttpService, providerEndpointService);
             MessagesService = new MessageService(options, apiHttpService, providerEndpointService);
             MessageFileService = new MessageFileService(options, apiHttpService, providerEndpointService);
+            RunService = new RunService(options, apiHttpService, providerEndpointService);
+            RunStepService = new RunStepService(options, apiHttpService, providerEndpointService);
         }
 
         /// <summary>Creates a new service instance with individual options.</summary>
