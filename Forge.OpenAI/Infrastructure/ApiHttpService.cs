@@ -1,5 +1,6 @@
 ﻿using Forge.OpenAI.Interfaces.Infrastructure;
 using Forge.OpenAI.Interfaces.Providers;
+using Forge.OpenAI.Models;
 using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Settings;
 using Microsoft.Extensions.Logging;
@@ -38,6 +39,9 @@ namespace Forge.OpenAI.Infrastructure
         private readonly IApiHttpLoggerService _apiHttpLoggerService;
         private readonly IProviderEndpointService _providerEndpointService;
         private readonly OpenAIOptions _options;
+
+        /// <summary>Occurs before the request sent out to prepare it manually</summary>
+        public event EventHandler<HttpRequestMessageEventArgs> OnPrepareRequest;
 
         /// <summary>Initializes a new instance of the <see cref="ApiHttpService" /> class.</summary>
         /// <param name="httpClientFactory">The HTTP client factory.</param>
@@ -190,6 +194,12 @@ namespace Forge.OpenAI.Infrastructure
                     _providerEndpointService.ConfigureHttpRequestHeaders(request.Headers);
                     ApplyDefaultRequestHeaders(request.Headers);
 
+                    EventHandler<HttpRequestMessageEventArgs> prepareRequestEvent = OnPrepareRequest;
+                    if (prepareRequestEvent != null)
+                    {
+                        prepareRequestEvent(this, new HttpRequestMessageEventArgs(request, data));
+                    }
+
                     using (HttpClient httpClient = _httpClientFactory.GetHttpClient())
                     {
                         _logger?.LogDebug($"GetContentAsStream, sending {request.Method.Method} to baseAddress: {httpClient.BaseAddress}, uri: {uri}");
@@ -319,6 +329,12 @@ namespace Forge.OpenAI.Infrastructure
                     request.Content = new StringContent(JsonSerializer.Serialize(data, _options.JsonSerializerOptions), Encoding.UTF8, "application/json");
                 }
 
+                EventHandler<HttpRequestMessageEventArgs> prepareRequestEvent = OnPrepareRequest;
+                if (prepareRequestEvent != null)
+                {
+                    prepareRequestEvent(this, new HttpRequestMessageEventArgs(request, data));
+                }
+
                 using (HttpClient httpClient = _httpClientFactory.GetHttpClient())
                 {
                     _logger?.LogDebug($"StreamedAsync, sending {request.Method.Method} to baseAddress: {httpClient.BaseAddress}, uri: {uri}");
@@ -440,6 +456,12 @@ namespace Forge.OpenAI.Infrastructure
 
                     _providerEndpointService.ConfigureHttpRequestHeaders(request.Headers);
                     ApplyDefaultRequestHeaders(request.Headers);
+
+                    EventHandler<HttpRequestMessageEventArgs> prepareRequestEvent = OnPrepareRequest;
+                    if (prepareRequestEvent != null)
+                    {
+                        prepareRequestEvent(this, new HttpRequestMessageEventArgs(request, data));
+                    }
 
                     using (HttpClient httpClient = _httpClientFactory.GetHttpClient())
                     {

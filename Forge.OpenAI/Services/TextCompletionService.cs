@@ -4,6 +4,7 @@ using Forge.OpenAI.Interfaces.Services;
 using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Models.TextCompletions;
 using Forge.OpenAI.Settings;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -27,28 +28,28 @@ namespace Forge.OpenAI.Services
 
         /// <summary>Initializes a new instance of the <see cref="TextCompletionService" /> class.</summary>
         /// <param name="options">The options.</param>
-        /// <param name="apiHttpService">The API communication service.</param>
+        /// <param name="serviceProvider">The service provider.</param>
         /// <param name="providerEndpointService">The provider endpoint service.</param>
         /// <exception cref="System.ArgumentNullException">options
         /// or
         /// apiCommunicationService</exception>
-        public TextCompletionService(OpenAIOptions options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
+        public TextCompletionService(OpenAIOptions options, IServiceProvider serviceProvider, IProviderEndpointService providerEndpointService)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
-            if (apiHttpService == null) throw new ArgumentNullException(nameof(apiHttpService));
+            if (serviceProvider == null) throw new ArgumentNullException(nameof(serviceProvider));
             if (providerEndpointService == null) throw new ArgumentNullException(nameof(providerEndpointService));
 
             _options = options;
-            _apiHttpService = apiHttpService;
+            _apiHttpService = serviceProvider.GetRequiredService<IApiHttpService>();
             _providerEndpointService = providerEndpointService;
         }
 
         /// <summary>Initializes a new instance of the <see cref="TextCompletionService" /> class.</summary>
         /// <param name="options">The options.</param>
-        /// <param name="apiHttpService">The API communication service.</param>
+        /// <param name="serviceProvider">The service provider.</param>
         /// <param name="providerEndpointService">The provider endpoint service.</param>
-        public TextCompletionService(IOptions<OpenAIOptions> options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
-            : this(options?.Value, apiHttpService, providerEndpointService)
+        public TextCompletionService(IOptions<OpenAIOptions> options, IServiceProvider serviceProvider, IProviderEndpointService providerEndpointService)
+            : this(options?.Value, serviceProvider, providerEndpointService)
         {
         }
 

@@ -4,6 +4,7 @@ using Forge.OpenAI.Interfaces.Services;
 using Forge.OpenAI.Models.Audio.Transcription;
 using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Settings;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using System.IO;
@@ -24,28 +25,28 @@ namespace Forge.OpenAI.Services
 
         /// <summary>Initializes a new instance of the <see cref="TranscriptionService" /> class.</summary>
         /// <param name="options">The options.</param>
-        /// <param name="apiHttpService">The API HTTP service.</param>
+        /// <param name="serviceProvider">The service provider.</param>
         /// <param name="providerEndpointService">The provider endpoint service.</param>
         /// <exception cref="System.ArgumentNullException">options
         /// or
         /// apiHttpService</exception>
-        public TranscriptionService(OpenAIOptions options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
+        public TranscriptionService(OpenAIOptions options, IServiceProvider serviceProvider, IProviderEndpointService providerEndpointService)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
-            if (apiHttpService == null) throw new ArgumentNullException(nameof(apiHttpService));
+            if (serviceProvider == null) throw new ArgumentNullException(nameof(serviceProvider));
             if (providerEndpointService == null) throw new ArgumentNullException(nameof(providerEndpointService));
 
             _options = options;
-            _apiHttpService = apiHttpService;
+            _apiHttpService = serviceProvider.GetRequiredService<IApiHttpService>();
             _providerEndpointService = providerEndpointService;
         }
 
         /// <summary>Initializes a new instance of the <see cref="TranscriptionService" /> class.</summary>
         /// <param name="options">The options.</param>
-        /// <param name="apiHttpService">The API HTTP service.</param>
+        /// <param name="serviceProvider">The service provider.</param>
         /// <param name="providerEndpointService">The provider endpoint service.</param>
-        public TranscriptionService(IOptions<OpenAIOptions> options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
-            : this(options?.Value, apiHttpService, providerEndpointService)
+        public TranscriptionService(IOptions<OpenAIOptions> options, IServiceProvider serviceProvider, IProviderEndpointService providerEndpointService)
+            : this(options?.Value, serviceProvider, providerEndpointService)
         {
         }
 
@@ -97,6 +98,14 @@ namespace Forge.OpenAI.Services
             if (!string.IsNullOrWhiteSpace(request.ResponseFormat)) content.Add(new StringContent(request.ResponseFormat), "response_format");
             if (!string.IsNullOrWhiteSpace(request.Language)) content.Add(new StringContent(request.Language), "language");
             if (request.Temperature.HasValue) content.Add(new StringContent(request.Temperature.Value.ToString()), "temperature");
+
+            switch (request.TimestampGranularities)
+            {
+                case TimestampGranularityEnum.Segment:
+                case TimestampGranularityEnum.Word:
+                    content.Add(new StringContent(request.TimestampGranularities.ToString().ToLower()), "timestamp_granularities[]");
+                    break;
+            }
 
             return content;
         }

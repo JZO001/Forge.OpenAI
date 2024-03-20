@@ -3,6 +3,7 @@ using Forge.OpenAI.Interfaces.Providers;
 using Forge.OpenAI.Interfaces.Services;
 using Forge.OpenAI.Models.Assistants;
 using Forge.OpenAI.Models.Common;
+using Forge.OpenAI.Models;
 using Forge.OpenAI.Settings;
 using Microsoft.Extensions.Options;
 using System;
@@ -11,6 +12,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Forge.OpenAI.Services
 {
@@ -29,32 +31,32 @@ namespace Forge.OpenAI.Services
 
         /// <summary>Initializes a new instance of the <see cref="AssistantService" /> class.</summary>
         /// <param name="options">The options.</param>
-        /// <param name="apiHttpService">The API HTTP service.</param>
+        /// <param name="serviceProvider">The service provider.</param>
         /// <param name="providerEndpointService">The provider endpoint service.</param>
         /// <exception cref="System.ArgumentNullException">options
         /// or
         /// apiHttpService
         /// or
         /// providerEndpointService</exception>
-        public AssistantService(OpenAIOptions options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
+        public AssistantService(OpenAIOptions options, IServiceProvider serviceProvider, IProviderEndpointService providerEndpointService)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
-            if (apiHttpService == null) throw new ArgumentNullException(nameof(apiHttpService));
+            if (serviceProvider == null) throw new ArgumentNullException(nameof(serviceProvider));
             if (providerEndpointService == null) throw new ArgumentNullException(nameof(providerEndpointService));
 
             _options = options;
-            _apiHttpService = apiHttpService;
+            _apiHttpService = serviceProvider.GetRequiredService<IApiHttpService>();
             _providerEndpointService = providerEndpointService;
 
-            _apiHttpService.DefaultRequestHeaders.Add("OpenAI-Beta", "assistants=v1");    
+            _apiHttpService.OnPrepareRequest += OnPrepareRequestHandler;
         }
 
         /// <summary>Initializes a new instance of the <see cref="AssistantService" /> class.</summary>
         /// <param name="options">The options.</param>
-        /// <param name="apiHttpService">The API HTTP service.</param>
+        /// <param name="serviceProvider">The service provider.</param>
         /// <param name="providerEndpointService">The provider endpoint service.</param>
-        public AssistantService(IOptions<OpenAIOptions> options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
-            : this(options?.Value, apiHttpService, providerEndpointService)
+        public AssistantService(IOptions<OpenAIOptions> options, IServiceProvider serviceProvider, IProviderEndpointService providerEndpointService)
+            : this(options?.Value, serviceProvider, providerEndpointService)
         {
         }
 
@@ -73,7 +75,6 @@ namespace Forge.OpenAI.Services
             
             return await _apiHttpService.PostAsync<CreateAssistantRequest, AssistantResponse>(GetCreateUri(), request, null, cancellationToken).ConfigureAwait(false);
         }
-
 
         /// <summary>Gets a assistant data asynchronously.</summary>
         /// <param name="assistantId">The assistant identifier.</param>
@@ -166,6 +167,18 @@ namespace Forge.OpenAI.Services
         private string GetDeleteUri(string assistantId)
         {
             return string.Format(_providerEndpointService.BuildBaseUri(), string.Format(_options.AssistantDeleteUri, assistantId));
+        }
+
+        /// <summary>Called when api requires request to be prepared before sending</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="HttpRequestMessageEventArgs" /> instance containing the event data.</param>
+        protected virtual void OnPrepareRequestHandler(object
+#if NETCOREAPP3_1_OR_GREATER
+            ?
+#endif
+            sender, HttpRequestMessageEventArgs e)
+        {
+            e.RequestMessage.Headers.Add("OpenAI-Beta", "assistants=v1");
         }
 
     }

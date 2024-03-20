@@ -82,6 +82,15 @@ namespace Forge.OpenAI.Models.Audio.Transcription
         [JsonPropertyName("language")]
         public string Language { get; set; }
 
+        /// <summary>
+        /// The timestamp granularities to populate for this transcription.
+        /// response_format must be set verbose_json to use timestamp granularities.
+        /// Either or both of these options are supported: <see cref="TimestampGranularityEnum.Word"/>, or <see cref="TimestampGranularityEnum.Segment"/>. <br/>
+        /// Note: There is no additional latency for segment timestamps, but generating word timestamps incurs additional latency.
+        /// <see href="https://platform.openai.com/docs/api-reference/audio/createTranscription#audio-createtranscription-timestamp_granularities" />
+        /// </summary>
+        public TimestampGranularityEnum TimestampGranularities { get; }
+
     }
 
 }

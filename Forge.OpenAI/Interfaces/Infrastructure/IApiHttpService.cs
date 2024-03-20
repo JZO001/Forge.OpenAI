@@ -1,11 +1,11 @@
-﻿using Forge.OpenAI.Models.Common;
+﻿using Forge.OpenAI.Models;
+using Forge.OpenAI.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Forge.OpenAI.Interfaces.Infrastructure
 {
@@ -13,6 +13,9 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
     /// <summary>Represents an API Http service interface</summary>
     public interface IApiHttpService
     {
+
+        /// <summary>Occurs before the request sent out to prepare it manually</summary>
+        event EventHandler<HttpRequestMessageEventArgs> OnPrepareRequest;
 
         /// <summary>Gets the default request headers in scope of the current Api Http Service</summary>
         /// <value>The default request headers.</value>

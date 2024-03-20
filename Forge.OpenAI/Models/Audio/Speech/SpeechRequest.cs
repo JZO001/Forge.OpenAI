@@ -20,6 +20,8 @@ namespace Forge.OpenAI.Models.Audio.Speech
         public const string RESPONSE_FORMAT_OPUS = "opus";
         public const string RESPONSE_FORMAT_AAC = "aac";
         public const string RESPONSE_FORMAT_FLAC = "flac";
+        public const string RESPONSE_FORMAT_WAV = "wav";
+        public const string RESPONSE_FORMAT_PCM = "pcm";
 
         /// <summary>
         /// One of the available TTS models: tts-1 or tts-1-hd

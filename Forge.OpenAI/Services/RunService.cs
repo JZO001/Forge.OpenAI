@@ -2,8 +2,8 @@
 using Forge.OpenAI.Interfaces.Providers;
 using Forge.OpenAI.Interfaces.Services;
 using Forge.OpenAI.Settings;
+using Forge.OpenAI.Models;
 using Forge.OpenAI.Models.Common;
-using Forge.OpenAI.Models.Threads;
 using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
@@ -12,6 +12,7 @@ using Forge.OpenAI.Models.Runs;
 using System.Text;
 using System.Net;
 using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Forge.OpenAI.Services
 {
@@ -29,30 +30,32 @@ namespace Forge.OpenAI.Services
 
         /// <summary>Initializes a new instance of the <see cref="RunService" /> class.</summary>
         /// <param name="options">The options.</param>
-        /// <param name="apiHttpService">The API HTTP service.</param>
+        /// <param name="serviceProvider">The service provider.</param>
         /// <param name="providerEndpointService">The provider endpoint service.</param>
         /// <exception cref="System.ArgumentNullException">options
         /// or
         /// apiHttpService
         /// or
         /// providerEndpointService</exception>
-        public RunService(OpenAIOptions options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
+        public RunService(OpenAIOptions options, IServiceProvider serviceProvider, IProviderEndpointService providerEndpointService)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
-            if (apiHttpService == null) throw new ArgumentNullException(nameof(apiHttpService));
+            if (serviceProvider == null) throw new ArgumentNullException(nameof(serviceProvider));
             if (providerEndpointService == null) throw new ArgumentNullException(nameof(providerEndpointService));
 
             _options = options;
-            _apiHttpService = apiHttpService;
+            _apiHttpService = serviceProvider.GetRequiredService<IApiHttpService>();
             _providerEndpointService = providerEndpointService;
+
+            _apiHttpService.OnPrepareRequest += OnPrepareRequestHandler;
         }
 
         /// <summary>Initializes a new instance of the <see cref="RunService" /> class.</summary>
         /// <param name="options">The options.</param>
-        /// <param name="apiHttpService">The API HTTP service.</param>
+        /// <param name="serviceProvider">The service provider.</param>
         /// <param name="providerEndpointService">The provider endpoint service.</param>
-        public RunService(IOptions<OpenAIOptions> options, IApiHttpService apiHttpService, IProviderEndpointService providerEndpointService)
-            : this(options?.Value, apiHttpService, providerEndpointService)
+        public RunService(IOptions<OpenAIOptions> options, IServiceProvider serviceProvider, IProviderEndpointService providerEndpointService)
+            : this(options?.Value, serviceProvider, providerEndpointService)
         {
         }
 
@@ -212,6 +215,18 @@ namespace Forge.OpenAI.Services
         private string CancelUri(string threadId, string runId)
         {
             return string.Format(_providerEndpointService.BuildBaseUri(), string.Format(_options.RunCancelUri, threadId, runId));
+        }
+
+        /// <summary>Called when api requires request to be prepared before sending</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="HttpRequestMessageEventArgs" /> instance containing the event data.</param>
+        protected virtual void OnPrepareRequestHandler(object
+#if NETCOREAPP3_1_OR_GREATER
+            ?
+#endif
+            sender, HttpRequestMessageEventArgs e)
+        {
+            e.RequestMessage.Headers.Add("OpenAI-Beta", "assistants=v1");
         }
 
     }
