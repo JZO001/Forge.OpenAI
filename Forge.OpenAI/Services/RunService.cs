@@ -88,7 +88,7 @@ namespace Forge.OpenAI.Services
             var validationResult = request.Validate<CreateThreadAndRunResponse>();
             if (validationResult != null) return validationResult;
 
-            return await _apiHttpService.PostAsync<CreateThreadAndRunRequest, CreateThreadAndRunResponse>(_options.RunThreadAndRunCreateUri, request, null, cancellationToken).ConfigureAwait(false);
+            return await _apiHttpService.PostAsync<CreateThreadAndRunRequest, CreateThreadAndRunResponse>(GetCreateAndRunUri(), request, null, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>Gets a run data asynchronously.</summary>
@@ -176,6 +176,11 @@ namespace Forge.OpenAI.Services
         private string GetCreateUri(string threadId)
         {
             return string.Format(_providerEndpointService.BuildBaseUri(), string.Format(_options.RunCreateUri, threadId));
+        }
+
+        private string GetCreateAndRunUri()
+        {
+            return string.Format(_providerEndpointService.BuildBaseUri(), _options.RunThreadAndRunCreateUri);
         }
 
         private string GetUri(string threadId, string runId)
