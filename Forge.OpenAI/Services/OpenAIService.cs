@@ -5,6 +5,7 @@ using Forge.OpenAI.Interfaces.Services;
 using Forge.OpenAI.Services.Endpoints;
 using Forge.OpenAI.Settings;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 
 namespace Forge.OpenAI.Services
@@ -186,7 +187,11 @@ namespace Forge.OpenAI.Services
             if (options == null) throw new ArgumentNullException(nameof(options));
 
             ServiceCollection services = new ServiceCollection();
+            services.AddHttpClient<IApiHttpService>(Consts.HTTP_CLIENT_FACTORY_NAME);
+
             services
+                .AddSingleton<IApiHttpLoggerService, ApiHttpLoggerService>()
+                .AddSingleton(Options.Create(options))
                 .AddTransient<IApiHttpClientFactory, ApiHttpClientFactory>()
                 .AddTransient<IApiHttpService, ApiHttpService>();
 
