@@ -6,6 +6,9 @@ using System.Text.Json.Serialization;
 namespace Forge.OpenAI.Models.Runs
 {
 
+    /// <summary>
+    ///   <a href="https://platform.openai.com/docs/api-reference/runs/step-object">https://platform.openai.com/docs/api-reference/runs/step-object</a>
+    /// </summary>
     public class RunStepResponse : ResponseBase
     {
 
