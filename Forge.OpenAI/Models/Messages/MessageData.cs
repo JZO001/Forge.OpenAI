@@ -8,6 +8,14 @@ namespace Forge.OpenAI.Models.Messages
     public class MessageData
     {
 
+        public const string STATUS_IN_PROGRESS = "in_progress";
+        public const string STATUS_COMPLETED = "completed";
+        public const string STATUS_INCOMPLETE = "incomplete";
+
+        public const string ROLE_USER = "user";
+        public const string ROLE_ASSISTANT = "assistant";
+        public const string ROLE_SYSTEM = "system";
+
         /// <summary>
         /// The identifier, which can be referenced in API endpoints.
         /// </summary>
@@ -37,6 +45,12 @@ namespace Forge.OpenAI.Models.Messages
         /// </summary>
         [JsonPropertyName("thread_id")]
         public string ThreadId { get; set; }
+
+        /// <summary>
+        /// The thread ID that this message belongs to.
+        /// </summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
 
         /// <summary>
         /// The entity that produced the message. One of user or assistant.

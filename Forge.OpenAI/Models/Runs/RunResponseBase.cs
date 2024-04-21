@@ -10,6 +10,15 @@ namespace Forge.OpenAI.Models.Runs
     public abstract class RunResponseBase : ResponseBase
     {
 
+        public const string RUN_STATUS_QUEUED = "queued";
+        public const string RUN_STATUS_IN_PROGRESS = "in_progress";
+        public const string RUN_STATUS_REQUIRES_ACTION = "requires_action";
+        public const string RUN_STATUS_CANCELLING = "cancelling";
+        public const string RUN_STATUS_CANCELLED = "cancelled";
+        public const string RUN_STATUS_FAILED = "failed";
+        public const string RUN_STATUS_COMPLETED = "completed";
+        public const string RUN_STATUS_EXPIRED = "expired";
+
         /// <summary>
         /// The identifier, which can be referenced in API endpoints.
         /// </summary>
@@ -119,12 +128,6 @@ namespace Forge.OpenAI.Models.Runs
         /// </summary>
         [JsonIgnore]
         public DateTime? CompletedAt => CompletedAtUnixTimeSeconds.HasValue ? (DateTime?)DateTimeOffset.FromUnixTimeSeconds(CompletedAtUnixTimeSeconds.Value).DateTime : null;
-
-        /// <summary>
-        /// The model that the assistant used for this run.
-        /// </summary>
-        [JsonPropertyName("model")]
-        public string Model { get; set; }
 
         /// <summary>
         /// The instructions that the assistant used for this run.

@@ -10,6 +10,10 @@ namespace Forge.OpenAI.Models.Messages
     public abstract class MessageResponseBase : ResponseBase
     {
 
+        public const string STATUS_IN_PROGRESS = "in_progress";
+        public const string STATUS_COMPLETED = "completed";
+        public const string STATUS_INCOMPLETE = "incomplete";
+
         /// <summary>
         /// The identifier, which can be referenced in API endpoints.
         /// </summary>
@@ -33,6 +37,12 @@ namespace Forge.OpenAI.Models.Messages
         /// </summary>
         [JsonPropertyName("thread_id")]
         public string ThreadId { get; set; }
+
+        /// <summary>
+        /// The thread ID that this message belongs to.
+        /// </summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
 
         /// <summary>
         /// The entity that produced the message. One of user or assistant.

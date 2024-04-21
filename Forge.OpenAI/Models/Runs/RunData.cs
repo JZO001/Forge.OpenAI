@@ -156,7 +156,6 @@ namespace Forge.OpenAI.Models.Runs
         /// <summary>
         /// The list of File IDs the assistant used for this run.
         /// </summary>
-        [JsonInclude]
         [JsonPropertyName("file_ids")]
         public IReadOnlyList<string> FileIds { get; set; }
 
