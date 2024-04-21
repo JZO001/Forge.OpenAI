@@ -2,8 +2,9 @@
 {
 
     /// <summary>Known AI model types</summary>
-    public class KnownModelTypes
+    public static class KnownModelTypes
     {
+
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public const string Ada = "ada";
         public const string AdaCodeSearchCode = "ada-code-search-code";
@@ -62,10 +63,12 @@
         public const string Gpt_4_32k_0314 = "gpt-4-32k-0314";
         public const string Gpt_4_0613 = "gpt-4-0613";
         public const string Gpt_4_32k_0613 = "gpt-4-32k-0613";
-        public const string Gpt_4_1106_preview = "gpt-4-1106-preview";
+        public const string Gpt_4_1106_vision_preview = "gpt-4-1106-vision-preview";
         public const string Gpt_4_0125_preview = "gpt-4-0125-preview";
         public const string Gpt_4_vision_preview = "gpt-4-vision-preview";
+        public const string Gpr_4_turbo = "gpr-4-turbo";
         public const string Gpt_4_turbo_preview = "gpt-4-turbo-preview";
+        public const string Gpt_4_turbo_2024_04_09 = "gpt-4-turbo-2024-04-09";
 
         public const string IfCurieV2 = "if-curie-v2";
         public const string IfDavinciV2 = "if-davinci-v2";

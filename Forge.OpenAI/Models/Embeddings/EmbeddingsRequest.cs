@@ -100,6 +100,14 @@ namespace Forge.OpenAI.Models.Embeddings
         [JsonPropertyName("encoding_format")]
         public string EncodingFormat { get; set; } = ENCODING_FORMAT_FLOAT;
 
+        /// <summary>
+        /// The number of dimensions the resulting output embeddings should have. Only supported in text-embedding-3 and later models. <br/>
+        /// <a href="https://platform.openai.com/docs/api-reference/embeddings/create#embeddings-create-dimensions">Learn more</a>. <br/>
+        /// <see href="https://platform.openai.com/docs/api-reference/embeddings/create#embeddings-create-dimensions" />
+        /// </summary>
+        [JsonPropertyName("dimensions")]
+        public int? Dimensions { get; set; }
+
     }
 
 }

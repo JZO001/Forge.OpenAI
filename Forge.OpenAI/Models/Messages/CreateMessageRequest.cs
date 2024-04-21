@@ -10,6 +10,9 @@ namespace Forge.OpenAI.Models.Messages
     public class CreateMessageRequest : RequestBase
     {
 
+        public const string ROLE_USER = "user";
+        public const string ROLE_ASSISTANT = "assistant";
+
         /// <summary>Initializes a new instance of the <see cref="CreateMessageRequest" /> class.</summary>
         public CreateMessageRequest()
         {
@@ -41,7 +44,7 @@ namespace Forge.OpenAI.Models.Messages
         /// </summary>
         [JsonPropertyName("role")]
         [Required]
-        public string Role { get; set; } = "user";
+        public string Role { get; set; } = ROLE_USER;
 
         /// <summary>
         /// The content of the message.
@@ -56,7 +59,12 @@ namespace Forge.OpenAI.Models.Messages
         /// Useful for tools like 'retrieval' and 'code_interpreter' that can access and use files.
         /// </summary>
         [JsonPropertyName("file_ids")]
-        public IList<string> FileIds { get; set; }
+        public IReadOnlyList<string> FileIds { get; set; }
+
+        /// <summary>A list of files attached to the message, and the tools they should be added to.</summary>
+        /// <value>The attachment.</value>
+        [JsonPropertyName("attachments")]
+        public IReadOnlyList<Attachment> Attachment { get; set; }
 
         /// <summary>
         /// Set of 16 key-value pairs that can be attached to an object.

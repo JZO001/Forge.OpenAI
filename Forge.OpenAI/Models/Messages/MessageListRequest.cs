@@ -43,6 +43,11 @@ namespace Forge.OpenAI.Models.Messages
         [JsonPropertyName("before")]
         public string Before { get; set; }
 
+        /// <summary>Filter messages by the run ID that generated them.</summary>
+        /// <value>The run identifier.</value>
+        [JsonPropertyName("run_id")]
+        public string RunId { get; set; }
+
     }
 
 }
