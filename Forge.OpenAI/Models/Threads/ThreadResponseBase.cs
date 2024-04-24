@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Forge.OpenAI.Models.Common;
+using Forge.OpenAI.Models.Shared;
 
 namespace Forge.OpenAI.Models.Threads
 {
@@ -35,6 +36,14 @@ namespace Forge.OpenAI.Models.Threads
         /// </summary>
         [JsonPropertyName("metadata")]
         public IReadOnlyDictionary<string, string> Metadata { get; set; }
+
+        /// <summary>
+        /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the code_interpreter tool requires a list of file IDs, while the file_search tool requires a list of vector store IDs.
+        /// <a href="https://platform.openai.com/docs/api-reference/threads/createThread#threads-createthread-tool_resources">https://platform.openai.com/docs/api-reference/threads/createThread#threads-createthread-tool_resources</a>
+        /// </summary>
+        /// <value>The tool resources.</value>
+        [JsonPropertyName("tool_resources")]
+        public ToolResource ToolResources { get; set; }
 
     }
 

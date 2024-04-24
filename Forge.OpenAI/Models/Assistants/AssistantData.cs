@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Forge.OpenAI.Infrastructure.Serialization;
+using Forge.OpenAI.Models.Shared;
 
 namespace Forge.OpenAI.Models.Assistants
 {
@@ -11,9 +13,6 @@ namespace Forge.OpenAI.Models.Assistants
     /// </summary>
     public class AssistantData
     {
-
-        public const string RESPONSE_FORMAT_JSON = "json_object";
-        public const string RESPONSE_FORMAT_TEXT = "text";
 
         /// <summary>
         /// The identifier, which can be referenced in API endpoints.
@@ -80,6 +79,7 @@ namespace Forge.OpenAI.Models.Assistants
         /// There can be a maximum of 20 files attached to the assistant.
         /// Files are ordered by their creation date in ascending order.
         /// </summary>
+        [Obsolete]
         [JsonPropertyName("file_ids")]
         public IReadOnlyList<string> FileIds { get; set; }
 
@@ -109,30 +109,11 @@ namespace Forge.OpenAI.Models.Assistants
 
         /// <summary>Gets or sets the response format.</summary>
         /// <value>
-        ///   <a href="https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-response_format</a>
+        ///   <a href="https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-response_format"></a>
         /// </value>
         [JsonPropertyName("response_format")]
-        public AssistantResponseFormat ResponseFormat { get; set; }
-
-        /// <summary>Sets the set response format with enum.</summary>
-        /// <value>The set response format with enum.</value>
-        [JsonIgnore]
-        public AssistantResponseFormats? SetResponseFormatWithEnum
-        {
-            set
-            {
-                if (value == null)
-                {
-                    ResponseFormat = null;
-                    return;
-                }
-
-                ResponseFormat = new AssistantResponseFormat
-                {
-                    Type = value == AssistantResponseFormats.Json ? RESPONSE_FORMAT_JSON : RESPONSE_FORMAT_TEXT
-                };
-            }
-        }
+        [JsonConverter(typeof(ResponseFormatConverter))]
+        public object ResponseFormat { get; set; }
 
         /// <summary>
         /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the code_interpreter tool requires a list of file IDs, while the file_search tool requires a list of vector store IDs.

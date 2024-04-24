@@ -26,8 +26,9 @@ namespace Forge.OpenAI.Services
             if (options == null) throw new ArgumentNullException(nameof(options));
 
             _logger = logger;
+            _isLogEnabled = options.LogRequestsAndResponses;
 
-            if (_isLogEnabled = options.LogRequestsAndResponses)
+            if (_isLogEnabled)
             {
                 string logDir = string.IsNullOrWhiteSpace(options.LogRequestsAndResponsesFolder) ? Environment.CurrentDirectory : options.LogRequestsAndResponsesFolder;
                 if (!Path.IsPathRooted(logDir)) logDir = Path.Combine(Environment.CurrentDirectory, logDir);

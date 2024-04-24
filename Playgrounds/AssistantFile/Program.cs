@@ -6,6 +6,7 @@ using Forge.OpenAI.Models.Assistants;
 using Forge.OpenAI.Models.Files;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Forge.OpenAI.Models.Shared;
 
 namespace AssistantFile
 {

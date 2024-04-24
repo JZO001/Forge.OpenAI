@@ -5,6 +5,7 @@ using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Models.Assistants;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Forge.OpenAI.Models.Shared;
 
 namespace Assistant
 {
@@ -49,9 +50,11 @@ namespace Assistant
                 Instructions = "You are a personal math tutor. When asked a question, write and run Python code to answer the question.",
                 Tools = new List<Tool>() 
                 { 
-                    new Tool() { Type = Tool.CODE_INTERPRETER } 
+                    new Tool() { Type = Tool.FUNCTION, Function = new Forge.OpenAI.Factories.FunctionDescriptor() { Name = "MyFunction" } } 
                 }
             };
+
+            request.SetResponseFormatWithEnum = ResponseFormats.Json;
 
             HttpOperationResult<AssistantResponse> createResult = await openAi.AssistantService.CreateAsync(request, CancellationToken.None);
             if (createResult.IsSuccess)

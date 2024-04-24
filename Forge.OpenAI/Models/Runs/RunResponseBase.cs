@@ -1,8 +1,9 @@
 ﻿using Forge.OpenAI.Models.Common;
-using Forge.OpenAI.Models.Assistants;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using Forge.OpenAI.Infrastructure.Serialization;
+using Forge.OpenAI.Models.Shared;
 
 namespace Forge.OpenAI.Models.Runs
 {
@@ -144,7 +145,7 @@ namespace Forge.OpenAI.Models.Runs
         /// <summary>
         /// The list of File IDs the assistant used for this run.
         /// </summary>
-        [JsonInclude]
+        [Obsolete]
         [JsonPropertyName("file_ids")]
         public IReadOnlyList<string> FileIds { get; set; }
 
@@ -161,6 +162,57 @@ namespace Forge.OpenAI.Models.Runs
         /// </summary>
         [JsonPropertyName("usage")]
         public Usage Usage { get; set; }
+
+        /// <summary>
+        /// The sampling temperature used for this run. If not set, defaults to 1.
+        /// <see href="https://platform.openai.com/docs/api-reference/runs/object#runs/object-temperature" />
+        /// </summary>
+        /// <value>The temperature.</value>
+        [JsonPropertyName("temperature")]
+        public double? Temperature { get; set; }
+
+        /// <summary>
+        /// The nucleus sampling value used for this run. If not set, defaults to 1.
+        /// <see href="https://platform.openai.com/docs/api-reference/runs/object#runs/object-top_p" />
+        /// </summary>
+        [JsonPropertyName("top_p")]
+        public double? TopP { get; set; }
+
+        /// <summary>
+        ///   <a href="https://platform.openai.com/docs/api-reference/runs/object#runs/object-max_prompt_tokens">https://platform.openai.com/docs/api-reference/runs/object#runs/object-max_prompt_tokens</a>
+        /// </summary>
+        /// <value>The maximum prompt tokens.</value>
+        [JsonPropertyName("max_prompt_tokens")]
+        public int? MaxPromptTokens { get; set; }
+
+        /// <summary>
+        ///   <a href="https://platform.openai.com/docs/api-reference/runs/object#runs/object-max_completion_tokens">https://platform.openai.com/docs/api-reference/runs/object#runs/object-max_completion_tokens</a>
+        /// </summary>
+        /// <value>The maximum prompt tokens.</value>
+        [JsonPropertyName("max_completion_tokens")]
+        public int? MaxCompletionTokens { get; set; }
+
+        /// <summary>
+        /// Controls for how a thread will be truncated prior to the run. Use this to control the intial context window of the run.
+        ///   <para>
+        ///     <a href="https://platform.openai.com/docs/api-reference/runs/object#runs/object-truncation_strategy">https://platform.openai.com/docs/api-reference/runs/object#runs/object-truncation_strategy</a>
+        ///   </para>
+        /// </summary>
+        /// <value>The truncation strategy.</value>
+        [JsonPropertyName("truncation_strategy")]
+        public TruncationStrategy TruncationStrategy { get; set; }
+
+        /// <summary>
+        ///   <para>
+        /// Controls which (if any) tool is called by the model. none means the model will not call any tools and instead generates a message. auto is the default value and means the model can pick between generating a message or calling a tool. Specifying a particular tool like {"type": "file_search"} or {"type": "function", "function": {"name": "my_function"}} forces the model to call that tool.</para>
+        ///   <para>
+        ///     <a href="https://platform.openai.com/docs/api-reference/runs/object#runs/object-tool_choice">https://platform.openai.com/docs/api-reference/runs/object#runs/object-tool_choice</a>
+        ///   </para>
+        /// </summary>
+        /// <value>The tool choice.</value>
+        [JsonPropertyName("tool_choice")]
+        [JsonConverter(typeof(ToolChoiceConverter))]
+        public object ToolChoice { get; set; }
 
     }
 

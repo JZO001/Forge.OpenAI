@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Forge.OpenAI.Models.Assistants
+namespace Forge.OpenAI.Models.Shared
 {
 
     /// <summary>A helper to create a vector store with file_ids and attach it to this assistant. There can be a maximum of 1 vector store attached to the assistant.</summary>

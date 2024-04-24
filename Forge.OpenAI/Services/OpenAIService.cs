@@ -141,87 +141,64 @@ namespace Forge.OpenAI.Services
             RunStepService = runStepService;
         }
 
-        /// <summary>Initializes a new instance of the <see cref="OpenAIService" /> class.</summary>
+        /// <summary>
+        /// Creates a new service instance with individual options.
+        /// The method gets back the ServiceProvider instance for further use.
+        /// It is the caller responsibility to dispose it, at the end of the OpenAIService instance lifecycle.
+        /// </summary>
         /// <param name="options">The options.</param>
-        /// <param name="serviceProvider">The service provider.</param>
-        /// <param name="providerEndpointService">The provider endpoint service.</param>
-        /// <exception cref="System.ArgumentNullException">options
-        /// or
-        /// apiHttpService</exception>
-        public OpenAIService(OpenAIOptions options, IServiceProvider serviceProvider, IProviderEndpointService providerEndpointService)
-        {
-            if (options == null) throw new ArgumentNullException(nameof(options));
-            if (serviceProvider == null) throw new ArgumentNullException(nameof(serviceProvider));
-            if (providerEndpointService == null) throw new ArgumentNullException(nameof(providerEndpointService));
-
-            ModelService = new ModelService(options, serviceProvider, providerEndpointService);
-            TextCompletionService = new TextCompletionService(options, serviceProvider, providerEndpointService);
-            TextEditService = new TextEditService(options, serviceProvider, providerEndpointService);
-            ModerationService = new ModerationService(options, serviceProvider, providerEndpointService);
-            EmbeddingsService = new EmbeddingsService(options, serviceProvider, providerEndpointService);
-            ImageService = new ImageService(options, serviceProvider, providerEndpointService);
-            FileService = new FileService(options, serviceProvider, providerEndpointService);
-            FineTuneService = new FineTuneService(options, serviceProvider, providerEndpointService);
-            FineTuningJobService = new FineTuningJobService(options, serviceProvider, providerEndpointService);
-            SpeechService = new SpeechService(options, serviceProvider, providerEndpointService);
-            TranscriptionService = new TranscriptionService(options, serviceProvider, providerEndpointService);
-            TranslationService = new TranslationService(options, serviceProvider, providerEndpointService);
-            ChatCompletionService = new ChatCompletionService(options, serviceProvider, providerEndpointService);
-            AssistantService = new AssistantService(options, serviceProvider, providerEndpointService);
-            AssistantFileService = new AssistantFileService(options, serviceProvider, providerEndpointService);
-            ThreadsService = new ThreadsService(options, serviceProvider, providerEndpointService);
-            MessagesService = new MessageService(options, serviceProvider, providerEndpointService);
-            MessageFileService = new MessageFileService(options, serviceProvider, providerEndpointService);
-            RunService = new RunService(options, serviceProvider, providerEndpointService);
-            RunStepService = new RunStepService(options, serviceProvider, providerEndpointService);
-        }
-
-        /// <summary>Creates a new service instance with individual options.</summary>
-        /// <param name="options">The options.</param>
+        /// <param name="serviceProvider">The constructed IServiceProvider instance.</param>
         /// <returns>
         ///   IOpenAIService
         /// </returns>
         /// <exception cref="System.ArgumentNullException">options</exception>
-        public static IOpenAIService CreateService(OpenAIOptions options)
+        public static IOpenAIService CreateService(Action<IServiceCollection> configure, out ServiceProvider serviceProvider)
         {
-            if (options == null) throw new ArgumentNullException(nameof(options));
+            if (configure == null) throw new ArgumentNullException(nameof(configure));
 
             ServiceCollection services = new ServiceCollection();
-            services.AddHttpClient<IApiHttpService>(Consts.HTTP_CLIENT_FACTORY_NAME);
+            configure(services);
+            serviceProvider = services.BuildServiceProvider();
 
-            services
-                .AddSingleton<IApiHttpLoggerService, ApiHttpLoggerService>()
-                .AddSingleton(Options.Create(options))
-                .AddTransient<IApiHttpClientFactory, ApiHttpClientFactory>()
-                .AddTransient<IApiHttpService, ApiHttpService>();
-
-            if (options.AIServiceProviderType == AIServiceProviderTypeEnum.OpenAI)
-                services.AddSingleton<IProviderEndpointService, OpenAIProviderEndpointService>();
-            else
-                services.AddSingleton<IProviderEndpointService, AzureProviderEndpointService>();
-
-            ServiceProvider serviceProvider = services.BuildServiceProvider();
-
-            return CreateService(options, serviceProvider, serviceProvider.GetRequiredService<IProviderEndpointService>());
+            return CreateService(serviceProvider);
         }
 
         /// <summary>Creates a new service instance with individual options.</summary>
-        /// <param name="options">The options.</param>
         /// <param name="serviceProvider">The service provider.</param>
-        /// <param name="providerEndpointService">The provider endpoint service.</param>
         /// <returns>
         ///   IOpenAIService
         /// </returns>
         /// <exception cref="System.ArgumentNullException">options
         /// or
         /// apiHttpService</exception>
-        public static IOpenAIService CreateService(OpenAIOptions options, IServiceProvider serviceProvider, IProviderEndpointService providerEndpointService)
+        public static IOpenAIService CreateService(IServiceProvider serviceProvider)
         {
-            if (options == null) throw new ArgumentNullException(nameof(options));
             if (serviceProvider == null) throw new ArgumentNullException(nameof(serviceProvider));
-            if (providerEndpointService == null) throw new ArgumentNullException(nameof(providerEndpointService));
 
-            return new OpenAIService(options, serviceProvider, providerEndpointService);
+            serviceProvider.GetRequiredService<IProviderEndpointService>();
+
+            return new OpenAIService(
+                serviceProvider.GetRequiredService<IModelService>(),
+                serviceProvider.GetRequiredService<ITextCompletionService>(),
+                serviceProvider.GetRequiredService<ITextEditService>(),
+                serviceProvider.GetRequiredService<IModerationService>(),
+                serviceProvider.GetRequiredService<IEmbeddingsService>(),
+                serviceProvider.GetRequiredService<IImageService>(),
+                serviceProvider.GetRequiredService<IFileService>(),
+                serviceProvider.GetRequiredService<IFineTuneService>(),
+                serviceProvider.GetRequiredService<IFineTuningJobService>(),
+                serviceProvider.GetRequiredService<ISpeechService>(),
+                serviceProvider.GetRequiredService<ITranscriptionService>(),
+                serviceProvider.GetRequiredService<ITranslationService>(),
+                serviceProvider.GetRequiredService<IChatCompletionService>(),
+                serviceProvider.GetRequiredService<IAssistantService>(),
+                serviceProvider.GetRequiredService<IAssistantFileService>(),
+                serviceProvider.GetRequiredService<IThreadsService>(),
+                serviceProvider.GetRequiredService<IMessageService>(),
+                serviceProvider.GetRequiredService<IMessageFileService>(),
+                serviceProvider.GetRequiredService<IRunService>(),
+                serviceProvider.GetRequiredService<IRunStepService>()
+            );
         }
 
         /// <summary>Gets the model service.</summary>

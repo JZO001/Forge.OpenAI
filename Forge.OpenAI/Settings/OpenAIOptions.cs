@@ -221,6 +221,13 @@ namespace Forge.OpenAI.Settings
         /// <value>The assistant file delete URI.</value>
         public string AssistantFileDeleteUri { get; set; } = OpenAIDefaultOptions.DefaultAssistantFileDeleteUri;
 
+        /// <summary>Gets or sets the name of the assistant header.</summary>
+        /// <value>The name of the assistant header.</value>
+        public string AssistantHeaderName { get; set; } = OpenAIDefaultOptions.DefaultAssistantHeaderName;
+
+        /// <summary>Gets or sets the assistant header value.</summary>
+        /// <value>The assistant header value.</value>
+        public string AssistantHeaderValue { get; set; } = OpenAIDefaultOptions.DefaultAssistantHeaderValue;
 
 
         /// <summary>Gets or sets the thread create URI.</summary>

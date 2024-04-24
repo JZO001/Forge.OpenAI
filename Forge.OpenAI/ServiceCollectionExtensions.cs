@@ -46,7 +46,7 @@ namespace Forge.OpenAI
             configure = null)
         {
             return AddServicesAsScoped(services)
-                .AddSingleton<IProviderEndpointService, OpenAIProviderEndpointService>()
+                .AddScoped<IProviderEndpointService, OpenAIProviderEndpointService>()
                 .AddTransient<IApiHttpService, ApiHttpService>()
                 .Configure<OpenAIOptions>(configureOptions =>
                 {
@@ -66,7 +66,7 @@ namespace Forge.OpenAI
             configure = null)
         {
             return AddServicesAsTransient(services)
-                .AddSingleton<IProviderEndpointService, OpenAIProviderEndpointService>()
+                .AddTransient<IProviderEndpointService, OpenAIProviderEndpointService>()
                 .AddTransient<IApiHttpService, ApiHttpService>()
                 .Configure<OpenAIOptions>(configureOptions =>
                 {
@@ -107,7 +107,7 @@ namespace Forge.OpenAI
             configure = null)
         {
             return AddServicesAsScoped(services)
-                .AddSingleton<IProviderEndpointService, AzureProviderEndpointService>()
+                .AddScoped<IProviderEndpointService, AzureProviderEndpointService>()
                 .AddTransient<IApiHttpService, ApiHttpService>()
                 .Configure<OpenAIOptions>(configureOptions =>
                 {
@@ -128,7 +128,7 @@ namespace Forge.OpenAI
             configure = null)
         {
             return AddServicesAsTransient(services)
-                .AddSingleton<IProviderEndpointService, AzureProviderEndpointService>()
+                .AddTransient<IProviderEndpointService, AzureProviderEndpointService>()
                 .AddTransient<IApiHttpService, ApiHttpService>()
                 .Configure<OpenAIOptions>(configureOptions =>
                 {
@@ -173,7 +173,7 @@ namespace Forge.OpenAI
             services.AddHttpClient<IApiHttpService>(Consts.HTTP_CLIENT_FACTORY_NAME);
 
             return services
-                .AddSingleton<IApiHttpLoggerService, ApiHttpLoggerService>()
+                .AddScoped<IApiHttpLoggerService, ApiHttpLoggerService>()
                 .AddScoped<IApiHttpClientFactory, ApiHttpClientFactory>()
                 .AddScoped<IModelService, ModelService>()
                 .AddScoped<ITextCompletionService, TextCompletionService>()
@@ -203,7 +203,7 @@ namespace Forge.OpenAI
             services.AddHttpClient<IApiHttpService>(Consts.HTTP_CLIENT_FACTORY_NAME);
 
             return services
-                .AddSingleton<IApiHttpLoggerService, ApiHttpLoggerService>()
+                .AddScoped<IApiHttpLoggerService, ApiHttpLoggerService>()
                 .AddTransient<IApiHttpClientFactory, ApiHttpClientFactory>()
                 .AddTransient<IModelService, ModelService>()
                 .AddTransient<ITextCompletionService, TextCompletionService>()

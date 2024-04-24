@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Json.Serialization;
+using Forge.OpenAI.Models.Shared;
 
 namespace Forge.OpenAI.Models.ChatCompletions
 {
@@ -13,9 +14,6 @@ namespace Forge.OpenAI.Models.ChatCompletions
     /// <summary>Represents a chat completion request message</summary>
     public class ChatCompletionRequest : RequestBase
     {
-
-        public const string RESPONSE_FORMAT_JSON = "json_object";
-        public const string RESPONSE_FORMAT_TEXT = "text";
 
         /// <summary>Initializes a new instance of the <see cref="ChatCompletionRequest" /> class.</summary>
         /// <param name="chatMessage">The chat message.</param>
@@ -168,12 +166,12 @@ namespace Forge.OpenAI.Models.ChatCompletions
         ///   <a href="https://platform.openai.com/docs/api-reference/chat/create#chat-create-response_format">https://platform.openai.com/docs/api-reference/chat/create#chat-create-response_format</a>
         /// </value>
         [JsonPropertyName("response_format")]
-        public ChatResponseFormat ResponseFormat { get; set; }
+        public ResponseFormat ResponseFormat { get; set; }
 
         /// <summary>Sets the set response format with enum.</summary>
         /// <value>The set response format with enum.</value>
         [JsonIgnore]
-        public ChatResponseFormats? SetResponseFormatWithEnum
+        public ResponseFormats? SetResponseFormatWithEnum
         {
             set
             {
@@ -183,9 +181,9 @@ namespace Forge.OpenAI.Models.ChatCompletions
                     return;
                 }
 
-                ResponseFormat = new ChatResponseFormat
+                ResponseFormat = new ResponseFormat
                 {
-                    Type = value == ChatResponseFormats.Json ? RESPONSE_FORMAT_JSON : RESPONSE_FORMAT_TEXT
+                    Type = value == ResponseFormats.Json ? ResponseFormat.RESPONSE_FORMAT_JSON : ResponseFormat.RESPONSE_FORMAT_TEXT
                 };
             }
         }
@@ -241,7 +239,7 @@ namespace Forge.OpenAI.Models.ChatCompletions
         /// <see href="https://platform.openai.com/docs/api-reference/chat/create#chat-create-tool_choice" />
         /// </value>
         [JsonPropertyName("tool_choice")]
-        public ChatToolChoice ToolChoice { get; set; }
+        public ToolChoice ToolChoice { get; set; }
 
         /// <summary>
         /// Controls which (if any) function is called by the model.

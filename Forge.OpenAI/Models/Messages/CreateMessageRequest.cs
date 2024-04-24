@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Forge.OpenAI.Models.Common;
@@ -58,6 +59,7 @@ namespace Forge.OpenAI.Models.Messages
         /// There can be a maximum of 10 files attached to a message.
         /// Useful for tools like 'retrieval' and 'code_interpreter' that can access and use files.
         /// </summary>
+        [Obsolete]
         [JsonPropertyName("file_ids")]
         public IReadOnlyList<string> FileIds { get; set; }
 

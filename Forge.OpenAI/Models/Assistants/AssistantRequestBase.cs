@@ -1,4 +1,6 @@
 ﻿using Forge.OpenAI.Models.Common;
+using Forge.OpenAI.Models.Shared;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
@@ -11,9 +13,6 @@ namespace Forge.OpenAI.Models.Assistants
     /// </summary>
     public abstract class AssistantRequestBase : RequestBase
     {
-
-        public const string RESPONSE_FORMAT_JSON = "json_object";
-        public const string RESPONSE_FORMAT_TEXT = "text";
 
         /// <summary>
         /// ID of the model to use.
@@ -58,6 +57,7 @@ namespace Forge.OpenAI.Models.Assistants
         /// There can be a maximum of 20 files attached to the assistant.
         /// Files are ordered by their creation date in ascending order.
         /// </summary>
+        [Obsolete]
         [JsonPropertyName("file_ids")]
         public IList<string> FileIds { get; set; }
 
@@ -91,12 +91,12 @@ namespace Forge.OpenAI.Models.Assistants
         ///   <a href="https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-response_format</a>
         /// </value>
         [JsonPropertyName("response_format")]
-        public AssistantResponseFormat ResponseFormat { get; set; }
+        public ResponseFormat ResponseFormat { get; set; }
 
         /// <summary>Sets the set response format with enum.</summary>
         /// <value>The set response format with enum.</value>
         [JsonIgnore]
-        public AssistantResponseFormats? SetResponseFormatWithEnum
+        public ResponseFormats? SetResponseFormatWithEnum
         {
             set
             {
@@ -106,9 +106,9 @@ namespace Forge.OpenAI.Models.Assistants
                     return;
                 }
 
-                ResponseFormat = new AssistantResponseFormat
+                ResponseFormat = new ResponseFormat
                 {
-                    Type = value == AssistantResponseFormats.Json ? RESPONSE_FORMAT_JSON : RESPONSE_FORMAT_TEXT
+                    Type = value == ResponseFormats.Json ? ResponseFormat.RESPONSE_FORMAT_JSON : ResponseFormat.RESPONSE_FORMAT_TEXT
                 };
             }
         }

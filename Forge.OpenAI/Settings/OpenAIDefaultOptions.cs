@@ -232,6 +232,13 @@ namespace Forge.OpenAI.Settings
         /// <value>The default assistant file delete URI.</value>
         public static string DefaultAssistantFileDeleteUri { get; set; } = "assistants/{0}/files/{1}";
 
+        /// <summary>Gets or sets the default name of the assistant header.</summary>
+        /// <value>The default name of the assistant header.</value>
+        public static string DefaultAssistantHeaderName { get; set; } = "OpenAI-Beta";
+
+        /// <summary>Gets or sets the default assistant header value.</summary>
+        /// <value>The default assistant header value.</value>
+        public static string DefaultAssistantHeaderValue { get; set; } = "assistants=v2";
 
         /// <summary>Gets or sets the default threads create URI.</summary>
         /// <value>The default threads create URI.</value>

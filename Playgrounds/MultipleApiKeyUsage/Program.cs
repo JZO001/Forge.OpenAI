@@ -1,9 +1,11 @@
-﻿using Forge.OpenAI.Authentication;
+﻿using Forge.OpenAI;
+using Forge.OpenAI.Authentication;
 using Forge.OpenAI.Interfaces.Services;
 using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Models.TextEdits;
 using Forge.OpenAI.Services;
 using Forge.OpenAI.Settings;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MultipleApiKeyUsage
 {
@@ -24,23 +26,32 @@ namespace MultipleApiKeyUsage
             const string apiKeyForUserA = "";
             const string apiKeyForUserB = "";
 
-            OpenAIOptions optionsForUserA = new OpenAIOptions();
-            optionsForUserA.AuthenticationInfo = new AuthenticationInfo(apiKeyForUserA);
+            IOpenAIService openAiInstanceForUserA = 
+                OpenAIService
+                    .CreateService(sc => 
+                        sc.AddForgeOpenAI(options => 
+                            options.AuthenticationInfo = new AuthenticationInfo(apiKeyForUserA)), out ServiceProvider serviceProviderA);
 
-            OpenAIOptions optionsForUserB = new OpenAIOptions();
-            optionsForUserB.AuthenticationInfo = new AuthenticationInfo(apiKeyForUserB);
+            IOpenAIService openAiInstanceForUserB = 
+                OpenAIService
+                    .CreateService(sc => 
+                        sc.AddForgeOpenAI(options => 
+                            options.AuthenticationInfo = new AuthenticationInfo(apiKeyForUserB)), out ServiceProvider serviceProviderB);
 
-            IOpenAIService openAiInstanceForUserA = OpenAIService.CreateService(optionsForUserA);
-            IOpenAIService openAiInstanceForUserB = OpenAIService.CreateService(optionsForUserB);
+            using (serviceProviderA)
+            {
+                using (serviceProviderB)
+                {
+                    await TextEditExampleAsync(openAiInstanceForUserA);
+                    await TextEditExampleAsync(openAiInstanceForUserB);
 
-            await TextEditExampleAsync(openAiInstanceForUserA);
-            await TextEditExampleAsync(openAiInstanceForUserB);
-
-            // NOTE: there is an other example in the Playgrouns here, which demonstrates
-            // how you can use the OpenAPI with multiple users, but with only one ApiKey
-            // This is useful, if you have multiple users, becuase it is highly recommended
-            // to differentiate them. If a user against the OpenAPI rules, this user will be
-            // denied and not your whole apiKey and your other users.
+                    // NOTE: there is an other example in the Playgrounds here, which demonstrates
+                    // how you can use the OpenAPI with multiple users, but with only one ApiKey
+                    // This is useful, if you have multiple users, becuase it is highly recommended
+                    // to differentiate them. If a user against the OpenAPI rules, this user will be
+                    // denied and not your whole apiKey and your other users.
+                }
+            }
         }
 
         static async Task TextEditExampleAsync(IOpenAIService openAIService)

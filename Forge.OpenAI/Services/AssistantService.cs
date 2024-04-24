@@ -178,7 +178,10 @@ namespace Forge.OpenAI.Services
 #endif
             sender, HttpRequestMessageEventArgs e)
         {
-            e.RequestMessage.Headers.Add("OpenAI-Beta", "assistants=v1");
+            if (!string.IsNullOrWhiteSpace(_options.AssistantHeaderName))
+            {
+                e.RequestMessage.Headers.Add(_options.AssistantHeaderName, _options.AssistantHeaderValue);
+            }
         }
 
     }

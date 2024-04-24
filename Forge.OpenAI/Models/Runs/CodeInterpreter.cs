@@ -4,6 +4,9 @@ using System.Text.Json.Serialization;
 namespace Forge.OpenAI.Models.Runs
 {
 
+    /// <summary>
+    ///   <a href="https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-tool_resources">https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-tool_resources</a>
+    /// </summary>
     public class CodeInterpreter
     {
 
@@ -20,6 +23,14 @@ namespace Forge.OpenAI.Models.Runs
         /// </summary>
         [JsonPropertyName("outputs")]
         public IReadOnlyList<CodeInterpreterOutputs> Outputs { get; set; }
+
+        /// <summary>
+        /// A list of file IDs that the assistant should use.
+        /// Useful for tools like 'retrieval' and 'code_interpreter' that can access files.
+        /// A maximum of 10 files can be attached to a message.
+        /// </summary>
+        [JsonPropertyName("file_ids")]
+        public IReadOnlyList<string> FileIds { get; set; }
 
     }
 

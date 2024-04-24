@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Forge.OpenAI.Models.Assistants
+namespace Forge.OpenAI.Models.Shared
 {
 
     /// <summary>

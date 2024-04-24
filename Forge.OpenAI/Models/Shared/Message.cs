@@ -1,13 +1,17 @@
 ﻿using Microsoft.Extensions.Primitives;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Forge.OpenAI.Models.Threads
+namespace Forge.OpenAI.Models.Shared
 {
 
     /// <summary>A message to start the thread</summary>
     public class Message
     {
+
+        public const string ROLE_USER = "user";
+        public const string ROLE_ASSISTANT = "assistant";
 
         /// <summary>Initializes a new instance of the <see cref="Message" /> class.</summary>
         /// <param name="content">The content.</param>
@@ -25,12 +29,14 @@ namespace Forge.OpenAI.Models.Threads
         /// Currently only user is supported.
         /// https://platform.openai.com/docs/api-reference/threads/createThread#threads-createthread-messages
         /// </summary>
+        [Required]
         [JsonPropertyName("role")]
-        public string Role { get; set; } = "user";
+        public string Role { get; set; } = ROLE_USER;
 
         /// <summary>
         /// The content of the message.
         /// </summary>
+        [Required]
         [JsonPropertyName("content")]
         public string Content { get; set; }
 
@@ -49,6 +55,13 @@ namespace Forge.OpenAI.Models.Threads
         /// </summary>
         [JsonPropertyName("metadata")]
         public IDictionary<string, string> Metadata { get; set; }
+
+        /// <summary>
+        /// A list of files attached to the message, and the tools they should be added to.
+        /// </summary>
+        /// <value>The attachments.</value>
+        [JsonPropertyName("attachments")]
+        public IList<Attachment> Attachments { get; set; }
 
     }
 

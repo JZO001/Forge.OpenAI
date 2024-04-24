@@ -1,7 +1,7 @@
 ﻿using Forge.OpenAI;
 using Forge.OpenAI.Interfaces.Services;
-using Forge.OpenAI.Models;
 using Forge.OpenAI.Models.Common;
+using Forge.OpenAI.Models.Shared;
 using Forge.OpenAI.Models.Threads;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

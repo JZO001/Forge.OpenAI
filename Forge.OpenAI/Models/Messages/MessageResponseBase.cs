@@ -1,4 +1,5 @@
 ﻿using Forge.OpenAI.Models.Common;
+using Forge.OpenAI.Models.Shared;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
@@ -13,6 +14,9 @@ namespace Forge.OpenAI.Models.Messages
         public const string STATUS_IN_PROGRESS = "in_progress";
         public const string STATUS_COMPLETED = "completed";
         public const string STATUS_INCOMPLETE = "incomplete";
+
+        public const string ROLE_USER = "user";
+        public const string ROLE_ASSISTANT = "assistant";
 
         /// <summary>
         /// The identifier, which can be referenced in API endpoints.
@@ -45,6 +49,41 @@ namespace Forge.OpenAI.Models.Messages
         public string Status { get; set; }
 
         /// <summary>
+        ///   <para>
+        /// On an incomplete message, details about why the message is incomplete.</para>
+        ///   <para>
+        ///     <a href="https://platform.openai.com/docs/api-reference/messages/object#messages/object-incomplete_details">https://platform.openai.com/docs/api-reference/messages/object#messages/object-incomplete_details</a>
+        ///   </para>
+        /// </summary>
+        /// <value>The incomplete details.</value>
+        [JsonPropertyName("status")]
+        public IncompleteDetails IncompleteDetails { get; set; }
+
+        /// <summary>
+        /// The Unix timestamp (in seconds) for when the run was completed.
+        /// </summary>
+        [JsonPropertyName("completed_at")]
+        public int? CompletedAtUnixTimeSeconds { get; set; }
+
+        /// <summary>
+        /// The Unix timestamp (in seconds) for when the run was completed.
+        /// </summary>
+        [JsonIgnore]
+        public DateTime? CompletedAt => CompletedAtUnixTimeSeconds.HasValue ? (DateTime?)DateTimeOffset.FromUnixTimeSeconds(CompletedAtUnixTimeSeconds.Value).DateTime : null;
+
+        /// <summary>
+        /// The Unix timestamp (in seconds) for when the run was completed.
+        /// </summary>
+        [JsonPropertyName("incomplete_at")]
+        public int? IncompletedAtUnixTimeSeconds { get; set; }
+
+        /// <summary>
+        /// The Unix timestamp (in seconds) for when the run was completed.
+        /// </summary>
+        [JsonIgnore]
+        public DateTime? IncompletedAt => IncompletedAtUnixTimeSeconds.HasValue ? (DateTime?)DateTimeOffset.FromUnixTimeSeconds(IncompletedAtUnixTimeSeconds.Value).DateTime : null;
+
+        /// <summary>
         /// The entity that produced the message. One of user or assistant.
         /// </summary>
         [JsonPropertyName("role")]
@@ -73,6 +112,7 @@ namespace Forge.OpenAI.Models.Messages
         /// Useful for tools like 'retrieval' and 'code_interpreter' that can access files.
         /// A maximum of 10 files can be attached to a message.
         /// </summary>
+        [Obsolete]
         [JsonPropertyName("file_ids")]
         public IReadOnlyList<string> FileIds { get; set; }
 
@@ -83,6 +123,17 @@ namespace Forge.OpenAI.Models.Messages
         /// </summary>
         [JsonPropertyName("metadata")]
         public IReadOnlyDictionary<string, string> Metadata { get; set; }
+
+        /// <summary>
+        ///   <para>
+        /// A list of files attached to the message, and the tools they were added to.</para>
+        ///   <para>
+        ///     <a href="https://platform.openai.com/docs/api-reference/messages/object#messages/object-attachments">https://platform.openai.com/docs/api-reference/messages/object#messages/object-attachments</a>
+        ///   </para>
+        /// </summary>
+        /// <value>The attachments.</value>
+        [JsonPropertyName("attachments")]
+        public IReadOnlyList<Attachment> Attachments { get; set; }
 
     }
 
