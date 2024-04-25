@@ -41,13 +41,7 @@ namespace Forge.OpenAI.Models.Messages
         /// </summary>
         [JsonPropertyName("thread_id")]
         public string ThreadId { get; set; }
-
-        /// <summary>
-        /// The thread ID that this message belongs to.
-        /// </summary>
-        [JsonPropertyName("status")]
-        public string Status { get; set; }
-
+        
         /// <summary>
         ///   <para>
         /// On an incomplete message, details about why the message is incomplete.</para>
