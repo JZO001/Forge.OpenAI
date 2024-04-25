@@ -13,9 +13,21 @@ namespace Forge.OpenAI.Models.Shared
     public class Tool
     {
 
+        /// <summary>
+        ///   <a href="https://platform.openai.com/docs/api-reference/assistants-v1/createAssistant#assistants-v1-createassistant-tools">https://platform.openai.com/docs/api-reference/assistants-v1/createAssistant#assistants-v1-createassistant-tools</a>
+        /// </summary>
+        [Obsolete]
         public const string RETRIEVAL = "retrieval";
-        public const string CODE_INTERPRETER = "code_interpreter";
+
+        /// <summary>
+        ///   <a href="https://platform.openai.com/docs/api-reference/assistants-v1/createAssistant#assistants-v1-createassistant-tools">https://platform.openai.com/docs/api-reference/assistants-v1/createAssistant#assistants-v1-createassistant-tools</a>
+        ///   <a href="https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-tools">https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-tools</a>
+        ///   <a href="https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-tools">https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-tools</a>
+        /// </summary>
         public const string FUNCTION = "function";
+
+        public const string CODE_INTERPRETER = "code_interpreter";
+        public const string FILE_SEARCH = "file_search";
 
         /// <summary>Initializes a new instance of the <see cref="Tool" /> class.</summary>
         public Tool()
@@ -29,7 +41,7 @@ namespace Forge.OpenAI.Models.Shared
         {
             if (function == null) throw new ArgumentNullException(nameof(function));
 
-            Type = FUNCTION;
+            Type = CODE_INTERPRETER;
             Function = function;
         }
 
@@ -44,7 +56,7 @@ namespace Forge.OpenAI.Models.Shared
         /// <summary>The type of tool being defined</summary>
         /// <value>The type.</value>
         [JsonPropertyName("type")]
-        public string Type { get; set; } = RETRIEVAL;
+        public string Type { get; set; } = CODE_INTERPRETER;
 
         /// <summary>Function tool</summary>
         /// <value>The function.</value>
