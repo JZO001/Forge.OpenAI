@@ -54,7 +54,7 @@ namespace Assistant
                 }
             };
 
-            request.SetResponseFormatWithEnum = ResponseFormats.Json;
+            request.ResponseFormatAsObject = new ResponseFormat() { Type = ResponseFormat.RESPONSE_FORMAT_JSON };
 
             HttpOperationResult<AssistantResponse> createResult = await openAi.AssistantService.CreateAsync(request, CancellationToken.None);
             if (createResult.IsSuccess)

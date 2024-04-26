@@ -61,7 +61,7 @@ namespace Forge.OpenAI.Models.Messages
         ///   </para>
         /// </summary>
         /// <value>The incomplete details.</value>
-        [JsonPropertyName("status")]
+        [JsonPropertyName("incomplete_details")]
         public IncompleteDetails IncompleteDetails { get; set; }
 
         /// <summary>

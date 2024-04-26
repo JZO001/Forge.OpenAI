@@ -121,27 +121,17 @@ namespace Forge.OpenAI.Models.Runs
         ///   <a href="https://platform.openai.com/docs/api-reference/runs/createRun#runs-createrun-response_format"></a>
         /// </value>
         [JsonPropertyName("response_format")]
-        public ResponseFormat ResponseFormat { get; set; }
+        public object ResponseFormat { get; private set; }
 
-        /// <summary>Sets the set response format with enum.</summary>
-        /// <value>The set response format with enum.</value>
+        /// <summary>Gets or sets the response format as string.</summary>
+        /// <value>The response format as string.</value>
         [JsonIgnore]
-        public ResponseFormats? SetResponseFormatWithEnum
-        {
-            set
-            {
-                if (value is null)
-                {
-                    ResponseFormat = null;
-                    return;
-                }
+        public string ResponseFormatAsString { get => ResponseFormat as string; set => ResponseFormat = value; }
 
-                ResponseFormat = new ResponseFormat
-                {
-                    Type = value == ResponseFormats.Json ? ResponseFormat.RESPONSE_FORMAT_JSON : ResponseFormat.RESPONSE_FORMAT_TEXT
-                };
-            }
-        }
+        /// <summary>Gets or sets the response format as object.</summary>
+        /// <value>The response format as object.</value>
+        [JsonIgnore]
+        public ResponseFormat ResponseFormatAsObject { get => ResponseFormat as ResponseFormat; set => ResponseFormat = value; }
 
         /// <summary>
         ///   <a href="https://platform.openai.com/docs/api-reference/runs/createRun#runs-createrun-tool_choice">https://platform.openai.com/docs/api-reference/runs/createRun#runs-createrun-tool_choice</a>

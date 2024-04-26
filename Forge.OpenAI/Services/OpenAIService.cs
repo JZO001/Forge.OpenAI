@@ -146,7 +146,7 @@ namespace Forge.OpenAI.Services
         /// The method gets back the ServiceProvider instance for further use.
         /// It is the caller responsibility to dispose it, at the end of the OpenAIService instance lifecycle.
         /// </summary>
-        /// <param name="options">The options.</param>
+        /// <param name="configure">The configuration handler.</param>
         /// <param name="serviceProvider">The constructed IServiceProvider instance.</param>
         /// <returns>
         ///   IOpenAIService

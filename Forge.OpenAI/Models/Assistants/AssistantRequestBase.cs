@@ -91,27 +91,17 @@ namespace Forge.OpenAI.Models.Assistants
         ///   <a href="https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-response_format</a>
         /// </value>
         [JsonPropertyName("response_format")]
-        public ResponseFormat ResponseFormat { get; set; }
+        public object ResponseFormat { get; private set; }
 
-        /// <summary>Sets the set response format with enum.</summary>
-        /// <value>The set response format with enum.</value>
+        /// <summary>Gets or sets the response format as string.</summary>
+        /// <value>The response format as string.</value>
         [JsonIgnore]
-        public ResponseFormats? SetResponseFormatWithEnum
-        {
-            set
-            {
-                if (value == null)
-                {
-                    ResponseFormat = null;
-                    return;
-                }
+        public string ResponseFormatAsString { get => ResponseFormat as string; set => ResponseFormat = value; }
 
-                ResponseFormat = new ResponseFormat
-                {
-                    Type = value == ResponseFormats.Json ? ResponseFormat.RESPONSE_FORMAT_JSON : ResponseFormat.RESPONSE_FORMAT_TEXT
-                };
-            }
-        }
+        /// <summary>Gets or sets the response format as object.</summary>
+        /// <value>The response format as object.</value>
+        [JsonIgnore]
+        public ResponseFormat ResponseFormatAsObject { get => ResponseFormat as ResponseFormat; set => ResponseFormat = value; }
 
         /// <summary>
         /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the code_interpreter tool requires a list of file IDs, while the file_search tool requires a list of vector store IDs.
