@@ -149,6 +149,28 @@ namespace Forge.OpenAI.Services
         /// <param name="configure">The configuration handler.</param>
         /// <param name="serviceProvider">The constructed IServiceProvider instance.</param>
         /// <returns>
+        ///   <br />
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">configure</exception>
+        public static IOpenAIService CreateService(Action<OpenAIOptions> configure, out ServiceProvider serviceProvider)
+        {
+            if (configure == null) throw new ArgumentNullException(nameof(configure));
+            
+            ServiceCollection services = new ServiceCollection();
+            services.AddForgeOpenAI(configure);
+            serviceProvider = services.BuildServiceProvider();
+            
+            return CreateService(serviceProvider);
+        }
+
+        /// <summary>
+        /// Creates a new service instance with individual options.
+        /// The method gets back the ServiceProvider instance for further use.
+        /// It is the caller responsibility to dispose it, at the end of the OpenAIService instance lifecycle.
+        /// </summary>
+        /// <param name="configure">The configuration handler.</param>
+        /// <param name="serviceProvider">The constructed IServiceProvider instance.</param>
+        /// <returns>
         ///   IOpenAIService
         /// </returns>
         /// <exception cref="System.ArgumentNullException">options</exception>
@@ -174,8 +196,6 @@ namespace Forge.OpenAI.Services
         public static IOpenAIService CreateService(IServiceProvider serviceProvider)
         {
             if (serviceProvider == null) throw new ArgumentNullException(nameof(serviceProvider));
-
-            serviceProvider.GetRequiredService<IProviderEndpointService>();
 
             return new OpenAIService(
                 serviceProvider.GetRequiredService<IModelService>(),

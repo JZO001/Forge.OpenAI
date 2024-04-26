@@ -6,6 +6,7 @@ using Forge.OpenAI.Models.TextEdits;
 using Forge.OpenAI.Services;
 using Forge.OpenAI.Settings;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace MultipleApiKeyUsage
 {
@@ -26,17 +27,22 @@ namespace MultipleApiKeyUsage
             const string apiKeyForUserA = "";
             const string apiKeyForUserB = "";
 
+            // Create the OpenAI service instances for the users with manual DI configuration
+            // AddForgeOpenAI can be replaced with other init methods, see ServiceCollectionExtensions.cs
             IOpenAIService openAiInstanceForUserA = 
                 OpenAIService
                     .CreateService(sc => 
                         sc.AddForgeOpenAI(options => 
                             options.AuthenticationInfo = new AuthenticationInfo(apiKeyForUserA)), out ServiceProvider serviceProviderA);
 
-            IOpenAIService openAiInstanceForUserB = 
-                OpenAIService
-                    .CreateService(sc => 
-                        sc.AddForgeOpenAI(options => 
-                            options.AuthenticationInfo = new AuthenticationInfo(apiKeyForUserB)), out ServiceProvider serviceProviderB);
+            // The same can be done with the OpenAIOptions
+            OpenAIOptions optionsForUserB = new OpenAIOptions();
+            optionsForUserB.AuthenticationInfo = new AuthenticationInfo(apiKeyForUserB);
+
+            IOpenAIService openAiInstanceForUserB = OpenAIService.CreateService((OpenAIOptions options) => 
+            {
+                options.AuthenticationInfo = new AuthenticationInfo(apiKeyForUserB);
+            }, out ServiceProvider serviceProviderB);
 
             using (serviceProviderA)
             {
