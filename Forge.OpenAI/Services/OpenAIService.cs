@@ -146,10 +146,28 @@ namespace Forge.OpenAI.Services
         /// The method gets back the ServiceProvider instance for further use.
         /// It is the caller responsibility to dispose it, at the end of the OpenAIService instance lifecycle.
         /// </summary>
+        /// <param name="options">The options.</param>
+        /// <param name="serviceProvider">The constructed IServiceProvider instance.</param>
+        /// <returns>
+        ///   IOpenAIService
+        /// </returns>
+        public static IOpenAIService CreateService(OpenAIOptions options, out ServiceProvider serviceProvider)
+        {
+            return CreateService((OpenAIOptions o) =>
+            {
+                MappingHelper.Map(options, o);
+            }, out serviceProvider);
+        }
+
+        /// <summary>
+        /// Creates a new service instance with individual options.
+        /// The method gets back the ServiceProvider instance for further use.
+        /// It is the caller responsibility to dispose it, at the end of the OpenAIService instance lifecycle.
+        /// </summary>
         /// <param name="configure">The configuration handler.</param>
         /// <param name="serviceProvider">The constructed IServiceProvider instance.</param>
         /// <returns>
-        ///   <br />
+        ///   IOpenAIService
         /// </returns>
         /// <exception cref="System.ArgumentNullException">configure</exception>
         public static IOpenAIService CreateService(Action<OpenAIOptions> configure, out ServiceProvider serviceProvider)

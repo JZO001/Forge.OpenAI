@@ -15,7 +15,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="MultipleApiKeyUsage.csproj.vspscc" />
+		<None Remove="MultipleApiKeyUsage.csproj.vspscc" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Forge.OpenAI.GPT" Version="1.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
