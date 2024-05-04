@@ -66,7 +66,7 @@
         public const string Gpt_4_1106_vision_preview = "gpt-4-1106-vision-preview";
         public const string Gpt_4_0125_preview = "gpt-4-0125-preview";
         public const string Gpt_4_vision_preview = "gpt-4-vision-preview";
-        public const string Gpr_4_turbo = "gpr-4-turbo";
+        public const string Gpr_4_turbo = "gpt-4-turbo";
         public const string Gpt_4_turbo_preview = "gpt-4-turbo-preview";
         public const string Gpt_4_turbo_2024_04_09 = "gpt-4-turbo-2024-04-09";
 
