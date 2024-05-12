@@ -38,7 +38,21 @@ namespace Forge.OpenAI.Models.Shared
         /// </summary>
         [Required]
         [JsonPropertyName("content")]
-        public string Content { get; set; }
+        public object Content { get; set; }
+
+        [JsonIgnore]
+        public IList<MessageContent> ContentAsList
+        {
+            get => Content as IList<MessageContent>;
+            set => Content = value;
+        }
+
+        [JsonIgnore]
+        public string ContentAsString
+        {
+            get => Content as string;
+            set => Content = value;
+        }
 
         /// <summary>
         /// A list of File IDs that the message should use.
