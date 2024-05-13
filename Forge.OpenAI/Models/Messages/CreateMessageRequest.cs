@@ -1,35 +1,39 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Forge.OpenAI.Models.Common;
+using Forge.OpenAI.Models.Shared;
 
 namespace Forge.OpenAI.Models.Messages
 {
-
     /// <summary>Create a message.</summary>
     public class CreateMessageRequest : RequestBase
     {
-
         public const string ROLE_USER = "user";
         public const string ROLE_ASSISTANT = "assistant";
 
         /// <summary>Initializes a new instance of the <see cref="CreateMessageRequest" /> class.</summary>
-        public CreateMessageRequest()
-        {
-        }
+        public CreateMessageRequest() { }
 
         /// <summary>Initializes a new instance of the <see cref="CreateMessageRequest" /> class.</summary>
         /// <param name="threadId">The threadId.</param>
         /// <param name="content">The content.</param>
         /// <param name="fileIds">The file ids.</param>
         /// <param name="metadata">The metadata.</param>
-        public CreateMessageRequest(string threadId, string content, IEnumerable<string> fileIds = null, IDictionary<string, string> metadata = null)
+        public CreateMessageRequest(
+            string threadId,
+            string content,
+            IEnumerable<string> fileIds = null,
+            IDictionary<string, string> metadata = null
+        )
         {
             ThreadId = threadId;
             Content = content;
-            if (fileIds != null) FileIds = new List<string>(fileIds);
-            if (metadata != null) Metadata = new Dictionary<string, string>(metadata);
+            if (fileIds != null)
+                FileIds = new List<string>(fileIds);
+            if (metadata != null)
+                Metadata = new Dictionary<string, string>(metadata);
         }
 
         /// <summary>The ID of the thread to create a message for.</summary>
@@ -50,9 +54,23 @@ namespace Forge.OpenAI.Models.Messages
         /// <summary>
         /// The content of the message.
         /// </summary>
-        [JsonPropertyName("content")]
         [Required]
-        public string Content { get; set; }
+        [JsonPropertyName("content")]
+        public object Content { get; set; }
+
+        [JsonIgnore]
+        public IList<MessageContent> ContentAsList
+        {
+            get => Content as IList<MessageContent>;
+            set => Content = value;
+        }
+
+        [JsonIgnore]
+        public string ContentAsString
+        {
+            get => Content as string;
+            set => Content = value;
+        }
 
         /// <summary>
         /// A list of File IDs that the message should use.
@@ -75,7 +93,5 @@ namespace Forge.OpenAI.Models.Messages
         /// </summary>
         [JsonPropertyName("metadata")]
         public IDictionary<string, string> Metadata { get; set; }
-
     }
-
 }
