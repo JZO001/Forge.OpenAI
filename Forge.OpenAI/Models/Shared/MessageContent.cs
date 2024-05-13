@@ -6,6 +6,7 @@ namespace Forge.OpenAI.Models.Shared
 {
     /// <summary>
     /// An array of content parts with a defined type, each can be of type text or images can be passed with image_url or image_file. Image types are only supported on Vision-compatible models.
+    /// https://platform.openai.com/docs/api-reference/messages/createMessage#messages-createmessage-content
     /// </summary>
     public class MessageContent
     {
@@ -50,6 +51,8 @@ namespace Forge.OpenAI.Models.Shared
         [JsonPropertyName("type")]
         public string Type { get; set; }
 
+        /// <summary>Text content to be sent to the model</summary>
+        /// <value>The text.</value>
         [JsonPropertyName("text")]
         public string Text { get; set; }
 
