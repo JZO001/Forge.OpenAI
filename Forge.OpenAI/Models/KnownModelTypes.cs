@@ -69,6 +69,8 @@
         public const string Gpr_4_turbo = "gpt-4-turbo";
         public const string Gpt_4_turbo_preview = "gpt-4-turbo-preview";
         public const string Gpt_4_turbo_2024_04_09 = "gpt-4-turbo-2024-04-09";
+        public const string Gpt_4o = "gpt-4o";
+        public const string Gpt_4o_2024_05_13 = "gpt-4o-2024-05-13";
 
         public const string IfCurieV2 = "if-curie-v2";
         public const string IfDavinciV2 = "if-davinci-v2";

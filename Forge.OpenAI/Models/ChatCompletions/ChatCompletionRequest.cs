@@ -109,6 +109,14 @@ namespace Forge.OpenAI.Models.ChatCompletions
         public bool Stream { get; set; }
 
         /// <summary>
+        /// Options for streaming response. Only set this when you set stream: true.
+        /// https://platform.openai.com/docs/api-reference/chat/create#chat-create-stream_options
+        /// </summary>
+        /// <value>The stream options.</value>
+        [JsonPropertyName("stream_options")]
+        public StreamOptions StreamOptions { get; set; }
+
+        /// <summary>
         /// Up to 4 sequences where the API will stop generating further tokens. <br/>
         /// The returned text will not contain the stop sequence. <br/>
         /// <see href="https://platform.openai.com/docs/api-reference/chat/create#chat/create-stop" />
@@ -239,7 +247,21 @@ namespace Forge.OpenAI.Models.ChatCompletions
         /// <see href="https://platform.openai.com/docs/api-reference/chat/create#chat-create-tool_choice" />
         /// </value>
         [JsonPropertyName("tool_choice")]
-        public ToolChoice ToolChoice { get; set; }
+        public object ToolChoice { get; set; }
+
+        [JsonIgnore]
+        public ToolChoice ContentAsObject
+        {
+            get => ToolChoice as ToolChoice;
+            set => ToolChoice = value;
+        }
+
+        [JsonIgnore]
+        public string ToolChoiceAsString
+        {
+            get => ToolChoice as string;
+            set => ToolChoice = value;
+        }
 
         /// <summary>
         /// Controls which (if any) function is called by the model.
