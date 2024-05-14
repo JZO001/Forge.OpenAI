@@ -36,7 +36,7 @@ namespace ChatCompletions
             {
                 IOpenAIService openAi = host.Services.GetService<IOpenAIService>();
 
-                //await ChatWithNonStreamingModeAsync(openAi);
+                await ChatWithNonStreamingModeAsync(openAi);
 
                 await ChatWithStreamingModeWithCallback(openAi);
 
@@ -44,6 +44,10 @@ namespace ChatCompletions
                 await ChatWithStreamingMode(openAi);
 #endif
             }
+
+            // For additional examples, please visit:
+            // https://cookbook.openai.com/examples/gpt4o/introduction_to_gpt4o
+
         }
 
         static async Task ChatWithNonStreamingModeAsync(IOpenAIService openAi)
