@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Json.Serialization;
+using Forge.OpenAI.Models.Shared;
 
 namespace Forge.OpenAI.Models.ChatCompletions
 {
@@ -14,11 +16,21 @@ namespace Forge.OpenAI.Models.ChatCompletions
         /// <param name="role">The role.</param>
         /// <param name="content">The content.</param>
         /// <param name="name">The name of the author of this message (optional)</param>
-        [JsonConstructor]
         public ChatMessage(string role, string content, string name = null)
         {
             Role = role;
-            Content = content;
+            ContentAsString = content;
+            Name = name;
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="ChatMessage" /> class.</summary>
+        /// <param name="role">The role.</param>
+        /// <param name="content">The content.</param>
+        /// <param name="name">The name.</param>
+        public ChatMessage(string role, IList<MessageContent> content, string name = null)
+        {
+            Role = role;
+            ContentAsList = content ?? new List<MessageContent>();
             Name = name;
         }
 
@@ -31,8 +43,23 @@ namespace Forge.OpenAI.Models.ChatCompletions
         /// <summary>
         /// Chat message content
         /// </summary>
+        [Required]
         [JsonPropertyName("content")]
-        public string Content { get; set; }
+        public object Content { get; set; }
+
+        [JsonIgnore]
+        public IList<MessageContent> ContentAsList
+        {
+            get => Content as IList<MessageContent>;
+            set => Content = value;
+        }
+
+        [JsonIgnore]
+        public string ContentAsString
+        {
+            get => Content as string;
+            set => Content = value;
+        }
 
         /// <summary>
         /// The name of the author of this message (optional). May contain a-z, A-Z, 0-9, and underscores, with a maximum length of 64 characters.

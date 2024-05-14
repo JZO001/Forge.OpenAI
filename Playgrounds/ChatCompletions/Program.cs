@@ -84,7 +84,7 @@ namespace ChatCompletions
             // this method is useful for older .NET where the IAsyncEnumerable is not supported
 
             ChatCompletionRequest request = new ChatCompletionRequest(ChatMessage.CreateFromUser("Write a C# code which demonstrate how to open a text file and read its content"));
-            request.MaxTokens = 4096 - GPT3Tokenizer.Encode(request.Messages[0].Content).Count; // calculating max token
+            request.MaxTokens = 4096 - GPT3Tokenizer.Encode(request.Messages[0].ContentAsString).Count; // calculating max token
             request.Temperature = 0.1; // lower value means more precise answer
 
             Console.WriteLine(request.Messages[0].Content);
@@ -118,7 +118,7 @@ namespace ChatCompletions
             Console.ReadKey();
 
             ChatCompletionRequest request = new ChatCompletionRequest(ChatMessage.CreateFromUser("Write a C# code which demonstrate how to write some text into file"));
-            request.MaxTokens = 4096 - GPT3Tokenizer.Encode(request.Messages[0].Content).Count; // calculating max token
+            request.MaxTokens = 4096 - GPT3Tokenizer.Encode(request.Messages[0].ContentAsString).Count; // calculating max token
             request.Temperature = 0.1; // lower value means more precise answer
 
             Console.WriteLine(request.Messages[0].Content);
