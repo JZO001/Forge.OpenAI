@@ -13,10 +13,15 @@ namespace Forge.OpenAI.Models.ChatCompletions
     {
 
         /// <summary>Initializes a new instance of the <see cref="ChatMessage" /> class.</summary>
+        [JsonConstructor]
+        public ChatMessage()
+        {
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="ChatMessage" /> class.</summary>
         /// <param name="role">The role.</param>
         /// <param name="content">The content.</param>
         /// <param name="name">The name of the author of this message (optional)</param>
-        [JsonConstructor]
         public ChatMessage(string role, string content, string name = null)
         {
             Role = role;
