@@ -137,6 +137,13 @@ namespace Forge.OpenAI.Models.Runs
         public DateTime? CompletedAt => CompletedAtUnixTimeSeconds.HasValue ? (DateTime?)DateTimeOffset.FromUnixTimeSeconds(CompletedAtUnixTimeSeconds.Value).DateTime : null;
 
         /// <summary>
+        ///   <a href="https://platform.openai.com/docs/api-reference/runs/object#runs/object-incomplete_details">https://platform.openai.com/docs/api-reference/runs/object#runs/object-incomplete_details</a>
+        /// </summary>
+        /// <value>The incomplete details.</value>
+        [JsonPropertyName("incomplete_details")]
+        public IncompleteDetails IncompleteDetails { get; set; }
+
+        /// <summary>
         /// The model that the assistant used for this run.
         /// </summary>
         [JsonPropertyName("model")]
@@ -155,13 +162,6 @@ namespace Forge.OpenAI.Models.Runs
         public IReadOnlyList<Tool> Tools { get; set; }
 
         /// <summary>
-        /// The list of File IDs the assistant used for this run.
-        /// </summary>
-        [Obsolete]
-        [JsonPropertyName("file_ids")]
-        public IReadOnlyList<string> FileIds { get; set; }
-
-        /// <summary>
         /// Set of 16 key-value pairs that can be attached to an object.
         /// This can be useful for storing additional information about the object in a structured format.
         /// Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long.
@@ -174,13 +174,6 @@ namespace Forge.OpenAI.Models.Runs
         /// </summary>
         [JsonPropertyName("usage")]
         public Usage Usage { get; set; }
-
-        /// <summary>
-        ///   <a href="https://platform.openai.com/docs/api-reference/runs/object#runs/object-incomplete_details">https://platform.openai.com/docs/api-reference/runs/object#runs/object-incomplete_details</a>
-        /// </summary>
-        /// <value>The incomplete details.</value>
-        [JsonPropertyName("incomplete_details")]
-        public IncompleteDetails IncompleteDetails { get; set; }
 
         /// <summary>
         /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
@@ -232,6 +225,14 @@ namespace Forge.OpenAI.Models.Runs
         [JsonPropertyName("tool_choice")]
         [JsonConverter(typeof(ToolChoiceConverter))]
         public object ToolChoice { get; set; }
+
+        /// <summary>
+        /// Whether to enable parallel function calling during tool use.
+        /// https://platform.openai.com/docs/api-reference/runs/object#runs/object-parallel_tool_calls
+        /// https://platform.openai.com/docs/guides/function-calling/parallel-function-calling
+        /// </summary>
+        [JsonPropertyName("parallel_tool_calls")]
+        public bool ParallelToolCalls { get; set; }
 
         /// <summary>
         ///   <para>

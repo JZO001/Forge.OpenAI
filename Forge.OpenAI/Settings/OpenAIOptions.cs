@@ -50,18 +50,6 @@ namespace Forge.OpenAI.Settings
 
 
 
-        /// <summary>Gets or sets the completions URI.</summary>
-        /// <value>The completions URI.</value>
-        [Obsolete]
-        public string TextCompletionsUri { get; set; } = OpenAIDefaultOptions.DefaultTextCompletionsUri;
-
-        /// <summary>Gets or sets the text edit URI.</summary>
-        /// <value>The text edit URI.</value>
-        [Obsolete]
-        public string TextEditUri { get; set; } = OpenAIDefaultOptions.DefaultTextEditUri;
-
-
-
         /// <summary>Gets or sets the moderation URI.</summary>
         /// <value>The moderation URI.</value>
         public string ModerationUri { get; set; } = OpenAIDefaultOptions.DefaultModerationUri;
@@ -104,43 +92,6 @@ namespace Forge.OpenAI.Settings
 
 
 
-        /// <summary>Gets or sets the default fine tune create URI.</summary>
-        /// <value>The default fine tune create URI.</value>
-        [Obsolete]
-        public string FineTuneCreateUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuneCreateUri;
-
-        /// <summary>Gets or sets the default fine tune list URI.</summary>
-        /// <value>The default fine tune list URI.</value>
-        [Obsolete]
-        public string FineTuneListUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuneListUri;
-
-        /// <summary>Gets or sets the fine tune get URI.</summary>
-        /// <value>The default fine tune get URI.</value>
-        [Obsolete]
-        public string FineTuneGetUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuneGetUri;
-
-        /// <summary>Gets or sets the fine tune cancel URI.</summary>
-        /// <value>The default fine tune cancel URI.</value>
-        [Obsolete]
-        public string FineTuneCancelUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuneCancelUri;
-
-        /// <summary>Gets or sets the fine tune events URI.</summary>
-        /// <value>The default fine tune events URI.</value>
-        [Obsolete]
-        public string FineTuneEventsUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuneEventsUri;
-
-        /// <summary>Gets or sets the fine tune streamed events URI.</summary>
-        /// <value>The fine tune streamed events URI.</value>
-        [Obsolete]
-        public string FineTuneStreamedEventsUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuneStreamedEventsUri;
-
-        /// <summary>Gets or sets the fine tune delete model URI.</summary>
-        /// <value>The default fine tune delete model URI.</value>
-        [Obsolete]
-        public string FineTuneDeleteModelUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuneDeleteModelUri;
-
-
-
         /// <summary>Gets or sets the default fine tuning job create URI.</summary>
         /// <value>The default fine tune create URI.</value>
         public string FineTuningJobCreateUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuningJobCreateUri;
@@ -164,6 +115,10 @@ namespace Forge.OpenAI.Settings
         /// <summary>Gets or sets the fine tuning job streamed events URI.</summary>
         /// <value>The fine tune streamed events URI.</value>
         public string FineTuningJobStreamedEventsUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuningJobStreamedEventsUri;
+
+        /// <summary>Gets or sets the fine tuning job checkpoints URI.</summary>
+        /// <value>The default fine tune checkpoints URI.</value>
+        public string FineTuningJobCheckpointsUri { get; set; } = OpenAIDefaultOptions.DefaultFineTuningJobCheckpointsUri;
 
 
 
@@ -311,6 +266,91 @@ namespace Forge.OpenAI.Settings
 
 
 
+        /// <summary>Gets or sets the batch URI.</summary>
+        /// <value>The batch URI.</value>
+        public string BatchUri { get; set; } = OpenAIDefaultOptions.DefaultBatchUri;
+
+        /// <summary>Gets or sets the get batch URI.</summary>
+        /// <value>The get batch URI.</value>
+        public string BatchGetUri { get; set; } = OpenAIDefaultOptions.DefaultBatchGetUri;
+
+        /// <summary>Gets or sets the cancel batch URI.</summary>
+        /// <value>The cancel batch URI.</value>
+        public string BatchCancelUri { get; set; } = OpenAIDefaultOptions.DefaultBatchCancelUri;
+
+
+
+        /// <summary>
+        /// Gets or sets the vector store create URI.
+        /// </summary>
+        public string VectorStoreCreateUri { get; set; } = OpenAIDefaultOptions.DefaultVectorStoreCreateUri;
+
+        /// <summary>
+        /// Gets or sets the vector store list URI.
+        /// </summary>
+        public string VectorStoreListUri { get; set; } = OpenAIDefaultOptions.DefaultVectorStoreListUri;
+
+        /// <summary>
+        /// Gets or sets the vector store get URI.
+        /// </summary>
+        public string VectorStoreGetUri { get; set; } = OpenAIDefaultOptions.DefaultVectorStoreGetUri;
+
+        /// <summary>
+        /// Gets or sets the vector store modify URI.
+        /// </summary>
+        public string VectorStoreModifyUri { get; set; } = OpenAIDefaultOptions.DefaultVectorStoreModifyUri;
+
+        /// <summary>
+        /// Gets or sets the vector store delete URI.
+        /// </summary>
+        public string VectorStoreDeleteUri { get; set; } = OpenAIDefaultOptions.DefaultVectorStoreDeleteUri;
+
+
+
+        /// <summary>
+        /// Gets or sets the vector store file create URI.
+        /// </summary>
+        public string VectorStoreFileCreateUri { get; set; } = OpenAIDefaultOptions.DefaultVectorStoreFileCreateUri;
+
+        /// <summary>
+        /// Gets or sets the vector store file list URI.
+        /// </summary>
+        public string VectorStoreFileListUri { get; set; } = OpenAIDefaultOptions.DefaultVectorStoreFileListUri;
+
+        /// <summary>
+        /// Gets or sets the vector store file get URI.
+        /// </summary>
+        public string VectorStoreFileGetUri { get; set; } = OpenAIDefaultOptions.DefaultVectorStoreFileGetUri;
+
+        /// <summary>
+        /// Gets or sets the vector store file delete URI.
+        /// </summary>
+        public string VectorStoreFileDeleteUri { get; set; } = OpenAIDefaultOptions.DefaultVectorStoreFileDeleteUri;
+
+
+
+        /// <summary>
+        /// Gets or sets the vector store file batches create URI.
+        /// </summary>
+        public string VectorStoreFileBatchesCreateUri { get; set; } = OpenAIDefaultOptions.DefaultVectorStoreFileBatchesCreateUri;
+
+        /// <summary>
+        /// Gets or sets the vector store file batches get URI.
+        /// </summary>
+        public string VectorStoreFileBatchesGetUri { get; set; } = OpenAIDefaultOptions.DefaultVectorStoreFileBatchesGetUri;
+
+        /// <summary>
+        /// Gets or sets the vector store file batches cancel URI.
+        /// </summary>
+        public string VectorStoreFileCancelUri { get; set; } = OpenAIDefaultOptions.DefaultVectorStoreFileCancelUri;
+
+        /// <summary>
+        /// Gets or sets the vector store file batches file list URI.
+        /// </summary>
+        public string VectorStoreFileBatchesFileListUri { get; set; } = OpenAIDefaultOptions.DefaultVectorStoreFileBatchesFileListUri;
+
+
+
         /// <summary>Gets or sets a value indicating whether [log requests and responses].</summary>
         /// <value>
         ///   <c>true</c> if [log requests and responses]; otherwise, <c>false</c>.</value>
@@ -358,13 +398,6 @@ namespace Forge.OpenAI.Settings
             cloned.FileDownloadUri = FileDownloadUri;
             cloned.FileListUri = FileListUri;
             cloned.FileUploadUri = FileUploadUri;
-            cloned.FineTuneCancelUri = FineTuneCancelUri;
-            cloned.FineTuneCreateUri = FineTuneCreateUri;
-            cloned.FineTuneDeleteModelUri = FineTuneDeleteModelUri;
-            cloned.FineTuneEventsUri = FineTuneEventsUri;
-            cloned.FineTuneGetUri = FineTuneGetUri;
-            cloned.FineTuneListUri = FineTuneListUri;
-            cloned.FineTuneStreamedEventsUri = FineTuneGetUri;
             cloned.HttpMessageHandlerFactory = HttpMessageHandlerFactory;
             cloned.ImageCreateUri = ImageCreateUri;
             cloned.ImageEditUri = ImageEditUri;
@@ -374,9 +407,63 @@ namespace Forge.OpenAI.Settings
             cloned.LogRequestsAndResponsesFolder = LogRequestsAndResponsesFolder;
             cloned.ModelsUri = ModelsUri;
             cloned.ModerationUri = ModerationUri;
-            cloned.TextCompletionsUri = TextCompletionsUri;
-            cloned.TextEditUri = TextEditUri;
             cloned.ChatCompletionsUri = ChatCompletionsUri;
+            cloned.AssistantCreateUri = AssistantCreateUri;
+            cloned.AssistantDeleteUri = AssistantDeleteUri;
+            cloned.AssistantFileCreateUri = AssistantFileCreateUri;
+            cloned.AssistantFileDeleteUri = AssistantFileDeleteUri;
+            cloned.AssistantFileGetUri = AssistantFileGetUri;
+            cloned.AssistantFileListUri = AssistantFileListUri;
+            cloned.AssistantGetUri = AssistantGetUri;
+            cloned.AssistantHeaderName = AssistantHeaderName;
+            cloned.AssistantHeaderValue = AssistantHeaderValue;
+            cloned.AssistantListUri = AssistantListUri;
+            cloned.AssistantModifyUri = AssistantModifyUri;
+            cloned.AudioSpeechUri = AudioSpeechUri;
+            cloned.AudioTranscriptUri = AudioTranscriptUri;
+            cloned.AudioTranslationUri = AudioTranslationUri;
+            cloned.ThreadCreateUri = ThreadCreateUri;
+            cloned.ThreadDeleteUri = ThreadDeleteUri;
+            cloned.ThreadGetUri = ThreadGetUri;
+            cloned.ThreadModifyUri = ThreadModifyUri;
+            cloned.MessageCreateUri = MessageCreateUri;
+            cloned.MessageFileGetUri = MessageFileGetUri;
+            cloned.MessageFileListUri = MessageFileListUri;
+            cloned.MessageGetUri = MessageGetUri;
+            cloned.MessageListUri = MessageListUri;
+            cloned.MessageModifyUri = MessageModifyUri;
+            cloned.RunCancelUri = RunCancelUri;
+            cloned.RunCreateUri = RunCreateUri;
+            cloned.RunGetUri = RunGetUri;
+            cloned.RunListUri = RunListUri;
+            cloned.RunModifyUri = RunModifyUri;
+            cloned.RunStepsGetUri = RunStepsGetUri;
+            cloned.RunStepsListUri = RunStepsListUri;
+            cloned.RunSubmitToolOutputsToRunUri = RunSubmitToolOutputsToRunUri;
+            cloned.RunThreadAndRunCreateUri = RunThreadAndRunCreateUri;
+            cloned.BatchUri = BatchUri;
+            cloned.BatchGetUri = BatchGetUri;
+            cloned.BatchCancelUri = BatchCancelUri;
+            cloned.FineTuningJobCreateUri = FineTuningJobCreateUri;
+            cloned.FineTuningJobListUri = FineTuningJobListUri;
+            cloned.FineTuningJobGetUri = FineTuningJobGetUri;
+            cloned.FineTuningJobCancelUri = FineTuningJobCancelUri;
+            cloned.FineTuningJobEventsUri = FineTuningJobEventsUri;
+            cloned.FineTuningJobStreamedEventsUri = FineTuningJobStreamedEventsUri;
+            cloned.FineTuningJobCheckpointsUri = FineTuningJobCheckpointsUri;
+            cloned.VectorStoreCreateUri = VectorStoreCreateUri;
+            cloned.VectorStoreListUri = VectorStoreListUri;
+            cloned.VectorStoreGetUri = VectorStoreGetUri;
+            cloned.VectorStoreModifyUri = VectorStoreModifyUri;
+            cloned.VectorStoreDeleteUri = VectorStoreDeleteUri;
+            cloned.VectorStoreFileCreateUri = VectorStoreFileCreateUri;
+            cloned.VectorStoreFileListUri = VectorStoreFileListUri;
+            cloned.VectorStoreFileGetUri = VectorStoreFileGetUri;
+            cloned.VectorStoreFileDeleteUri = VectorStoreFileDeleteUri;
+            cloned.VectorStoreFileBatchesCreateUri = VectorStoreFileBatchesCreateUri;
+            cloned.VectorStoreFileBatchesGetUri = VectorStoreFileBatchesGetUri;
+            cloned.VectorStoreFileCancelUri = VectorStoreFileCancelUri;
+            cloned.VectorStoreFileBatchesFileListUri = VectorStoreFileBatchesFileListUri;
 
             return cloned;
         }

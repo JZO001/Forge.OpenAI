@@ -17,6 +17,8 @@ namespace Forge.OpenAI.Models.Files
         public const string PURPOSE_FINE_TUNE_RESULTS = "fine-tune-results";
         public const string PURPOSE_ASSISTANTS = "assistants";
         public const string PURPOSE_ASSISTANTS_OUTPUT = "assistants_output";
+        public const string PURPOSE_ASSISTANT_IMAGE = "vision";
+        public const string PURPOSE_BATCH = "batch";
 
         /// <summary>Initializes a new instance of the <see cref="FileUploadRequest" /> class.</summary>
         public FileUploadRequest()

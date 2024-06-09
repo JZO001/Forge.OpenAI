@@ -72,7 +72,7 @@ namespace Forge.OpenAI.Services
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        public async Task<HttpOperationResult> GetStreamAsync(ChatCompletionRequest request, Action<HttpOperationResult<ChatCompletionStreamedResponse>> resultCallback, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResult> GetStreamAsync(ChatCompletionRequest request, Action<HttpOperationResult<IAsyncEventInfo<ChatCompletionStreamedResponse>>> resultCallback, CancellationToken cancellationToken = default)
         {
             if (request == null) return new HttpOperationResult(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
 
@@ -84,16 +84,16 @@ namespace Forge.OpenAI.Services
         }
 
 #if NETCOREAPP3_1_OR_GREATER
-        /// <summary>Request a chat completion asynchronously in streamed mode. This method is only available in .NET Core applications.</summary>
-        /// <param name="request">The request.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>
-        ///   IAsyncEnumerable
-        /// </returns>
-        public IAsyncEnumerable<HttpOperationResult<ChatCompletionStreamedResponse>> GetStreamAsync(ChatCompletionRequest request, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public IAsyncEnumerable<HttpOperationResult<IAsyncEventInfo<ChatCompletionStreamedResponse>>> GetStreamAsync(ChatCompletionRequest request, CancellationToken cancellationToken = default)
         {
-            var validationResult = request.Validate<ChatCompletionStreamedResponse>();
-            if (validationResult != null) return RequestBase.GetValidationResultAsAsyncEnumerable<ChatCompletionStreamedResponse>(validationResult);
+            var validationResult = request.Validate<IAsyncEventInfo<ChatCompletionStreamedResponse>>();
+            if (validationResult != null) return RequestBase.GetValidationResultAsAsyncEnumerable<IAsyncEventInfo<ChatCompletionStreamedResponse>>(validationResult);
             request.Stream = true;
 
             return _apiHttpService.StreamedPostAsync<ChatCompletionRequest, ChatCompletionStreamedResponse>(GetUri(), request, cancellationToken);

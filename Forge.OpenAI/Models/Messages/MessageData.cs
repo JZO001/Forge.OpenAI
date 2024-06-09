@@ -113,13 +113,12 @@ namespace Forge.OpenAI.Models.Messages
         public string RunId { get; set; }
 
         /// <summary>
-        /// A list of file IDs that the assistant should use.
-        /// Useful for tools like 'retrieval' and 'code_interpreter' that can access files.
-        /// A maximum of 10 files can be attached to a message.
+        /// A list of files attached to the message, and the tools they were added to.
+        /// https://platform.openai.com/docs/api-reference/messages/object#messages/object-attachments
         /// </summary>
-        [Obsolete]
-        [JsonPropertyName("file_ids")]
-        public IReadOnlyList<string> FileIds { get; set; }
+        /// <value>The attachments.</value>
+        [JsonPropertyName("attachments")]
+        public IReadOnlyList<Attachment> Attachments { get; set; }
 
         /// <summary>
         /// Set of 16 key-value pairs that can be attached to an object.
@@ -128,17 +127,6 @@ namespace Forge.OpenAI.Models.Messages
         /// </summary>
         [JsonPropertyName("metadata")]
         public IReadOnlyDictionary<string, string> Metadata { get; set; }
-
-        /// <summary>
-        ///   <para>
-        /// A list of files attached to the message, and the tools they were added to.</para>
-        ///   <para>
-        ///     <a href="https://platform.openai.com/docs/api-reference/messages/object#messages/object-attachments">https://platform.openai.com/docs/api-reference/messages/object#messages/object-attachments</a>
-        ///   </para>
-        /// </summary>
-        /// <value>The attachments.</value>
-        [JsonPropertyName("attachments")]
-        public IReadOnlyList<Attachment> Attachments { get; set; }
 
     }
 

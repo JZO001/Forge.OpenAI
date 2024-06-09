@@ -249,7 +249,7 @@ namespace Forge.OpenAI.Infrastructure
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        public async Task<HttpOperationResult> StreamedGetAsync<TResult>(string uri, Action<HttpOperationResult<TResult>> resultCallback, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResult> StreamedGetAsync<TResult>(string uri, Action<HttpOperationResult<IAsyncEventInfo<TResult>>> resultCallback, CancellationToken cancellationToken = default)
             where TResult : class
         {
             return await StreamedAsync<object, TResult>(HttpMethod.Get, uri, null, resultCallback, cancellationToken).ConfigureAwait(false);
@@ -265,7 +265,7 @@ namespace Forge.OpenAI.Infrastructure
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        public async Task<HttpOperationResult> StreamedPostAsync<TData, TResult>(string uri, TData data, Action<HttpOperationResult<TResult>> resultCallback, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResult> StreamedPostAsync<TData, TResult>(string uri, TData data, Action<HttpOperationResult<IAsyncEventInfo<TResult>>> resultCallback, CancellationToken cancellationToken = default)
             where TData : class
             where TResult : class
         {
@@ -280,7 +280,7 @@ namespace Forge.OpenAI.Infrastructure
         /// <returns>
         ///   IAsyncEnumerable
         /// </returns>
-        public IAsyncEnumerable<HttpOperationResult<TResult>> StreamedGetAsync<TResult>(string uri, CancellationToken cancellationToken = default)
+        public IAsyncEnumerable<HttpOperationResult<IAsyncEventInfo<TResult>>> StreamedGetAsync<TResult>(string uri, CancellationToken cancellationToken = default)
             where TResult : class
         {
             return StreamedAsync<object, TResult>(HttpMethod.Get, uri, null, cancellationToken);
@@ -295,7 +295,7 @@ namespace Forge.OpenAI.Infrastructure
         /// <returns>
         ///   IAsyncEnumerable
         /// </returns>
-        public IAsyncEnumerable<HttpOperationResult<TResult>> StreamedPostAsync<TData, TResult>(string uri, TData data, CancellationToken cancellationToken = default)
+        public IAsyncEnumerable<HttpOperationResult<IAsyncEventInfo<TResult>>> StreamedPostAsync<TData, TResult>(string uri, TData data, CancellationToken cancellationToken = default)
             where TData : class
             where TResult : class
         {
@@ -312,7 +312,7 @@ namespace Forge.OpenAI.Infrastructure
         /// <returns>
         ///   <br />
         /// </returns>
-        private async IAsyncEnumerable<HttpOperationResult<TResult>> StreamedAsync<TData, TResult>(HttpMethod httpMethod, string uri, TData data, [System.Runtime.CompilerServices.EnumeratorCancellation] CancellationToken cancellationToken = default)
+        private async IAsyncEnumerable<HttpOperationResult<IAsyncEventInfo<TResult>>> StreamedAsync<TData, TResult>(HttpMethod httpMethod, string uri, TData data, [System.Runtime.CompilerServices.EnumeratorCancellation] CancellationToken cancellationToken = default)
             where TData : class
             where TResult : class
         {
@@ -350,6 +350,7 @@ namespace Forge.OpenAI.Infrastructure
                                 using (StreamReader reader = new StreamReader(contentStream))
                                 {
                                     string? line = null;
+                                    string @event = string.Empty;
 
 #if NET7_0_OR_GREATER
                                     while ((line = await reader.ReadLineAsync(cancellationToken).ConfigureAwait(false)) != null)
@@ -365,6 +366,12 @@ namespace Forge.OpenAI.Infrastructure
                                         logContext?.LogAsync(line, cancellationToken);
 
                                         if (line.StartsWith("data: ")) line = line.Substring("data: ".Length);
+                                        
+                                        if (line.StartsWith("event: "))
+                                        {
+                                            @event = line.Substring("event: ".Length);
+                                            continue;
+                                        }
 
                                         if ("[DONE]".Equals(line.Trim())) break;
 
@@ -377,7 +384,9 @@ namespace Forge.OpenAI.Infrastructure
                                                 ;
                                             SetResponseData(response, jsonResult);
 
-                                            HttpOperationResult<TResult> resData = new HttpOperationResult<TResult>(jsonResult);
+                                            AsyncEventInfo<TResult> asyncEventInfo = new AsyncEventInfo<TResult>(@event, jsonResult);
+
+                                            HttpOperationResult<IAsyncEventInfo<TResult>> resData = new HttpOperationResult<IAsyncEventInfo<TResult>>(asyncEventInfo);
                                             logContext?.LogAsync(resData, cancellationToken);
 
                                             yield return resData;
@@ -396,7 +405,7 @@ namespace Forge.OpenAI.Infrastructure
                             string? jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 #endif
 
-                            HttpOperationResult<TResult> unsucRes = new HttpOperationResult<TResult>(new Exception(response.StatusCode.ToString(), new Exception(jsonResult)), response.StatusCode, jsonResult);
+                            HttpOperationResult<IAsyncEventInfo<TResult>> unsucRes = new HttpOperationResult<IAsyncEventInfo<TResult>>(new Exception(response.StatusCode.ToString(), new Exception(jsonResult)), response.StatusCode, jsonResult);
                             logContext?.LogAsync(unsucRes, cancellationToken);
 
                             yield return unsucRes;
@@ -537,7 +546,7 @@ namespace Forge.OpenAI.Infrastructure
         private async Task<HttpOperationResult> StreamedAsync<TData, TResult>(HttpMethod httpMethod, 
             string uri, 
             TData data, 
-            Action<HttpOperationResult<TResult>> resultCallback, 
+            Action<HttpOperationResult<IAsyncEventInfo<TResult>>> resultCallback, 
             CancellationToken cancellationToken = default)
             where TData : class
             where TResult : class
@@ -552,10 +561,17 @@ namespace Forge.OpenAI.Infrastructure
                 using (HttpRequestMessage request = new HttpRequestMessage(httpMethod, uri))
                 {
                     _providerEndpointService.ConfigureHttpRequestHeaders(request.Headers);
+                    ApplyDefaultRequestHeaders(request.Headers);
 
                     if (data != null)
                     {
                         request.Content = new StringContent(JsonSerializer.Serialize(data, _options.JsonSerializerOptions), Encoding.UTF8, "application/json");
+                    }
+
+                    EventHandler<HttpRequestMessageEventArgs> prepareRequestEvent = OnPrepareRequest;
+                    if (prepareRequestEvent != null)
+                    {
+                        prepareRequestEvent(this, new HttpRequestMessageEventArgs(request, data));
                     }
 
                     using (HttpClient httpClient = _httpClientFactory.GetHttpClient())
@@ -581,6 +597,7 @@ namespace Forge.OpenAI.Infrastructure
                                             ?
 #endif
                                             line = null;
+                                        string @event = string.Empty;
 
 #if NET7_0_OR_GREATER
                                         while ((line = await reader.ReadLineAsync(cancellationToken).ConfigureAwait(false)) != null)
@@ -595,6 +612,12 @@ namespace Forge.OpenAI.Infrastructure
                                             logContext?.LogAsync(line, cancellationToken);
 
                                             if (line.StartsWith("data: ")) line = line.Substring("data: ".Length);
+                                            
+                                            if (line.StartsWith("event: "))
+                                            {
+                                                @event = line.Substring("event: ".Length);
+                                                continue;
+                                            }
 
                                             if ("[DONE]".Equals(line.Trim())) break;
 
@@ -607,7 +630,9 @@ namespace Forge.OpenAI.Infrastructure
                                                 ;
                                                 SetResponseData(response, jsonResult);
 
-                                                HttpOperationResult<TResult> callbackRes = new HttpOperationResult<TResult>(jsonResult);
+                                                AsyncEventInfo<TResult> asyncEventInfo = new AsyncEventInfo<TResult>(@event, jsonResult);
+
+                                                HttpOperationResult<IAsyncEventInfo<TResult>> callbackRes = new HttpOperationResult<IAsyncEventInfo<TResult>>(asyncEventInfo);
                                                 logContext?.LogAsync(callbackRes, cancellationToken);
 
                                                 resultCallback(callbackRes);
@@ -626,7 +651,7 @@ namespace Forge.OpenAI.Infrastructure
                                 string errorResponse = await response.Content.ReadAsStringAsync();
 #endif
 
-                                HttpOperationResult<TResult> unsucRes = new HttpOperationResult<TResult>(new Exception(response.StatusCode.ToString(), new Exception(errorResponse)), response.StatusCode, errorResponse);
+                                HttpOperationResult<IAsyncEventInfo<TResult>> unsucRes = new HttpOperationResult<IAsyncEventInfo<TResult>>(new Exception(response.StatusCode.ToString(), new Exception(errorResponse)), response.StatusCode, errorResponse);
                                 logContext?.LogAsync(unsucRes, cancellationToken);
 
                                 resultCallback(unsucRes);

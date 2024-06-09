@@ -3,6 +3,9 @@
 namespace Forge.OpenAI.Models.VectorStores
 {
 
+    /// <summary>
+    /// https://platform.openai.com/docs/api-reference/vector-stores/object#vector-stores/object-file_counts
+    /// </summary>
     public class FileCount
     {
 

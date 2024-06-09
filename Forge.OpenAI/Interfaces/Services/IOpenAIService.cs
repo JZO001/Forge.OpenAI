@@ -11,16 +11,6 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <value>The model service.</value>
         IModelService ModelService { get; }
 
-        /// <summary>Gets the text completion service.</summary>
-        /// <value>The text completion service.</value>
-        [Obsolete]
-        ITextCompletionService TextCompletionService { get; }
-
-        /// <summary>Gets the text edit service.</summary>
-        /// <value>The text edit service.</value>
-        [Obsolete]
-        ITextEditService TextEditService { get; }
-
         /// <summary>Gets the moderation service.</summary>
         /// <value>The moderation service.</value>
         IModerationService ModerationService { get; }
@@ -36,11 +26,6 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <summary>Gets the file service.</summary>
         /// <value>The file service.</value>
         IFileService FileService { get; }
-
-        /// <summary>Gets the fine tune service.</summary>
-        /// <value>The fine tune service.</value>
-        [Obsolete]
-        IFineTuneService FineTuneService { get; }
 
         /// <summary>Gets the fine tuning job service.</summary>
         /// <value>The fine tuning job service.</value>
@@ -89,6 +74,34 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <summary>Gets the run step service.</summary>
         /// <value>The run step service.</value>
         IRunStepService RunStepService { get; }
+
+        /// <summary>Gets the batch service.</summary>
+        /// <value>The batch service.</value>
+        IBatchService BatchService { get; }
+
+        /// <summary>
+        /// Gets the vector store service.
+        /// </summary>
+        /// <value>
+        /// The vector store service.
+        /// </value>
+        IVectorStoreService VectorStoreService { get; }
+
+        /// <summary>
+        /// Gets the vector store file service.
+        /// </summary>
+        /// <value>
+        /// The vector store file service.
+        /// </value>
+        IVectorStoreFileService VectorStoreFileService { get; }
+
+        /// <summary>
+        /// Gets the vector store file batch service.
+        /// </summary>
+        /// <value>
+        /// The vector store file batch service.
+        /// </value>
+        IVectorStoreFileBatchService VectorStoreFileBatchService { get; }
 
     }
 

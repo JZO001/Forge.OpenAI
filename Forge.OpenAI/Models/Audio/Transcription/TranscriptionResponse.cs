@@ -1,5 +1,6 @@
 ﻿using Forge.OpenAI.Models.Common;
 using System.Text.Json.Serialization;
+using System.Collections.Generic;
 
 namespace Forge.OpenAI.Models.Audio.Transcription
 {
@@ -29,13 +30,13 @@ namespace Forge.OpenAI.Models.Audio.Transcription
         /// Extracted words and their corresponding timestamps.
         /// </summary>
         [JsonPropertyName("words")]
-        public TranscriptionWord[] Words { get; set; }
+        public IReadOnlyList<TranscriptionWord> Words { get; set; }
 
         /// <summary>
         /// Segments of the transcribed text and their corresponding details.
         /// </summary>
         [JsonPropertyName("segments")]
-        public TranscriptionSegment[] Segments { get; set; }
+        public IReadOnlyList<TranscriptionSegment> Segments { get; set; }
 
     }
 

@@ -12,6 +12,11 @@ namespace Forge.OpenAI.Models.Runs
     public class CreateRunRequest : RequestBase
     {
 
+        // https://platform.openai.com/docs/api-reference/runs/createRun#runs-createrun-tool_choice
+        public const string TOOL_CHOICE_NONE = "none";
+        public const string TOOL_CHOICE_AUTO = "auto";
+        public const string TOOL_CHOICE_REQUIRED = "required";
+
         /// <summary>Initializes a new instance of the <see cref="CreateRunRequest" /> class.</summary>
         public CreateRunRequest()
         {

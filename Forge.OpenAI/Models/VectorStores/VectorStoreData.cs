@@ -41,13 +41,16 @@ namespace Forge.OpenAI.Models.VectorStores
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        /// <summary>The byte size of the vector store.</summary>
+        /// <summary>The total number of bytes used by the files in the vector store.</summary>
         /// <value>inteeger</value>
-        [JsonPropertyName("bytes")]
-        public int Bytes { get; set; }
+        [JsonPropertyName("usage_bytes")]
+        public int UsageBytes { get; set; }
 
+        /// <summary>
+        /// https://platform.openai.com/docs/api-reference/vector-stores/object#vector-stores/object-file_counts
+        /// </summary>
         [JsonPropertyName("file_counts")]
-        public IReadOnlyList<FileCount> FileCounts { get; set; }
+        public FileCount FileCounts { get; set; }
 
         /// <summary>The status of the vector store, which can be either expired, in_progress, or completed. A status of completed indicates that the vector store is ready for use.</summary>
         /// <value>The status.</value>

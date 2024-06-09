@@ -45,26 +45,26 @@ namespace Forge.OpenAI.Models
             SourceContent = contentOfSource;
         }
 
-        /// <summary>Gets or sets the name of the image.</summary>
-        /// <value>The name of the image.</value>
+        /// <summary>Gets or sets the name of the data.</summary>
+        /// <value>The name of the data.</value>
         [Required]
         public string ContentName { get; set; }
 
         /// <summary>
-        /// Gets or sets the image stream.
+        /// Gets or sets the data stream.
         /// Do not set ImageStream and ImageContent at the same time.
         /// If you do, ImageContent will be used to send.
         /// </summary>
-        /// <value>The image stream.</value>
+        /// <value>The data stream.</value>
         [JsonIgnore]
         public Stream SourceStream { get; set; }
 
         /// <summary>
-        /// Gets or sets the content of the image.
+        /// Gets or sets the content of the data.
         /// Do not set ImageStream and ImageContent at the same time.
         /// If you do, ImageContent will be used to send.
         /// </summary>
-        /// <value>The content of the image.</value>
+        /// <value>The content of the data.</value>
         public byte[] SourceContent { get; set; }
 
     }

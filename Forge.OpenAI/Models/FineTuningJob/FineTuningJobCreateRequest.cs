@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using System.Collections.Generic;
 
 using Forge.OpenAI.Models.Common;
 
@@ -41,7 +42,7 @@ namespace Forge.OpenAI.Models.FineTuningJob
         /// <code>ft:gpt-3.5-turbo:openai:custom-model-name:7p4lURel</code>.
         /// </summary>
         [JsonPropertyName("suffix")]
-        public string Suffix { get; set; } = null;
+        public string Suffix { get; set; }
 
         /// <summary>
         /// The ID of an uploaded file that contains validation data.
@@ -53,6 +54,22 @@ namespace Forge.OpenAI.Models.FineTuningJob
         /// </summary>
         [JsonPropertyName("validation_file")]
         public string ValidationFileId { get; set; }
+
+        /// <summary>
+        /// A list of integrations to enable for this fine-tuning job.
+        /// https://platform.openai.com/docs/api-reference/fine-tuning/object#fine-tuning/object-integrations
+        /// </summary>
+        /// <value>
+        /// Array or null
+        /// </value>
+        [JsonPropertyName("integrations")]
+        public IList<FineTuningJobIntegration> Integrations { get; set; }
+
+        /// <summary>
+        /// The seed used for the fine-tuning job.
+        /// </summary>
+        [JsonPropertyName("seed")]
+        public int Seed { get; set; }
 
     }
 

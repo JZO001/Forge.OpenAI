@@ -1,11 +1,7 @@
 ﻿using Forge.OpenAI.Infrastructure;
-using Forge.OpenAI.Interfaces.Infrastructure;
-using Forge.OpenAI.Interfaces.Providers;
 using Forge.OpenAI.Interfaces.Services;
-using Forge.OpenAI.Services.Endpoints;
 using Forge.OpenAI.Settings;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using System;
 
 namespace Forge.OpenAI.Services
@@ -17,13 +13,10 @@ namespace Forge.OpenAI.Services
 
         /// <summary>Initializes a new instance of the <see cref="OpenAIService" /> class.</summary>
         /// <param name="modelService">The model service.</param>
-        /// <param name="textCompletionService">The text completion service.</param>
-        /// <param name="textEditService">The text edit service.</param>
         /// <param name="moderationService">The moderation service.</param>
         /// <param name="embeddingsService">The embeddings service.</param>
         /// <param name="imageService">The image service.</param>
         /// <param name="fileService">The file service.</param>
-        /// <param name="fineTuneService">The fine tune service.</param>
         /// <param name="fineTuningJobService">The fine tune job service.</param>
         /// <param name="transcriptionService">The transcription service.</param>
         /// <param name="speechService">The speech service.</param>
@@ -36,12 +29,12 @@ namespace Forge.OpenAI.Services
         /// <param name="messageFileService">The message file service.</param>
         /// <param name="runService">The run service.</param>
         /// <param name="runStepService">The run step service.</param>
+        /// <param name="batchService">The batch service.</param>
+        /// <param name="vectorStoreService">The vector store service.</param>
+        /// <param name="vectorStoreFileService">The vector store file service.</param>
+        /// <param name="vectorStoreFileBatchService">The vector store file batch service.</param>
         /// <exception cref="System.ArgumentNullException">
         /// modelService
-        /// or
-        /// textCompletionService
-        /// or
-        /// textEditService
         /// or
         /// moderationService
         /// or
@@ -50,8 +43,6 @@ namespace Forge.OpenAI.Services
         /// imageService
         /// or
         /// fileService
-        /// or
-        /// fineTuneService
         /// or
         /// fineTuningJobService
         /// or
@@ -76,15 +67,14 @@ namespace Forge.OpenAI.Services
         /// runService
         /// or
         /// runStepService
+        /// or
+        /// batchService
         /// </exception>
         public OpenAIService(IModelService modelService,
-            ITextCompletionService textCompletionService,
-            ITextEditService textEditService,
             IModerationService moderationService,
             IEmbeddingsService embeddingsService,
             IImageService imageService,
             IFileService fileService,
-            IFineTuneService fineTuneService,
             IFineTuningJobService fineTuningJobService,
             ISpeechService speechService,
             ITranscriptionService transcriptionService,
@@ -96,16 +86,17 @@ namespace Forge.OpenAI.Services
             IMessageService messagesService,
             IMessageFileService messageFileService,
             IRunService runService,
-            IRunStepService runStepService)
+            IRunStepService runStepService,
+            IBatchService batchService,
+            IVectorStoreService vectorStoreService,
+            IVectorStoreFileService vectorStoreFileService,
+            IVectorStoreFileBatchService vectorStoreFileBatchService)
         {
             if (modelService == null) throw new ArgumentNullException(nameof(modelService));
-            if (textCompletionService == null) throw new ArgumentNullException(nameof(textCompletionService));
-            if (textEditService == null) throw new ArgumentNullException(nameof(textEditService));
             if (moderationService == null) throw new ArgumentNullException(nameof(moderationService));
             if (embeddingsService == null) throw new ArgumentNullException(nameof(embeddingsService));
             if (imageService == null) throw new ArgumentNullException(nameof(imageService));
             if (fileService == null) throw new ArgumentNullException(nameof(fileService));
-            if (fineTuneService == null) throw new ArgumentNullException(nameof(fineTuneService));
             if (fineTuningJobService == null) throw new ArgumentNullException(nameof(fineTuningJobService));
             if (speechService == null) throw new ArgumentNullException(nameof(speechService));
             if (transcriptionService == null) throw new ArgumentNullException(nameof(transcriptionService));
@@ -118,15 +109,16 @@ namespace Forge.OpenAI.Services
             if (messageFileService == null) throw new ArgumentNullException(nameof(messageFileService));
             if (runService == null) throw new ArgumentNullException(nameof(runService));
             if (runStepService == null) throw new ArgumentNullException(nameof(runStepService));
+            if (batchService == null) throw new ArgumentNullException(nameof(batchService));
+            if (vectorStoreService == null) throw new ArgumentNullException(nameof(vectorStoreService));
+            if (vectorStoreFileService == null) throw new ArgumentNullException(nameof(vectorStoreFileService));
+            if (vectorStoreFileBatchService == null) throw new ArgumentNullException(nameof(vectorStoreFileBatchService));
 
             ModelService = modelService;
-            TextCompletionService = textCompletionService;
-            TextEditService = textEditService;
             ModerationService = moderationService;
             EmbeddingsService = embeddingsService;
             ImageService = imageService;
             FileService = fileService;
-            FineTuneService = fineTuneService;
             FineTuningJobService = fineTuningJobService;
             SpeechService = speechService;
             TranscriptionService = transcriptionService;
@@ -139,6 +131,10 @@ namespace Forge.OpenAI.Services
             MessageFileService = messageFileService;
             RunService = runService;
             RunStepService = runStepService;
+            BatchService = batchService;
+            VectorStoreService = vectorStoreService;
+            VectorStoreFileService = vectorStoreFileService;
+            VectorStoreFileBatchService = vectorStoreFileBatchService;
         }
 
         /// <summary>
@@ -173,11 +169,11 @@ namespace Forge.OpenAI.Services
         public static IOpenAIService CreateService(Action<OpenAIOptions> configure, out ServiceProvider serviceProvider)
         {
             if (configure == null) throw new ArgumentNullException(nameof(configure));
-            
+
             ServiceCollection services = new ServiceCollection();
             services.AddForgeOpenAI(configure);
             serviceProvider = services.BuildServiceProvider();
-            
+
             return CreateService(serviceProvider);
         }
 
@@ -217,13 +213,10 @@ namespace Forge.OpenAI.Services
 
             return new OpenAIService(
                 serviceProvider.GetRequiredService<IModelService>(),
-                serviceProvider.GetRequiredService<ITextCompletionService>(),
-                serviceProvider.GetRequiredService<ITextEditService>(),
                 serviceProvider.GetRequiredService<IModerationService>(),
                 serviceProvider.GetRequiredService<IEmbeddingsService>(),
                 serviceProvider.GetRequiredService<IImageService>(),
                 serviceProvider.GetRequiredService<IFileService>(),
-                serviceProvider.GetRequiredService<IFineTuneService>(),
                 serviceProvider.GetRequiredService<IFineTuningJobService>(),
                 serviceProvider.GetRequiredService<ISpeechService>(),
                 serviceProvider.GetRequiredService<ITranscriptionService>(),
@@ -235,23 +228,17 @@ namespace Forge.OpenAI.Services
                 serviceProvider.GetRequiredService<IMessageService>(),
                 serviceProvider.GetRequiredService<IMessageFileService>(),
                 serviceProvider.GetRequiredService<IRunService>(),
-                serviceProvider.GetRequiredService<IRunStepService>()
+                serviceProvider.GetRequiredService<IRunStepService>(),
+                serviceProvider.GetRequiredService<IBatchService>(),
+                serviceProvider.GetRequiredService<IVectorStoreService>(),
+                serviceProvider.GetRequiredService<IVectorStoreFileService>(),
+                serviceProvider.GetRequiredService<IVectorStoreFileBatchService>()
             );
         }
 
         /// <summary>Gets the model service.</summary>
         /// <value>The model service.</value>
         public IModelService ModelService { get; }
-
-        /// <summary>Gets the text completion service.</summary>
-        /// <value>The text completion service.</value>
-        [Obsolete]
-        public ITextCompletionService TextCompletionService { get; }
-
-        /// <summary>Gets the text edit service.</summary>
-        /// <value>The text edit service.</value>
-        [Obsolete]
-        public ITextEditService TextEditService { get; }
 
         /// <summary>Gets the moderation service.</summary>
         /// <value>The moderation service.</value>
@@ -268,11 +255,6 @@ namespace Forge.OpenAI.Services
         /// <summary>Gets the file service.</summary>
         /// <value>The file service.</value>
         public IFileService FileService { get; }
-
-        /// <summary>Gets the fine tune service.</summary>
-        /// <value>The fine tune service.</value>
-        [Obsolete]
-        public IFineTuneService FineTuneService { get; }
 
         /// <summary>Gets the fine tuning job service.</summary>
         /// <value>The fine tuning job service.</value>
@@ -321,6 +303,34 @@ namespace Forge.OpenAI.Services
         /// <summary>Gets the run step service.</summary>
         /// <value>The run step service.</value>
         public IRunStepService RunStepService { get; }
+
+        /// <summary>Gets the batch service.</summary>
+        /// <value>The batch service.</value>
+        public IBatchService BatchService { get; }
+
+        /// <summary>
+        /// Gets the vector store service.
+        /// </summary>
+        /// <value>
+        /// The vector store service.
+        /// </value>
+        public IVectorStoreService VectorStoreService { get; }
+
+        /// <summary>
+        /// Gets the vector store file service.
+        /// </summary>
+        /// <value>
+        /// The vector store file service.
+        /// </value>
+        public IVectorStoreFileService VectorStoreFileService { get; }
+
+        /// <summary>
+        /// Gets the vector store file batch service.
+        /// </summary>
+        /// <value>
+        /// The vector store file batch service.
+        /// </value>
+        public IVectorStoreFileBatchService VectorStoreFileBatchService { get; }
 
     }
 

@@ -122,7 +122,7 @@ namespace Forge.OpenAI.Models.ChatCompletions
         /// <see href="https://platform.openai.com/docs/api-reference/chat/create#chat/create-stop" />
         /// </summary>
         [JsonPropertyName("stop")]
-        public string[] StopSequences { get; set; }
+        public IList<string> StopSequences { get; set; }
 
         /// <summary>
         /// The stop sequence where the API will stop generating further tokens. The returned text will not contain the stop sequence.
@@ -140,7 +140,7 @@ namespace Forge.OpenAI.Models.ChatCompletions
                 }
                 else
                 {
-                    if (StopSequences.Length == 1)
+                    if (StopSequences.Count == 1)
                     {
                         StopSequences[0] = value;
                     }
@@ -238,7 +238,7 @@ namespace Forge.OpenAI.Models.ChatCompletions
         /// <see href="https://platform.openai.com/docs/api-reference/chat/create#chat-create-tools" />
         /// </value>
         [JsonPropertyName("tools")]
-        public IEnumerable<ChatTool> Tools { get; set; }
+        public ICollection<ChatTool> Tools { get; set; }
 
         /// <summary>
         /// Controls which (if any) function is called by the model. none means the model will not call a function and instead generates a message. auto means the model can pick between generating a message or calling a function. Specifying a particular function via {"type: "function", "function": {"name": "my_function"}} forces the model to call that function.
@@ -278,7 +278,7 @@ namespace Forge.OpenAI.Models.ChatCompletions
         /// </summary>
         [Obsolete]
         [JsonPropertyName("functions")]
-        public IEnumerable<FunctionDescriptor> Functions { get; set; }
+        public ICollection<FunctionDescriptor> Functions { get; set; }
 
     }
 

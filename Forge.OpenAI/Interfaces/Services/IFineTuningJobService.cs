@@ -1,4 +1,5 @@
-﻿using Forge.OpenAI.Models.Common;
+﻿using Forge.OpenAI.Interfaces.Infrastructure;
+using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Models.FineTuningJob;
 using System;
 using System.Collections.Generic;
@@ -63,7 +64,7 @@ namespace Forge.OpenAI.Interfaces.Services
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        Task<HttpOperationResult> GetEventsAsStreamAsync(string fineTuningJobId, Action<HttpOperationResult<FineTuningJobEvent>> resultCallback, CancellationToken cancellationToken = default);
+        Task<HttpOperationResult> GetEventsAsStreamAsync(string fineTuningJobId, Action<HttpOperationResult<IAsyncEventInfo<FineTuningJobEvent>>> resultCallback, CancellationToken cancellationToken = default);
 
 #if NETCOREAPP3_1_OR_GREATER
         /// <summary>
@@ -71,13 +72,21 @@ namespace Forge.OpenAI.Interfaces.Services
         /// WARNING: method will block until cancelling with CancellationToken,
         /// or the Fine Tuning Job cancel called on the API.
         /// </summary>
-        /// <param name="fineTuneJobId">The fine tuning job identifier.</param>
+        /// <param name="fineTuningJobId">The fine tuning job identifier.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         ///   FineTuningJobEvent
         /// </returns>
-        IAsyncEnumerable<HttpOperationResult<FineTuningJobEvent>> GetEventsAsStreamAsync(string fineTuneJobId, CancellationToken cancellationToken = default);
+        IAsyncEnumerable<HttpOperationResult<IAsyncEventInfo<FineTuningJobEvent>>> GetEventsAsStreamAsync(string fineTuningJobId, CancellationToken cancellationToken = default);
 #endif
+
+        /// <summary>Gets the checkpoints of a fine tune job asynchronously.</summary>
+        /// <param name="request">The fine tune job checkpoint request.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>
+        ///   FineTuningJobCheckpointListResponse
+        /// </returns>
+        Task<HttpOperationResult<FineTuningJobCheckpointListResponse>> GetCheckPointsAsync(FineTuningJobCheckpointListRequest request, CancellationToken cancellationToken = default);
 
     }
 

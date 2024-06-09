@@ -34,16 +34,16 @@ namespace Forge.OpenAI.Models.Runs
         public DateTime? CreatedAt => CreatedAtUnixTime.HasValue ? (DateTime?)DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnixTime.Value).DateTime : null;
 
         /// <summary>
-        /// The thread ID that this run belongs to.
-        /// </summary>
-        [JsonPropertyName("thread_id")]
-        public string ThreadId { get; set; }
-
-        /// <summary>
         /// The ID of the assistant used for execution of this run.
         /// </summary>
         [JsonPropertyName("assistant_id")]
         public string AssistantId { get; set; }
+
+        /// <summary>
+        /// The thread ID that this run belongs to.
+        /// </summary>
+        [JsonPropertyName("thread_id")]
+        public string ThreadId { get; set; }
 
         /// <summary>
         /// The ID of the run that this run step is a part of.

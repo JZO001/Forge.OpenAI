@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using System.Collections.Generic;
 
 namespace Forge.OpenAI.Models.Audio
 {
@@ -43,7 +44,7 @@ namespace Forge.OpenAI.Models.Audio
         /// Array of token IDs for the text content.
         /// </summary>
         [JsonPropertyName("tokens")]
-        public int[] Tokens { get; set; }
+        public IReadOnlyList<int> Tokens { get; set; }
 
         /// <summary>
         /// Temperature parameter used for generating the segment.

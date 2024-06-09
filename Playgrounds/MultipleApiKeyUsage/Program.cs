@@ -1,4 +1,5 @@
-﻿using Forge.OpenAI;
+﻿using Forge.OpenAI.Interfaces.Infrastructure;
+using Forge.OpenAI;
 using Forge.OpenAI.Authentication;
 using Forge.OpenAI.Interfaces.Services;
 using Forge.OpenAI.Models.Common;
@@ -32,15 +33,15 @@ namespace MultipleApiKeyUsage
 
             // 1, First example: create the OpenAI service instances for the users with manual DI configuration
             // AddForgeOpenAI can be replaced with other init methods, see ServiceCollectionExtensions.cs
-            IOpenAIService openAiInstanceForUserA = 
+            IOpenAIService openAiInstanceForUserA =
                 OpenAIService
-                    .CreateService(sc => 
-                        sc.AddForgeOpenAI(options => 
+                    .CreateService(sc =>
+                        sc.AddForgeOpenAI(options =>
                             options.AuthenticationInfo = new AuthenticationInfo(apiKeyForUserA)), out ServiceProvider serviceProviderA);
 
 
             // 2, Second example: the same can be done with an action used to configure OpenAIOptions
-            IOpenAIService openAiInstanceForUserB = OpenAIService.CreateService((OpenAIOptions options) => 
+            IOpenAIService openAiInstanceForUserB = OpenAIService.CreateService((OpenAIOptions options) =>
             {
                 options.AuthenticationInfo = new AuthenticationInfo(apiKeyForUserB);
             }, out ServiceProvider serviceProviderB);
@@ -101,11 +102,11 @@ namespace MultipleApiKeyUsage
 
             Console.WriteLine(request.Messages[0].Content);
 
-            Action<HttpOperationResult<ChatCompletionStreamedResponse>> receivedDataHandler = (HttpOperationResult<ChatCompletionStreamedResponse> actionResponse) =>
+            Action<HttpOperationResult<IAsyncEventInfo<ChatCompletionStreamedResponse>>> receivedDataHandler = (HttpOperationResult<IAsyncEventInfo<ChatCompletionStreamedResponse>> actionResponse) =>
             {
                 if (actionResponse.IsSuccess)
                 {
-                    Console.Write(actionResponse.Result.Choices[0].Delta.Content);
+                    Console.Write(actionResponse.Result!.Data.Choices[0].Delta.Content);
                 }
                 else
                 {

@@ -87,14 +87,6 @@ namespace Forge.OpenAI.Models.Embeddings
             }
         }
 
-        /// <summary>
-        /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. <br/>
-        /// <a href="https://beta.openai.com/docs/api-reference/images/create#images/create-user">Learn more</a>. <br/>
-        /// <see href="https://beta.openai.com/docs/api-reference/embeddings/create#embeddings/create-user" />
-        /// </summary>
-        [JsonPropertyName("user")]
-        public string User { get; set; }
-
         /// <summary>Gets or sets the encoding format.</summary>
         /// <value>https://platform.openai.com/docs/api-reference/embeddings/create#embeddings-create-encoding_format</value>
         [JsonPropertyName("encoding_format")]
@@ -107,6 +99,14 @@ namespace Forge.OpenAI.Models.Embeddings
         /// </summary>
         [JsonPropertyName("dimensions")]
         public int? Dimensions { get; set; }
+
+        /// <summary>
+        /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. <br/>
+        /// <a href="https://beta.openai.com/docs/api-reference/images/create#images/create-user">Learn more</a>. <br/>
+        /// <see href="https://beta.openai.com/docs/api-reference/embeddings/create#embeddings/create-user" />
+        /// </summary>
+        [JsonPropertyName("user")]
+        public string User { get; set; }
 
     }
 

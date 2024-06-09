@@ -13,11 +13,6 @@ namespace Forge.OpenAI.Models.Embeddings
         {
         }
 
-        /// <summary>Gets the response object type.</summary>
-        /// <value>The object.</value>
-        [JsonPropertyName("object")]
-        public string Object { get; set; }
-
         /// <summary>Gets or sets the embedding.</summary>
         /// <value>The embedding.</value>
         [JsonPropertyName("embedding")]
@@ -27,6 +22,11 @@ namespace Forge.OpenAI.Models.Embeddings
         /// <value>The index.</value>
         [JsonPropertyName("index")]
         public int Index { get; set; }
+
+        /// <summary>Gets the response object type.</summary>
+        /// <value>The object.</value>
+        [JsonPropertyName("object")]
+        public string Object { get; set; }
 
     }
 

@@ -75,6 +75,41 @@ namespace Forge.OpenAI.Services
             return await _apiHttpService.PostAsync<CreateRunRequest, CreateRunResponse>(GetCreateUri(request.ThreadId), request, null, cancellationToken).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// Creates a run as streamed and run asynchronously.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="resultCallback">The result callback.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>HttpOperationResult</returns>
+        public async Task<HttpOperationResult> CreateAsStreamAsync(CreateRunRequest request, Action<HttpOperationResult<IAsyncEventInfo<CreateRunResponse>>> resultCallback, CancellationToken cancellationToken = default)
+        {
+            if (request == null) return new HttpOperationResult(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
+            var validationResult = request.Validate();
+            if (validationResult != null) return validationResult;
+            request.Stream = true;
+
+            return await _apiHttpService.StreamedPostAsync(GetCreateUri(request.ThreadId), request, resultCallback, cancellationToken).ConfigureAwait(false);
+        }
+
+#if NETCOREAPP3_1_OR_GREATER
+        /// <summary>Creates a run asynchronously in streamed mode. This method is only available in .NET Core applications.</summary>
+        /// <param name="request">The request.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>
+        ///   IAsyncEnumerable
+        /// </returns>
+        public IAsyncEnumerable<HttpOperationResult<IAsyncEventInfo<CreateRunResponse>>> CreateAsStreamAsync(CreateRunRequest request, CancellationToken cancellationToken = default)
+        {
+            var validationResult = request.Validate<IAsyncEventInfo<CreateRunResponse>>();
+            if (validationResult != null) return RequestBase.GetValidationResultAsAsyncEnumerable<IAsyncEventInfo<CreateRunResponse>>(validationResult);
+            request.Stream = true;
+
+            return _apiHttpService.StreamedPostAsync<CreateRunRequest, CreateRunResponse>(GetCreateUri(request.ThreadId), request, cancellationToken);
+        }
+#endif
+
         /// <summary>Creates a thread and run in one request asynchronously.</summary>
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
@@ -90,6 +125,41 @@ namespace Forge.OpenAI.Services
 
             return await _apiHttpService.PostAsync<CreateThreadAndRunRequest, CreateThreadAndRunResponse>(GetCreateAndRunUri(), request, null, cancellationToken).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// Creates a thread and run in one request asynchronously in streamed mode.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="resultCallback">The result callback.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public async Task<HttpOperationResult> CreateThreadAndRunAsStreamAsync(CreateThreadAndRunRequest request, Action<HttpOperationResult<IAsyncEventInfo<CreateThreadAndRunResponse>>> resultCallback, CancellationToken cancellationToken = default)
+        {
+            if (request == null) return new HttpOperationResult(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
+            var validationResult = request.Validate();
+            if (validationResult != null) return validationResult;
+            request.Stream = true;
+
+            return await _apiHttpService.StreamedPostAsync(GetCreateAndRunUri(), request, resultCallback, cancellationToken).ConfigureAwait(false);
+        }
+
+#if NETCOREAPP3_1_OR_GREATER
+        /// <summary>Creates a thread and run in one request asynchronously in streamed mode. This method is only available in .NET Core applications.</summary>
+        /// <param name="request">The request.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>
+        ///   IAsyncEnumerable
+        /// </returns>
+        public IAsyncEnumerable<HttpOperationResult<IAsyncEventInfo<CreateThreadAndRunResponse>>> CreateThreadAndRunStreamAsync(CreateThreadAndRunRequest request, CancellationToken cancellationToken = default)
+        {
+            var validationResult = request.Validate<IAsyncEventInfo<CreateThreadAndRunResponse>>();
+            if (validationResult != null) return RequestBase.GetValidationResultAsAsyncEnumerable<IAsyncEventInfo<CreateThreadAndRunResponse>>(validationResult);
+            request.Stream = true;
+
+            return _apiHttpService.StreamedPostAsync<CreateThreadAndRunRequest, CreateThreadAndRunResponse>(GetCreateAndRunUri(), request, cancellationToken);
+        }
+#endif
 
         /// <summary>Gets a run data asynchronously.</summary>
         /// <param name="threadId">The thread identifier.</param>
@@ -157,6 +227,47 @@ namespace Forge.OpenAI.Services
 
             return await _apiHttpService.PostAsync<SubmitToolOutputsToRunRequest, SubmitToolOutputsToRunResponse>(GetSubmitToolOutputsToRunUri(request), request, null, cancellationToken).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// When a run has the status: "requires_action" and required_action.type is submit_tool_outputs, 
+        /// this endpoint can be used to submit the outputs from the tool calls once they're all completed. 
+        /// All outputs must be submitted in a single request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="resultCallback">The result callback.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>HttpOperationResult</returns>
+        public async Task<HttpOperationResult> SubmitToolOutputsToRunAsStreamAsync(SubmitToolOutputsToRunRequest request, Action<HttpOperationResult<IAsyncEventInfo<SubmitToolOutputsToRunResponse>>> resultCallback, CancellationToken cancellationToken = default)
+        {
+            if (request == null) return new HttpOperationResult(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
+            var validationResult = request.Validate();
+            if (validationResult != null) return validationResult;
+            request.Stream = true;
+
+            return await _apiHttpService.StreamedPostAsync(GetSubmitToolOutputsToRunUri(request), request, resultCallback, cancellationToken).ConfigureAwait(false);
+        }
+
+#if NETCOREAPP3_1_OR_GREATER
+        /// <summary>
+        /// When a run has the status: "requires_action" and required_action.type is submit_tool_outputs, 
+        /// this endpoint can be used to submit the outputs from the tool calls once they're all completed. 
+        /// All outputs must be submitted in a single request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>
+        ///   IAsyncEnumerable
+        /// </returns>
+        public IAsyncEnumerable<HttpOperationResult<IAsyncEventInfo<SubmitToolOutputsToRunResponse>>> SubmitToolOutputsToRunStreamAsync(SubmitToolOutputsToRunRequest request, CancellationToken cancellationToken = default)
+        {
+            var validationResult = request.Validate<IAsyncEventInfo<SubmitToolOutputsToRunResponse>>();
+            if (validationResult != null) return RequestBase.GetValidationResultAsAsyncEnumerable<IAsyncEventInfo<SubmitToolOutputsToRunResponse>>(validationResult);
+            request.Stream = true;
+
+            return _apiHttpService.StreamedPostAsync<SubmitToolOutputsToRunRequest, SubmitToolOutputsToRunResponse>(GetSubmitToolOutputsToRunUri(request), request, cancellationToken);
+        }
+#endif
 
         /// <summary>Cancels a run that is in_progress.</summary>
         /// <param name="threadId">The thread identifier.</param>

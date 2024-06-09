@@ -80,7 +80,7 @@ namespace Messages
             CreateMessageRequest createMessageRequest = new CreateMessageRequest()
             {
                 ThreadId = threadId,
-                Content = "Hello, how are you?"
+                ContentAsString = "Hello, how are you?"
             };
 
             HttpOperationResult<CreateMessageResponse> createMessageResult = await openAi.MessagesService.CreateAsync(createMessageRequest, CancellationToken.None);

@@ -117,38 +117,6 @@ namespace Forge.OpenAI.Settings
 
 
 
-        /// <summary>Gets or sets the default fine tune create URI.</summary>
-        /// <value>The default fine tune create URI.</value>
-        [Obsolete]
-        public static string DefaultFineTuneCreateUri { get; set; } = "fine-tunes";
-
-        /// <summary>Gets or sets the default fine tune list URI.</summary>
-        /// <value>The default fine tune list URI.</value>
-        [Obsolete]
-        public static string DefaultFineTuneListUri { get; set; } = "fine-tunes";
-
-        /// <summary>Gets or sets the default fine tune get URI.</summary>
-        /// <value>The default fine tune get URI.</value>
-        [Obsolete]
-        public static string DefaultFineTuneGetUri { get; set; } = "fine-tunes/{0}";
-
-        /// <summary>Gets or sets the default fine tune cancel URI.</summary>
-        /// <value>The default fine tune cancel URI.</value>
-        [Obsolete]
-        public static string DefaultFineTuneCancelUri { get; set; } = "fine-tunes/{0}/cancel";
-
-        /// <summary>Gets or sets the default fine tune events URI.</summary>
-        /// <value>The default fine tune events URI.</value>
-        [Obsolete]
-        public static string DefaultFineTuneEventsUri { get; set; } = "fine-tunes/{0}/events";
-
-        /// <summary>Gets or sets the default fine tune streamed events URI.</summary>
-        /// <value>The default fine tune streamed events URI.</value>
-        [Obsolete]
-        public static string DefaultFineTuneStreamedEventsUri { get; set; } = "fine-tunes/{0}/events?stream=true";
-
-
-
         /// <summary>Gets or sets the default fine tuning job create URI.</summary>
         /// <value>The default fine tune create URI.</value>
         public static string DefaultFineTuningJobCreateUri { get; set; } = "fine_tuning/jobs";
@@ -167,17 +135,17 @@ namespace Forge.OpenAI.Settings
 
         /// <summary>Gets or sets the default fine tuning job events URI.</summary>
         /// <value>The default fine tune events URI.</value>
-        public static string DefaultFineTuningJobEventsUri { get; set; } = "fine_tuning/{0}/events";
+        public static string DefaultFineTuningJobEventsUri { get; set; } = "fine_tuning/jobs/{0}/events";
 
         /// <summary>Gets or sets the default fine tune streamed events URI.</summary>
         /// <value>The default fine tune streamed events URI.</value>
-        public static string DefaultFineTuningJobStreamedEventsUri { get; set; } = "fine_tuning/{0}/events?stream=true";
+        public static string DefaultFineTuningJobStreamedEventsUri { get; set; } = "fine_tuning/jobs/{0}/events?stream=true";
+
+        /// <summary>Gets or sets the default fine tuning job checkpoints URI.</summary>
+        /// <value>The default fine tune checkpoints URI.</value>
+        public static string DefaultFineTuningJobCheckpointsUri { get; set; } = "fine_tuning/jobs/{0}/checkpoints";
 
 
-
-        /// <summary>Gets or sets the default fine tune delete model URI.</summary>
-        /// <value>The default fine tune delete model URI.</value>
-        public static string DefaultFineTuneDeleteModelUri { get; set; } = "models/{0}";
 
         /// <summary>Gets or sets the default audio speech URI.</summary>
         /// <value>The default audio speech URI.</value>
@@ -317,6 +285,92 @@ namespace Forge.OpenAI.Settings
         /// <summary>Gets or sets the default run steps list URI.</summary>
         /// <value>The default run steps list URI.</value>
         public static string DefaultRunStepsListUri { get; set; } = "threads/{0}/runs/{1}/steps";
+
+
+
+        /// <summary>Gets or sets the default batch creation URI.</summary>
+        /// <value>The default batch creation URI.</value>
+        public static string DefaultBatchUri { get; set; } = "batches";
+
+        /// <summary>Gets or sets the default get batch URI.</summary>
+        /// <value>The default get batch URI.</value>
+        public static string DefaultBatchGetUri { get; set; } = "batches/{0}";
+
+        /// <summary>Gets or sets the default cancel batch URI.</summary>
+        /// <value>The default cancel batch URI.</value>
+        public static string DefaultBatchCancelUri { get; set; } = "batches/{0}/cancel";
+
+
+
+        /// <summary>
+        /// Gets or sets the default vector store create URI.
+        /// </summary>
+        public static string DefaultVectorStoreCreateUri { get; set; } = "vector_stores";
+
+        /// <summary>
+        /// Gets or sets the default vector store list URI.
+        /// </summary>
+        public static string DefaultVectorStoreListUri { get; set; } = "vector_stores";
+
+        /// <summary>
+        /// Gets or sets the default vector store get URI.
+        /// </summary>
+        public static string DefaultVectorStoreGetUri { get; set; } = "vector_stores/{0}";
+
+        /// <summary>
+        /// Gets or sets the default vector store modify URI.
+        /// </summary>
+        public static string DefaultVectorStoreModifyUri { get; set; } = "vector_stores/{0}";
+
+        /// <summary>
+        /// Gets or sets the default vector store delete URI.
+        /// </summary>
+        public static string DefaultVectorStoreDeleteUri { get; set; } = "vector_stores/{0}";
+
+
+
+        /// <summary>
+        /// Gets or sets the default vector store file create URI.
+        /// </summary>
+        public static string DefaultVectorStoreFileCreateUri { get; set; } = "vector_stores/{0}/files";
+
+        /// <summary>
+        /// Gets or sets the default vector store file list URI.
+        /// </summary>
+        public static string DefaultVectorStoreFileListUri { get; set; } = "vector_stores/{0}/files";
+
+        /// <summary>
+        /// Gets or sets the default vector store file get URI.
+        /// </summary>
+        public static string DefaultVectorStoreFileGetUri { get; set; } = "vector_stores/{0}/files/{1}";
+
+        /// <summary>
+        /// Gets or sets the default vector store file delete URI.
+        /// </summary>
+        public static string DefaultVectorStoreFileDeleteUri { get; set; } = "vector_stores/{0}/files/{1}";
+
+
+
+        /// <summary>
+        /// Gets or sets the default vector store file batches create URI.
+        /// </summary>
+        public static string DefaultVectorStoreFileBatchesCreateUri { get; set; } = "vector_stores/{0}/file_batches";
+
+        /// <summary>
+        /// Gets or sets the default vector store file batches get URI.
+        /// </summary>
+        public static string DefaultVectorStoreFileBatchesGetUri { get; set; } = "vector_stores/{0}/file_batches/{1}";
+
+        /// <summary>
+        /// Gets or sets the default vector store file batches cancel URI.
+        /// </summary>
+        public static string DefaultVectorStoreFileCancelUri { get; set; } = "vector_stores/{0}/file_batches/{1}/cancel";
+
+        /// <summary>
+        /// Gets or sets the default vector store file batches file list URI.
+        /// </summary>
+        public static string DefaultVectorStoreFileBatchesFileListUri { get; set; } = "vector_stores/{0}/file_batches/{1}/files";
+
 
 
         /// <summary>Gets or sets a value indicating whether [default log requests and responses].</summary>

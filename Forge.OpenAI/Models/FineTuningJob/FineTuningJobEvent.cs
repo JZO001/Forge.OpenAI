@@ -39,12 +39,6 @@ namespace Forge.OpenAI.Models.FineTuningJob
         [JsonPropertyName("message")]
         public string Message { get; set; }
 
-        [JsonPropertyName("data")]
-        public string Data { get; set; }
-
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
-
         /// <summary>Converts to string.</summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString() => JsonSerializer.Serialize(this, GetType());

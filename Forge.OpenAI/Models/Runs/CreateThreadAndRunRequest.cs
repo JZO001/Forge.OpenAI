@@ -47,20 +47,20 @@ namespace Forge.OpenAI.Models.Runs
         public IReadOnlyList<Tool> Tools { get; set; }
 
         /// <summary>
-        /// Set of 16 key-value pairs that can be attached to an object.
-        /// This can be useful for storing additional information about the object in a structured format.
-        /// Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long.
-        /// </summary>
-        [JsonPropertyName("metadata")]
-        public IReadOnlyDictionary<string, string> Metadata { get; set; }
-
-        /// <summary>
         /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the code_interpreter tool requires a list of file IDs, while the file_search tool requires a list of vector store IDs.
         /// <a href="https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-tool_resources</a>
         /// </summary>
         /// <value>The tool resources.</value>
         [JsonPropertyName("tool_resources")]
         public ToolResource ToolResources { get; set; }
+
+        /// <summary>
+        /// Set of 16 key-value pairs that can be attached to an object.
+        /// This can be useful for storing additional information about the object in a structured format.
+        /// Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long.
+        /// </summary>
+        [JsonPropertyName("metadata")]
+        public IReadOnlyDictionary<string, string> Metadata { get; set; }
 
         /// <summary>
         /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
@@ -99,22 +99,16 @@ namespace Forge.OpenAI.Models.Runs
         [JsonPropertyName("max_completion_tokens")]
         public int? MaxCompletionTokens { get; set; }
 
-        /// <summary>Gets or sets the response format.</summary>
-        /// <value>
-        ///   <a href="https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-response_format"></a>
-        /// </value>
-        [JsonPropertyName("response_format")]
-        public object ResponseFormat { get; private set; }
-
-        /// <summary>Gets or sets the response format as string.</summary>
-        /// <value>The response format as string.</value>
-        [JsonIgnore]
-        public string ResponseFormatAsString { get => ResponseFormat as string; set => ResponseFormat = value; }
-
-        /// <summary>Gets or sets the response format as object.</summary>
-        /// <value>The response format as object.</value>
-        [JsonIgnore]
-        public ResponseFormat ResponseFormatAsObject { get => ResponseFormat as ResponseFormat; set => ResponseFormat = value; }
+        /// <summary>
+        ///   <para>
+        /// Controls for how a thread will be truncated prior to the run. Use this to control the intial context window of the run.</para>
+        ///   <para>
+        ///     <a href="https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-truncation_strategy">https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-truncation_strategy</a>
+        ///   </para>
+        /// </summary>
+        /// <value>The truncation strategy.</value>
+        [JsonPropertyName("truncation_strategy")]
+        public TruncationStrategy TruncationStrategy { get; set; }
 
         /// <summary>
         ///   <a href="https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-tool_choice">https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-tool_choice</a>
@@ -129,7 +123,7 @@ namespace Forge.OpenAI.Models.Runs
         /// <value>The tool choice.</value>
         [JsonIgnore]
         public ToolChoice ToolChoiceAsObject
-        { 
+        {
             get => ToolChoice as ToolChoice;
             set => ToolChoice = value;
         }
@@ -146,15 +140,29 @@ namespace Forge.OpenAI.Models.Runs
         }
 
         /// <summary>
-        ///   <para>
-        /// Controls for how a thread will be truncated prior to the run. Use this to control the intial context window of the run.</para>
-        ///   <para>
-        ///     <a href="https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-truncation_strategy">https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-truncation_strategy</a>
-        ///   </para>
+        /// Whether to enable parallel function calling during tool use.
+        /// https://platform.openai.com/docs/api-reference/runs/object#runs/object-parallel_tool_calls
+        /// https://platform.openai.com/docs/guides/function-calling/parallel-function-calling
         /// </summary>
-        /// <value>The truncation strategy.</value>
-        [JsonPropertyName("truncation_strategy")]
-        public TruncationStrategy TruncationStrategy { get; set; }
+        [JsonPropertyName("parallel_tool_calls")]
+        public bool ParallelToolCalls { get; set; }
+
+        /// <summary>Gets or sets the response format.</summary>
+        /// <value>
+        ///   <a href="https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-response_format"></a>
+        /// </value>
+        [JsonPropertyName("response_format")]
+        public object ResponseFormat { get; private set; }
+
+        /// <summary>Gets or sets the response format as string.</summary>
+        /// <value>The response format as string.</value>
+        [JsonIgnore]
+        public string ResponseFormatAsString { get => ResponseFormat as string; set => ResponseFormat = value; }
+
+        /// <summary>Gets or sets the response format as object.</summary>
+        /// <value>The response format as object.</value>
+        [JsonIgnore]
+        public ResponseFormat ResponseFormatAsObject { get => ResponseFormat as ResponseFormat; set => ResponseFormat = value; }
 
     }
 

@@ -59,7 +59,7 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        Task<HttpOperationResult> StreamedGetAsync<TResult>(string uri, Action<HttpOperationResult<TResult>> resultCallback, CancellationToken cancellationToken = default)
+        Task<HttpOperationResult> StreamedGetAsync<TResult>(string uri, Action<HttpOperationResult<IAsyncEventInfo<TResult>>> resultCallback, CancellationToken cancellationToken = default)
             where TResult : class;
 
         /// <summary>Sends a post asynchronously and handle the response as a stream.</summary>
@@ -72,7 +72,7 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        Task<HttpOperationResult> StreamedPostAsync<TData, TResult>(string uri, TData data, Action<HttpOperationResult<TResult>> resultCallback, CancellationToken cancellationToken = default)
+        Task<HttpOperationResult> StreamedPostAsync<TData, TResult>(string uri, TData data, Action<HttpOperationResult<IAsyncEventInfo<TResult>>> resultCallback, CancellationToken cancellationToken = default)
             where TData : class
             where TResult : class;
 
@@ -84,7 +84,7 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
         /// <returns>
         ///   IAsyncEnumerable
         /// </returns>
-        System.Collections.Generic.IAsyncEnumerable<HttpOperationResult<TResult>> StreamedGetAsync<TResult>(string uri, CancellationToken cancellationToken = default)
+        System.Collections.Generic.IAsyncEnumerable<HttpOperationResult<IAsyncEventInfo<TResult>>> StreamedGetAsync<TResult>(string uri, CancellationToken cancellationToken = default)
             where TResult : class;
 
         /// <summary>Sends a post asynchronously and handle the response as a stream.</summary>
@@ -96,7 +96,7 @@ namespace Forge.OpenAI.Interfaces.Infrastructure
         /// <returns>
         ///   IAsyncEnumerable
         /// </returns>
-        System.Collections.Generic.IAsyncEnumerable<HttpOperationResult<TResult>> StreamedPostAsync<TData, TResult>(string uri, TData data, CancellationToken cancellationToken = default)
+        System.Collections.Generic.IAsyncEnumerable<HttpOperationResult<IAsyncEventInfo<TResult>>> StreamedPostAsync<TData, TResult>(string uri, TData data, CancellationToken cancellationToken = default)
             where TData : class
             where TResult : class;
 #endif

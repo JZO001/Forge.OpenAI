@@ -96,15 +96,11 @@ namespace Forge.OpenAI.Models.Images
         public string Quality { get; set; } = QUALITY_STANDARD;
 
         /// <summary>
-        /// The style of the generated images. 
-        /// Must be one of vivid or natural. 
-        /// Vivid causes the model to lean towards generating hyper-real and dramatic images. 
-        /// Natural causes the model to produce more natural, less hyper-real looking images. 
-        /// This param is only supported for dall-e-3.</summary>
-        /// <value>The style.</value>
-        [JsonPropertyName("style")]
-        [Required]
-        public string Style { get; set; } = STYLE_VIVID;
+        /// The format in which the generated images are returned. Must be one of url or b64_json. <br/>
+        /// If not set, the default is 'url'
+        /// </summary>
+        [JsonPropertyName("response_format")]
+        public string ResponseFormat { get; set; }
 
         /// <summary>
         /// The size of the generated images. It can be one of 256x256, 512x512, or 1024x1024.
@@ -115,11 +111,15 @@ namespace Forge.OpenAI.Models.Images
         public string Size { get; set; }
 
         /// <summary>
-        /// The format in which the generated images are returned. Must be one of url or b64_json. <br/>
-        /// If not set, the default is 'url'
-        /// </summary>
-        [JsonPropertyName("response_format")]
-        public string ResponseFormat { get; set; }
+        /// The style of the generated images. 
+        /// Must be one of vivid or natural. 
+        /// Vivid causes the model to lean towards generating hyper-real and dramatic images. 
+        /// Natural causes the model to produce more natural, less hyper-real looking images. 
+        /// This param is only supported for dall-e-3.</summary>
+        /// <value>The style.</value>
+        [JsonPropertyName("style")]
+        [Required]
+        public string Style { get; set; } = STYLE_VIVID;
 
         /// <summary>
         /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.

@@ -1,4 +1,5 @@
-﻿using Forge.OpenAI;
+﻿using Forge.OpenAI.Interfaces.Infrastructure;
+using Forge.OpenAI;
 using Forge.OpenAI.Interfaces.Services;
 using Forge.OpenAI.Models;
 using Forge.OpenAI.Models.Common;
@@ -107,12 +108,13 @@ namespace FineTuningJob
                     }
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                    Task.Run(async () => {
+                    Task.Run(async () =>
+                    {
                         Console.WriteLine();
                         Console.WriteLine("List fine tuning events (async mode - callback)");
                         Console.WriteLine();
 
-                        Action<HttpOperationResult<FineTuningJobEvent>> eventResultCallback = (HttpOperationResult<FineTuningJobEvent> response) =>
+                        Action<HttpOperationResult<IAsyncEventInfo<FineTuningJobEvent>>> eventResultCallback = (HttpOperationResult<IAsyncEventInfo<FineTuningJobEvent>> response) =>
                         {
                             if (response.IsSuccess)
                             {
@@ -138,12 +140,13 @@ namespace FineTuningJob
                         }
                     });
 
-                    Task.Run(async () => {
+                    Task.Run(async () =>
+                    {
                         Console.WriteLine();
                         Console.WriteLine("List fine tuning job events (async mode - IAsyncEnumerable)");
                         Console.WriteLine();
 
-                        await foreach (HttpOperationResult<FineTuningJobEvent> response in openAi.FineTuningJobService.GetEventsAsStreamAsync(createResponse.Result!.Id, CancellationToken.None))
+                        await foreach (HttpOperationResult<IAsyncEventInfo<FineTuningJobEvent>> response in openAi.FineTuningJobService.GetEventsAsStreamAsync(createResponse.Result!.Id, CancellationToken.None))
                         {
                             if (response.IsSuccess)
                             {

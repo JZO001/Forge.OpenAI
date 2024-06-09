@@ -12,6 +12,12 @@ namespace Forge.OpenAI.Models.Moderations
         {
         }
 
+        /// <summary>Gets or sets a value indicating whether this <see cref="ModerationResult" /> is flagged.</summary>
+        /// <value>
+        ///   <c>true</c> if flagged; otherwise, <c>false</c>.</value>
+        [JsonPropertyName("flagged")]
+        public bool Flagged { get; set; }
+
         /// <summary>
         /// Gets or sets the categories.
         /// https://platform.openai.com/docs/api-reference/moderations/object
@@ -27,12 +33,6 @@ namespace Forge.OpenAI.Models.Moderations
         /// <value>The scores.</value>
         [JsonPropertyName("category_scores")]
         public ModerationCategoriesScores Scores { get; set; }
-
-        /// <summary>Gets or sets a value indicating whether this <see cref="ModerationResult" /> is flagged.</summary>
-        /// <value>
-        ///   <c>true</c> if flagged; otherwise, <c>false</c>.</value>
-        [JsonPropertyName("flagged")]
-        public bool Flagged { get; set; }
 
     }
 

@@ -146,13 +146,10 @@ namespace Forge.OpenAI
                 .AddSingleton<IApiHttpLoggerService, ApiHttpLoggerService>()
                 .AddSingleton<IApiHttpClientFactory, ApiHttpClientFactory>()
                 .AddSingleton<IModelService, ModelService>()
-                .AddSingleton<ITextCompletionService, TextCompletionService>()
-                .AddSingleton<ITextEditService, TextEditService>()
                 .AddSingleton<IModerationService, ModerationService>()
                 .AddSingleton<IEmbeddingsService, EmbeddingsService>()
                 .AddSingleton<IImageService, ImageService>()
                 .AddSingleton<IFileService, FileService>()
-                .AddSingleton<IFineTuneService, FineTuneService>()
                 .AddSingleton<IFineTuningJobService, FineTuningJobService>()
                 .AddSingleton<ISpeechService, SpeechService>()
                 .AddSingleton<ITranscriptionService, TranscriptionService>()
@@ -165,7 +162,11 @@ namespace Forge.OpenAI
                 .AddSingleton<IMessageService, MessageService>()
                 .AddSingleton<IMessageFileService, MessageFileService>()
                 .AddSingleton<IRunService, RunService>()
-                .AddSingleton<IRunStepService, RunStepService>();
+                .AddSingleton<IRunStepService, RunStepService>()
+                .AddSingleton<IBatchService, BatchService>()
+                .AddSingleton<IVectorStoreService, VectorStoreService>()
+                .AddSingleton<IVectorStoreFileService, VectorStoreFileService>()
+                .AddSingleton<IVectorStoreFileBatchService, VectorStoreFileBatchService>();
         }
 
         private static IServiceCollection AddServicesAsScoped(IServiceCollection services)
@@ -176,13 +177,10 @@ namespace Forge.OpenAI
                 .AddScoped<IApiHttpLoggerService, ApiHttpLoggerService>()
                 .AddScoped<IApiHttpClientFactory, ApiHttpClientFactory>()
                 .AddScoped<IModelService, ModelService>()
-                .AddScoped<ITextCompletionService, TextCompletionService>()
-                .AddScoped<ITextEditService, TextEditService>()
                 .AddScoped<IModerationService, ModerationService>()
                 .AddScoped<IEmbeddingsService, EmbeddingsService>()
                 .AddScoped<IImageService, ImageService>()
                 .AddScoped<IFileService, FileService>()
-                .AddScoped<IFineTuneService, FineTuneService>()
                 .AddScoped<IFineTuningJobService, FineTuningJobService>()
                 .AddScoped<ISpeechService, SpeechService>()
                 .AddScoped<ITranscriptionService, TranscriptionService>()
@@ -195,7 +193,11 @@ namespace Forge.OpenAI
                 .AddScoped<IMessageService, MessageService>()
                 .AddScoped<IMessageFileService, MessageFileService>()
                 .AddScoped<IRunService, RunService>()
-                .AddScoped<IRunStepService, RunStepService>();
+                .AddScoped<IRunStepService, RunStepService>()
+                .AddScoped<IBatchService, BatchService>()
+                .AddScoped<IVectorStoreService, VectorStoreService>()
+                .AddScoped<IVectorStoreFileService, VectorStoreFileService>()
+                .AddScoped<IVectorStoreFileBatchService, VectorStoreFileBatchService>();
         }
 
         private static IServiceCollection AddServicesAsTransient(IServiceCollection services)
@@ -206,13 +208,10 @@ namespace Forge.OpenAI
                 .AddScoped<IApiHttpLoggerService, ApiHttpLoggerService>()
                 .AddTransient<IApiHttpClientFactory, ApiHttpClientFactory>()
                 .AddTransient<IModelService, ModelService>()
-                .AddTransient<ITextCompletionService, TextCompletionService>()
-                .AddTransient<ITextEditService, TextEditService>()
                 .AddTransient<IModerationService, ModerationService>()
                 .AddTransient<IEmbeddingsService, EmbeddingsService>()
                 .AddTransient<IImageService, ImageService>()
                 .AddTransient<IFileService, FileService>()
-                .AddTransient<IFineTuneService, FineTuneService>()
                 .AddTransient<IFineTuningJobService, FineTuningJobService>()
                 .AddTransient<ISpeechService, SpeechService>()
                 .AddTransient<ITranscriptionService, TranscriptionService>()
@@ -225,7 +224,11 @@ namespace Forge.OpenAI
                 .AddTransient<IMessageService, MessageService>()
                 .AddTransient<IMessageFileService, MessageFileService>()
                 .AddTransient<IRunService, RunService>()
-                .AddTransient<IRunStepService, RunStepService>();
+                .AddTransient<IRunStepService, RunStepService>()
+                .AddTransient<IBatchService, BatchService>()
+                .AddTransient<IVectorStoreService, VectorStoreService>()
+                .AddTransient<IVectorStoreFileService, VectorStoreFileService>()
+                .AddTransient<IVectorStoreFileBatchService, VectorStoreFileBatchService>();
         }
 
     }

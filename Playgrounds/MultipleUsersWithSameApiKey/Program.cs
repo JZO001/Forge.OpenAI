@@ -1,7 +1,7 @@
 ﻿using Forge.OpenAI;
 using Forge.OpenAI.Interfaces.Services;
+using Forge.OpenAI.Models.ChatCompletions;
 using Forge.OpenAI.Models.Common;
-using Forge.OpenAI.Models.TextCompletions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -41,28 +41,39 @@ namespace MultipleUsersWithSameApiKey
             const string idForUserB = "user_b@email.com";
 
             // works with User "A"
-            await TextEditExampleAsync(openAi, idForUserA);
+            await ChatWithNonStreamingModeAsync(openAi, idForUserA);
 
             // works with User "B"
-            await TextEditExampleAsync(openAi, idForUserB);
+            await ChatWithNonStreamingModeAsync(openAi, idForUserB);
         }
 
-        static async Task TextEditExampleAsync(IOpenAIService openAIService, string userId)
+        static async Task ChatWithNonStreamingModeAsync(IOpenAIService openAi, string userId)
         {
-            TextCompletionRequest request = new TextCompletionRequest();
-            request.Prompt = "Say this is a test";
+            // in this scenario the answer generated on server side, than the whole chat message will be sent in one pass
+
+            ChatCompletionRequest request = new ChatCompletionRequest(ChatMessage.CreateFromUser("Count to 20, with a comma between each number and no newlines. E.g., 1, 2, 3, ..."));
             request.User = userId;
 
-            Console.WriteLine(request.Prompt);
-
-            HttpOperationResult<TextCompletionResponse> response = 
-                await openAIService.TextCompletionService
-                    .GetAsync(request, CancellationToken.None);
-            
+            HttpOperationResult<ChatCompletionResponse> response = await openAi.ChatCompletionService.GetAsync(request, CancellationToken.None);
             if (response.IsSuccess)
             {
                 Console.WriteLine();
-                response.Result!.Completions.ToList().ForEach(c => Console.WriteLine(c.Text));
+                response.Result.Choices.ToList().ForEach(c => Console.WriteLine(c.Message.Content));
+
+                Console.WriteLine();
+
+                request.Messages.Add(response.Result.Choices[0].Message);
+                request.Messages.Add(ChatMessage.CreateFromUser("Please count from 21 to 30, on the same way than previously."));
+
+                response = await openAi.ChatCompletionService.GetAsync(request, CancellationToken.None);
+                if (response.IsSuccess)
+                {
+                    response.Result.Choices.ToList().ForEach(c => Console.WriteLine(c.Message.Content));
+                }
+                else
+                {
+                    Console.WriteLine(response);
+                }
             }
             else
             {

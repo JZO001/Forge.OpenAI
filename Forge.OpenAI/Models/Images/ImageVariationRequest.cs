@@ -65,19 +65,19 @@ namespace Forge.OpenAI.Models.Images
         public int NumberOfVariationImages { get; set; } = 1;
 
         /// <summary>
+        /// The format in which the generated images are returned. Must be one of url or b64_json. <br/>
+        /// If not set, the default is 'url'
+        /// </summary>
+        [JsonPropertyName("response_format")]
+        public string ResponseFormat { get; set; }
+
+        /// <summary>
         /// The size of the generated images. It can be one of 256x256, 512x512, or 1024x1024.
         /// If not set, the default is 1024x1024.
         /// https://platform.openai.com/docs/api-reference/images/create
         /// </summary>
         [JsonPropertyName("size")]
         public string Size { get; set; }
-
-        /// <summary>
-        /// The format in which the generated images are returned. Must be one of url or b64_json. <br/>
-        /// If not set, the default is 'url'
-        /// </summary>
-        [JsonPropertyName("response_format")]
-        public string ResponseFormat { get; set; }
 
         /// <summary>
         /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.

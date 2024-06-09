@@ -2,6 +2,7 @@
 using Forge.OpenAI.Interfaces.Services;
 using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Models.ChatCompletions;
+using Forge.OpenAI.Interfaces.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
@@ -93,11 +94,11 @@ namespace ChatCompletions
 
             Console.WriteLine(request.Messages[0].Content);
 
-            Action<HttpOperationResult<ChatCompletionStreamedResponse>> receivedDataHandler = (HttpOperationResult<ChatCompletionStreamedResponse> actionResponse) =>
+            Action<HttpOperationResult<IAsyncEventInfo<ChatCompletionStreamedResponse>>> receivedDataHandler = (HttpOperationResult<IAsyncEventInfo<ChatCompletionStreamedResponse>> actionResponse) =>
             {
                 if (actionResponse.IsSuccess)
                 {
-                    Console.Write(actionResponse.Result.Choices[0].Delta.Content);
+                    Console.Write(actionResponse.Result.Data.Choices[0].Delta.Content);
                 }
                 else
                 {
@@ -127,11 +128,11 @@ namespace ChatCompletions
 
             Console.WriteLine(request.Messages[0].Content);
 
-            await foreach (HttpOperationResult<ChatCompletionStreamedResponse> response in openAi.ChatCompletionService.GetStreamAsync(request, CancellationToken.None))
+            await foreach (HttpOperationResult<IAsyncEventInfo<ChatCompletionStreamedResponse>> response in openAi.ChatCompletionService.GetStreamAsync(request, CancellationToken.None))
             {
                 if (response.IsSuccess)
                 {
-                    Console.Write(response.Result.Choices[0].Delta.Content);
+                    Console.Write(response.Result.Data.Choices[0].Delta.Content);
                 }
                 else
                 {

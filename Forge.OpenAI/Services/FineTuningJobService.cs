@@ -115,7 +115,7 @@ namespace Forge.OpenAI.Services
         /// <returns>
         ///   HttpOperationResult
         /// </returns>
-        public async Task<HttpOperationResult> GetEventsAsStreamAsync(string fineTuningJobId, Action<HttpOperationResult<FineTuningJobEvent>> resultCallback, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResult> GetEventsAsStreamAsync(string fineTuningJobId, Action<HttpOperationResult<IAsyncEventInfo<FineTuningJobEvent>>> resultCallback, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(fineTuningJobId)) return new HttpOperationResult(new ArgumentNullException(nameof(fineTuningJobId)), System.Net.HttpStatusCode.BadRequest);
             
@@ -133,9 +133,9 @@ namespace Forge.OpenAI.Services
         /// <returns>
         ///   FineTuningJobEvent
         /// </returns>
-        public IAsyncEnumerable<HttpOperationResult<FineTuningJobEvent>> GetEventsAsStreamAsync(string fineTuningJobId, CancellationToken cancellationToken = default)
+        public IAsyncEnumerable<HttpOperationResult<IAsyncEventInfo<FineTuningJobEvent>>> GetEventsAsStreamAsync(string fineTuningJobId, CancellationToken cancellationToken = default)
         {
-            if (string.IsNullOrWhiteSpace(fineTuningJobId)) return RequestBase.GetValidationResultAsAsyncEnumerable<FineTuningJobEvent>(new HttpOperationResult<FineTuningJobEvent>(new ArgumentNullException(nameof(fineTuningJobId)), System.Net.HttpStatusCode.BadRequest));
+            if (string.IsNullOrWhiteSpace(fineTuningJobId)) return RequestBase.GetValidationResultAsAsyncEnumerable<IAsyncEventInfo<FineTuningJobEvent>>(new HttpOperationResult<IAsyncEventInfo<FineTuningJobEvent>>(new ArgumentNullException(nameof(fineTuningJobId)), System.Net.HttpStatusCode.BadRequest));
             
             return _apiHttpService.StreamedGetAsync<FineTuningJobEvent>(GetStreamedEventsUri(fineTuningJobId), cancellationToken);
         }
@@ -152,6 +152,22 @@ namespace Forge.OpenAI.Services
             if (string.IsNullOrWhiteSpace(fineTuneJobId)) return new HttpOperationResult<FineTuningJobResponse>(new ArgumentNullException(nameof(fineTuneJobId)), System.Net.HttpStatusCode.BadRequest);
             
             return await _apiHttpService.PostAsync<object, FineTuningJobResponse>(GetCancelUri(fineTuneJobId), null, null, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>Gets the checkpoints of a fine tune job asynchronously.</summary>
+        /// <param name="request">The fine tune job checkpoint request.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>
+        ///   FineTuningJobCheckpointListResponse
+        /// </returns>
+        public async Task<HttpOperationResult<FineTuningJobCheckpointListResponse>> GetCheckPointsAsync(FineTuningJobCheckpointListRequest request, CancellationToken cancellationToken = default)
+        {
+            if (request == null) return new HttpOperationResult<FineTuningJobCheckpointListResponse>(new ArgumentNullException(nameof(request)), System.Net.HttpStatusCode.BadRequest);
+
+            var validationResult = request.Validate<FineTuningJobCheckpointListResponse>();
+            if (validationResult != null) return validationResult;
+
+            return await _apiHttpService.GetAsync<FineTuningJobCheckpointListResponse>(GetCheckpointsUri(request.FineTuningJobId), cancellationToken).ConfigureAwait(false);
         }
 
         private string GetCreateUri()
@@ -193,6 +209,11 @@ namespace Forge.OpenAI.Services
         private string GetCancelUri(string fineTuneJobId)
         {
             return string.Format(_providerEndpointService.BuildBaseUri(), string.Format(_options.FineTuningJobCancelUri, fineTuneJobId));
+        }
+
+        private string GetCheckpointsUri(string fineTuneJobId)
+        {
+            return string.Format(_providerEndpointService.BuildBaseUri(), string.Format(_options.FineTuningJobCheckpointsUri, fineTuneJobId));
         }
 
     }
