@@ -82,7 +82,7 @@ namespace Forge.OpenAI.Infrastructure
         /// <param name="stream">The stream.</param>
         public void Save(Stream stream)
         {
-            using (StreamWriter writer = new StreamWriter(stream, null, -1, leaveOpen: true))
+            using (StreamWriter writer = new StreamWriter(stream, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false), 1024, leaveOpen: true))
             {
                 foreach (T item in _items)
                 {
