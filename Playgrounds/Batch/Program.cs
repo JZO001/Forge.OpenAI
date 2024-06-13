@@ -97,7 +97,7 @@ namespace Batch
                     { "description", "nightly eval job" }
                 };
 
-                HttpOperationResult<CreateBatchResponse> response = openAi.BatchService.CreateAsync(request, CancellationToken.None).Result;
+                HttpOperationResult<CreateBatchResponse> response = await openAi.BatchService.CreateAsync(request, CancellationToken.None);
                 if (response.IsSuccess)
                 {
                     string batchId = response.Result.Id;
