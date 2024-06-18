@@ -26,7 +26,13 @@ namespace Forge.OpenAI.Models.Shared
         /// </summary>
         public const string FUNCTION = "function";
 
+        /// <summary>
+        /// https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-tools
+        /// </summary>
         public const string CODE_INTERPRETER = "code_interpreter";
+        /// <summary>
+        /// https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-tools
+        /// </summary>
         public const string FILE_SEARCH = "file_search";
 
         /// <summary>Initializes a new instance of the <see cref="Tool" /> class.</summary>

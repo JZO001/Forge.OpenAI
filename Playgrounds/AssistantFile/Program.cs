@@ -56,7 +56,7 @@ namespace AssistantFile
                     Instructions = "You are a personal windows 10 tutor. When asked a question, explain and answer the question.",
                     Tools = new List<Tool>()
                     {
-                        new Tool() { Type = Tool.RETRIEVAL }
+                        new Tool() { Type = Tool.CODE_INTERPRETER }
                     }
                 };
 

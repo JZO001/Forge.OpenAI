@@ -29,7 +29,7 @@ namespace Forge.OpenAI.Infrastructure
         {
             JsonlManager<T> result = new JsonlManager<T>();
 
-            using (StreamReader reader = new StreamReader(stream, null, true, -1, true))
+            using (StreamReader reader = new StreamReader(stream, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false), true, 1024, true))
             {
                 string line = null;
                 while ((line = reader.ReadLine()) != null)
