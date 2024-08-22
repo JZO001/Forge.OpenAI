@@ -40,15 +40,6 @@ namespace Forge.OpenAI.Models.Embeddings
         }
 
         /// <summary>
-        /// ID of the model to use. <br />
-        /// You can use the List models API to see all of your available models, or see our Model overview for descriptions of them. <br />
-        /// <see href="https://beta.openai.com/docs/api-reference/embeddings#embeddings/create-model" />
-        /// </summary>
-        [Required]
-        [JsonPropertyName("model")]
-        public string Model { get; set; }
-
-        /// <summary>
         /// Input text to get embeddings for, encoded as a string or array of tokens. <br />
         /// To get embeddings for multiple inputs in a single request, pass an array of strings or array of token arrays. <br />
         /// Each input must not exceed 8192 tokens in length. <br />
@@ -86,6 +77,15 @@ namespace Forge.OpenAI.Models.Embeddings
                 }
             }
         }
+
+        /// <summary>
+        /// ID of the model to use. <br />
+        /// You can use the List models API to see all of your available models, or see our Model overview for descriptions of them. <br />
+        /// <see href="https://beta.openai.com/docs/api-reference/embeddings#embeddings/create-model" />
+        /// </summary>
+        [Required]
+        [JsonPropertyName("model")]
+        public string Model { get; set; }
 
         /// <summary>Gets or sets the encoding format.</summary>
         /// <value>https://platform.openai.com/docs/api-reference/embeddings/create#embeddings-create-encoding_format</value>

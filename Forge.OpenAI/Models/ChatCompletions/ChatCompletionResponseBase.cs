@@ -25,6 +25,14 @@ namespace Forge.OpenAI.Models.ChatCompletions
         [JsonPropertyName("system_fingerprint")]
         public string SystemFingerprint { get; set; }
 
+        /// <summary>
+        /// The service tier used for processing the request. This field is only included if the service_tier parameter is specified in the request.
+        /// https://platform.openai.com/docs/api-reference/chat/object#chat/object-service_tier
+        /// </summary>
+        /// <value>The service tier.</value>
+        [JsonPropertyName("service_tier")]
+        public string ServiceTier { get; set; }
+
     }
 
 }
