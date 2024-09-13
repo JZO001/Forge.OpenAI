@@ -1,4 +1,5 @@
 ﻿using Forge.OpenAI.Models.Common;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -46,6 +47,14 @@ namespace Forge.OpenAI.Models.Runs
         /// </summary>
         [JsonPropertyName("before")]
         public string Before { get; set; }
+
+        /// <summary>
+        /// A list of additional fields to include in the response. Currently the only supported value is step_details.tool_calls[*].file_search.results[*].content to fetch the file search result content.
+        /// https://platform.openai.com/docs/api-reference/run-steps/listRunSteps#run-steps-listrunsteps-include
+        /// </summary>
+        /// <value>The includes.</value>
+        [JsonPropertyName("include")]
+        public IReadOnlyList<string> Includes { get; set; }
 
     }
 
