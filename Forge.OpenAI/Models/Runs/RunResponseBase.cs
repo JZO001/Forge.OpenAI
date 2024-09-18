@@ -138,10 +138,12 @@ namespace Forge.OpenAI.Models.Runs
         public IncompleteDetails IncompleteDetails { get; set; }
 
         /// <summary>
-        /// The model that the assistant used for this run.
+        /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the code_interpreter tool requires a list of file IDs, while the file_search tool requires a list of vector store IDs.
+        /// https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-tool_resources
         /// </summary>
-        [JsonPropertyName("model")]
-        public string Model { get; set; }
+        /// <value>The tool resources.</value>
+        [JsonPropertyName("tool_resources")]
+        public ToolResource ToolResources { get; set; }
 
         /// <summary>
         /// The instructions that the assistant used for this run.
@@ -241,6 +243,32 @@ namespace Forge.OpenAI.Models.Runs
         [JsonPropertyName("response_format")]
         [JsonConverter(typeof(ResponseFormatConverter))]
         public object ResponseFormat { get; set; }
+
+        /// <summary>
+        /// The details of the run step.
+        /// </summary>
+        [JsonPropertyName("step_details")]
+        public StepDetails StepDetails { get; set; }
+
+        /// <summary>Gets the role.</summary>
+        /// <value>The role.</value>
+        [JsonPropertyName("role")]
+        public string Role { get; set; }
+
+        /// <summary>Gets content of the message delta.</summary>
+        /// <value>The content of the message delta.</value>
+        [JsonPropertyName("content")]
+        public IReadOnlyList<MessageDeltaContent> MessageDeltaContents { get; set; }
+
+        /// <summary>Gets the delta data.</summary>
+        /// <value>The delta.</value>
+        [JsonPropertyName("delta")]
+        public MessageDelta Delta { get; set; }
+
+        /// <summary>Gets the type of response.</summary>
+        /// <value>The type.</value>
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
 
     }
 
