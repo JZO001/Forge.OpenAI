@@ -14,6 +14,7 @@ namespace Forge.OpenAI.Models.Threads
         /// A list of messages to start the thread with.
         /// </summary>
         [JsonPropertyName("messages")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public IList<Message> Messages { get; set; }
 
         /// <summary>
@@ -22,6 +23,7 @@ namespace Forge.OpenAI.Models.Threads
         /// Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long.
         /// </summary>
         [JsonPropertyName("metadata")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public IDictionary<string, string> Metadata { get; set; }
 
         /// <summary>
@@ -30,6 +32,7 @@ namespace Forge.OpenAI.Models.Threads
         /// </summary>
         /// <value>The tool resources.</value>
         [JsonPropertyName("tool_resources")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public ToolResource ToolResources { get; set; }
 
     }

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Forge.OpenAI.Models.Shared
 {
@@ -15,8 +16,15 @@ namespace Forge.OpenAI.Models.Shared
 
         /// <summary>Gets or sets the type.</summary>
         /// <value>"json_object" or "text"</value>
+        [Required]
         [JsonPropertyName("type")]
         public string Type { get; set; }
+
+        /// <summary>Gets or sets the json schema.</summary>
+        /// <value>The json schema.</value>
+        [JsonPropertyName("json_schema")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public JsonSchema JsonSchema { get; set; }
 
     }
 

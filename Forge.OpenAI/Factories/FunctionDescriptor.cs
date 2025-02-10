@@ -31,6 +31,16 @@ namespace Forge.OpenAI.Factories
         [JsonPropertyName("parameters")]
         public PropertyDescriptor Parameters { get; set; }
 
+        /// <summary>
+        /// Whether to enable strict schema adherence when generating the function call. 
+        /// If set to true, the model will follow the exact schema defined in the parameters field. 
+        /// Only a subset of JSON Schema is supported when strict is true. 
+        /// Learn more about Structured Outputs in the function calling guide.
+        /// </summary>
+        /// <value>The strict.</value>
+        [JsonPropertyName("strict")]
+        public bool? Strict { get; set; }
+
     }
 
 }

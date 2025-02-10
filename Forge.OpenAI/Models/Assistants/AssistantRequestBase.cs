@@ -45,12 +45,30 @@ namespace Forge.OpenAI.Models.Assistants
         public string Instructions { get; set; }
 
         /// <summary>
+        /// Constrains effort on reasoning for reasoning models. 
+        /// Currently supported values are low, medium, and high. 
+        /// Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+        /// https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-reasoning_effort
+        /// </summary>
+        /// <value>The reasoning effort: low, media, high.</value>
+        [JsonPropertyName("reasoning_effort")]
+        public string ReasoningEffort { get; set; }
+
+        /// <summary>
         /// A list of tool enabled on the assistant.
         /// There can be a maximum of 128 tools per assistant.
         /// Tools can be of types 'code_interpreter', 'retrieval', or 'function'.
         /// </summary>
         [JsonPropertyName("tools")]
         public IList<Tool> Tools { get; set; }
+
+        /// <summary>
+        /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the code_interpreter tool requires a list of file IDs, while the file_search tool requires a list of vector store IDs.
+        /// <a href="https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-tool_resources">https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-tool_resources</a>
+        /// </summary>
+        /// <value>The tool resources.</value>
+        [JsonPropertyName("tool_resources")]
+        public ToolResource ToolResources { get; set; }
 
         /// <summary>
         /// A list of file IDs attached to this assistant.
@@ -102,14 +120,6 @@ namespace Forge.OpenAI.Models.Assistants
         /// <value>The response format as object.</value>
         [JsonIgnore]
         public ResponseFormat ResponseFormatAsObject { get => ResponseFormat as ResponseFormat; set => ResponseFormat = value; }
-
-        /// <summary>
-        /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the code_interpreter tool requires a list of file IDs, while the file_search tool requires a list of vector store IDs.
-        /// <a href="https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-tool_resources">https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-tool_resources</a>
-        /// </summary>
-        /// <value>The tool resources.</value>
-        [JsonPropertyName("tool_resources")]
-        public ToolResource ToolResources { get; set; }
 
     }
 

@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Forge.OpenAI.Factories;
+using Forge.OpenAI.Models.Assistants;
 
 namespace Forge.OpenAI.Models.Shared
 {
@@ -52,11 +53,9 @@ namespace Forge.OpenAI.Models.Shared
         }
 
         [JsonPropertyName("id")]
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string Id { get; set; }
 
         [JsonPropertyName("index")]
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public int? Index { get; set; }
 
         /// <summary>The type of tool being defined</summary>
@@ -64,9 +63,16 @@ namespace Forge.OpenAI.Models.Shared
         [JsonPropertyName("type")]
         public string Type { get; set; } = CODE_INTERPRETER;
 
+        /// <summary>Overrides for the file search tool.</summary>
+        /// <value>The file search.</value>
+        [JsonPropertyName("file_search")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public AssistantFileSearch FileSearch { get; set; }
+
         /// <summary>Function tool</summary>
         /// <value>The function.</value>
         [JsonPropertyName("function")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public FunctionDescriptor Function { get; set; }
 
         /// <summary>Converts to string.</summary>

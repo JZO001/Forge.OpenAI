@@ -76,14 +76,29 @@ namespace Forge.OpenAI.Models
         public const string Gpt_4o_latest = "chatgpt-4o-latest";
         public const string Gpt_4o_2024_05_13 = "gpt-4o-2024-05-13";
         public const string Gpt_4o_2024_08_06 = "gpt-4o-2024-08-06";
+        public const string Gpt_4o_2024_11_20 = "gpt-4o-2024-11-20";
         public const string Gpt_4o_mini = "gpt-4o-mini";
         public const string Gpt_4o_mini_2024_07_18 = "gpt-4o-mini-2024-07-18";
+        public const string Gpt_4o_mini_realtime_preview = "gpt-4o-mini-realtime-preview-2024-12-17";
+        public const string Gpt_4o_realtime_preview = "gpt-4o-realtime-preview";
+        public const string Gpt_4o_realtime_preview_2024_10_01 = "gpt-4o-realtime-preview-2024-10-01";
+        public const string Gpt_4o_realtime_preview_2024_12_17 = "gpt-4o-realtime-preview-2024-12-17";
+        public const string Gpt_4o_audio_preview = "gpt-4o-audio-preview";
+        public const string Gpt_4o_audio_preview_2024_10_01 = "gpt-4o-audio-preview-2024-10-01";
+        public const string Gpt_4o_audio_preview_2024_12_17 = "gpt-4o-audio-preview-2024-12-17";
+        public const string Gpt_4o_mini_audio_preview = "gpt-4o-mini-audio-preview-2024-12-17";
+        public const string Gpt_4o_mini_audio_preview_2024_12_17 = "gpt-4o-mini-audio-preview-2024-12-17";
 
+        public const string O1 = "o1";
+        public const string O1_2024_12_17 = "o1-2024-12-17";
         public const string O1_Preview = "o1-preview";
         public const string O1_Preview_2024_09_12 = "o1-preview-2024-09-12";
         
         public const string O1_Mini = "o1-mini";
         public const string O1_Mini_2024_09_12 = "o1-mini-2024-09-12";
+
+        public const string O3_Mini = "o3-mini";
+        public const string O3_Mini_2025_01_31 = "o3-mini-2025-01-31";
 
         public const string IfCurieV2 = "if-curie-v2";
         public const string IfDavinciV2 = "if-davinci-v2";
@@ -113,6 +128,7 @@ namespace Forge.OpenAI.Models
         public const string TextModerationStable = "text-moderation-stable";
         public const string TextModerationLatest = "text-moderation-latest";
         public const string TextModeration007 = "text-moderation-007";
+        public const string TextModeration_2024_09_26 = "text-moderation-2024-09-26";
 
         public const string TextSearchAdaDoc001 = "text-search-ada-doc-001";
         public const string TextSearchAdaQuery001 = "text-search-ada-query-001";

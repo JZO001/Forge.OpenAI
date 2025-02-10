@@ -2,6 +2,7 @@
 using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Models.VectorStores;
 using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace Forge.OpenAI.Models.VectorStoreFileBatches
 {
@@ -38,6 +39,7 @@ namespace Forge.OpenAI.Models.VectorStoreFileBatches
         /// <summary>
         /// A list of File IDs that the vector store should use. Useful for tools like file_search that can access files.
         /// </summary>
+        [Required]
         [JsonPropertyName("file_ids")]
         public IList<string> FileIds { get; set; }
 
@@ -45,6 +47,7 @@ namespace Forge.OpenAI.Models.VectorStoreFileBatches
         /// The chunking strategy used to chunk the file(s). If not set, will use the auto strategy. Only applicable if file_ids is non-empty.
         /// </summary>
         [JsonPropertyName("chunking_strategy")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public ChunkingStrategy ChunkingStrategy { get; set; }
 
     }

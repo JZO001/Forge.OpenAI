@@ -42,6 +42,7 @@ namespace Forge.OpenAI.Models.Assistants
         /// The maximum length is 256 characters.
         /// </summary>
         [JsonPropertyName("name")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string Name { get; set; }
 
         /// <summary>
@@ -49,6 +50,7 @@ namespace Forge.OpenAI.Models.Assistants
         /// The maximum length is 512 characters.
         /// </summary>
         [JsonPropertyName("description")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string Description { get; set; }
 
         /// <summary>
@@ -64,6 +66,7 @@ namespace Forge.OpenAI.Models.Assistants
         /// The maximum length is 32768 characters.
         /// </summary>
         [JsonPropertyName("instructions")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string Instructions { get; set; }
 
         /// <summary>
@@ -73,6 +76,15 @@ namespace Forge.OpenAI.Models.Assistants
         /// </summary>
         [JsonPropertyName("tools")]
         public IReadOnlyList<Tool> Tools { get; set; }
+
+        /// <summary>
+        /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the code_interpreter tool requires a list of file IDs, while the file_search tool requires a list of vector store IDs.
+        /// <a href="https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-tool_resources">https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-tool_resources</a>
+        /// </summary>
+        /// <value>The tool resources.</value>
+        [JsonPropertyName("tool_resources")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public ToolResource ToolResources { get; set; }
 
         /// <summary>
         /// A list of file IDs attached to this assistant.
@@ -89,6 +101,7 @@ namespace Forge.OpenAI.Models.Assistants
         /// Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long.
         /// </summary>
         [JsonPropertyName("metadata")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public IReadOnlyDictionary<string, string> Metadata { get; set; }
 
         /// <summary>
@@ -97,6 +110,7 @@ namespace Forge.OpenAI.Models.Assistants
         /// </summary>
         /// <value>The temperature.</value>
         [JsonPropertyName("temperature")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public double? Temperature { get; set; }
 
         /// <summary>
@@ -105,6 +119,7 @@ namespace Forge.OpenAI.Models.Assistants
         /// <see href="https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-top_p" />
         /// </summary>
         [JsonPropertyName("top_p")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public double? TopP { get; set; }
 
         /// <summary>Gets or sets the response format.</summary>
@@ -114,14 +129,6 @@ namespace Forge.OpenAI.Models.Assistants
         [JsonPropertyName("response_format")]
         [JsonConverter(typeof(ResponseFormatConverter))]
         public object ResponseFormat { get; set; }
-
-        /// <summary>
-        /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the code_interpreter tool requires a list of file IDs, while the file_search tool requires a list of vector store IDs.
-        /// <a href="https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-tool_resources">https://platform.openai.com/docs/api-reference/assistants/createAssistant#assistants-createassistant-tool_resources</a>
-        /// </summary>
-        /// <value>The tool resources.</value>
-        [JsonPropertyName("tool_resources")]
-        public ToolResource ToolResources { get; set; }
 
         /// <summary>Converts to string.</summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>

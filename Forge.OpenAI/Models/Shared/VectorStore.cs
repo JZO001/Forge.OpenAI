@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Forge.OpenAI.Models.VectorStores;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Forge.OpenAI.Models.Shared
@@ -12,6 +13,14 @@ namespace Forge.OpenAI.Models.Shared
         /// <value>The file ids.</value>
         [JsonPropertyName("file_ids")]
         public IReadOnlyList<string> FileIds { get; set; }
+
+        /// <summary>
+        /// The chunking strategy used to chunk the file(s). If not set, will use the auto strategy.
+        /// </summary>
+        /// <value>The chunking strategy.</value>
+        [JsonPropertyName("chunking_strategy")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public ChunkingStrategy ChunkingStrategy { get; set; }
 
         /// <summary>
         /// Set of 16 key-value pairs that can be attached to an object.

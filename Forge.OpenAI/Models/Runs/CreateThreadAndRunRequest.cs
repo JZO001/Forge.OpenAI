@@ -22,6 +22,7 @@ namespace Forge.OpenAI.Models.Runs
         /// <summary>Gets or sets the thread data for the creation</summary>
         /// <value>The thread.</value>
         [JsonPropertyName("thread")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public CreateThreadRequest Thread { get; set; }
 
         /// <summary>
@@ -44,6 +45,7 @@ namespace Forge.OpenAI.Models.Runs
         /// This is useful for modifying the behavior on a per-run basis.
         /// </summary>
         [JsonPropertyName("tools")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public IReadOnlyList<Tool> Tools { get; set; }
 
         /// <summary>
@@ -52,6 +54,7 @@ namespace Forge.OpenAI.Models.Runs
         /// </summary>
         /// <value>The tool resources.</value>
         [JsonPropertyName("tool_resources")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public ToolResource ToolResources { get; set; }
 
         /// <summary>
@@ -60,6 +63,7 @@ namespace Forge.OpenAI.Models.Runs
         /// Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long.
         /// </summary>
         [JsonPropertyName("metadata")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public IReadOnlyDictionary<string, string> Metadata { get; set; }
 
         /// <summary>
@@ -108,6 +112,7 @@ namespace Forge.OpenAI.Models.Runs
         /// </summary>
         /// <value>The truncation strategy.</value>
         [JsonPropertyName("truncation_strategy")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public TruncationStrategy TruncationStrategy { get; set; }
 
         /// <summary>

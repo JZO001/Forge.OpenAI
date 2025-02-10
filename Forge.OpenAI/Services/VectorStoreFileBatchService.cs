@@ -89,6 +89,9 @@ namespace Forge.OpenAI.Services
         /// <returns>VectorStoreFileBatchFileListResponse</returns>
         public async Task<HttpOperationResult<VectorStoreFileBatchFileListResponse>> GetAsync(VectorStoreFileBatchFileListRequest request, CancellationToken cancellationToken = default)
         {
+            if (string.IsNullOrWhiteSpace(request.VectorStoreId)) return new HttpOperationResult<VectorStoreFileBatchFileListResponse>(new ArgumentException(nameof(request.VectorStoreId)), System.Net.HttpStatusCode.BadRequest);
+            if (string.IsNullOrWhiteSpace(request.BatchId)) return new HttpOperationResult<VectorStoreFileBatchFileListResponse>(new ArgumentException(nameof(request.BatchId)), System.Net.HttpStatusCode.BadRequest);
+
             return await _apiHttpService.GetAsync<VectorStoreFileBatchFileListResponse>(GetListUri(request), cancellationToken).ConfigureAwait(false);
         }
 
@@ -134,7 +137,13 @@ namespace Forge.OpenAI.Services
 
         private string GetListUri(VectorStoreFileBatchFileListRequest request)
         {
-            StringBuilder sb = new StringBuilder(string.Format(_providerEndpointService.BuildBaseUri(), _options.VectorStoreFileBatchesFileListUri));
+            StringBuilder sb = new StringBuilder(
+                string.Format(
+                    _providerEndpointService.BuildBaseUri(), 
+                    string.Format(_options.VectorStoreFileBatchesFileListUri, request.VectorStoreId, request.BatchId)
+                )
+            );
+
             if (request != null)
             {
                 List<string> queryParams = new List<string>();
@@ -151,6 +160,7 @@ namespace Forge.OpenAI.Services
 
                 if (queryParams.Count > 0) sb.Append($"?{string.Join("&", queryParams)}");
             }
+
             return sb.ToString();
         }
 

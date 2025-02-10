@@ -54,6 +54,16 @@ namespace Forge.OpenAI.Models.Runs
         public string Model { get; set; }
 
         /// <summary>
+        /// Constrains effort on reasoning for reasoning models. 
+        /// Currently supported values are low, medium, and high. 
+        /// Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+        /// https://platform.openai.com/docs/api-reference/runs/createRun#runs-createrun-reasoning_effort
+        /// </summary>
+        /// <value>The reasoning effort: low, media, high.</value>
+        [JsonPropertyName("reasoning_effort")]
+        public string ReasoningEffort { get; set; }
+
+        /// <summary>
         /// The instructions that the assistant used for this run.
         /// </summary>
         [JsonPropertyName("instructions")]
@@ -166,6 +176,14 @@ namespace Forge.OpenAI.Models.Runs
             get => ToolChoice as string;
             set => ToolChoice = value;
         }
+
+        /// <summary>
+        /// Whether to enable parallel function calling during tool use.
+        /// https://platform.openai.com/docs/api-reference/runs/createRun#runs-createrun-parallel_tool_calls
+        /// </summary>
+        /// <value>The parallel tool calls.</value>
+        [JsonPropertyName("parallel_tool_calls")]
+        public bool? ParallelToolCalls { get; set; }
 
         /// <summary>
         ///   <para>
