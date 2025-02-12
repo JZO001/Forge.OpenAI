@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using Forge.OpenAI.Interfaces.Models;
 using Forge.OpenAI.Models.VectorStores;
 
 namespace Forge.OpenAI.Models.VectorStoreFileBatches
@@ -9,7 +10,7 @@ namespace Forge.OpenAI.Models.VectorStoreFileBatches
     /// <summary>
     /// Vector Store File Batch Data
     /// </summary>
-    public class VectorStoreFileBatchData
+    public class VectorStoreFileBatchData : IVectorStoreFileBatchData
     {
 
         public const string STATUS_IN_PROGRESS = "in_progress";

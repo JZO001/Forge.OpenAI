@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using Forge.OpenAI.Models.VectorStores;
 using System;
 using System.Collections.Generic;
+using Forge.OpenAI.Interfaces.Models;
 
 namespace Forge.OpenAI.Models.VectorStoreFileBatches
 {
@@ -11,7 +12,7 @@ namespace Forge.OpenAI.Models.VectorStoreFileBatches
     /// Vector Store File Batch Data as a response
     /// </summary>
     /// <seealso cref="Forge.OpenAI.Models.Common.ResponseBase" />
-    public abstract class VectorStoreFileBatchResponseBase : ResponseBase
+    public abstract class VectorStoreFileBatchResponseBase : ResponseBase, IVectorStoreFileBatchData
     {
 
         /// <summary>

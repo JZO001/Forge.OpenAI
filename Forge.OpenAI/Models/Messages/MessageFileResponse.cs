@@ -1,4 +1,5 @@
-﻿using Forge.OpenAI.Models.Common;
+﻿using Forge.OpenAI.Interfaces.Models;
+using Forge.OpenAI.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
@@ -9,7 +10,7 @@ namespace Forge.OpenAI.Models.Messages
     /// <summary>
     /// https://platform.openai.com/docs/api-reference/messages/getMessageFile
     /// </summary>
-    public class MessageFileResponse : ResponseBase
+    public class MessageFileResponse : ResponseBase, IMessageFileData
     {
 
         /// <summary>

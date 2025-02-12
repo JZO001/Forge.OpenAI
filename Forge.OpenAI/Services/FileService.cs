@@ -174,7 +174,7 @@ namespace Forge.OpenAI.Services
             return string.Format(_providerEndpointService.BuildBaseUri(), _options.FileDeleteUri);
         }
 
-        private async Task<HttpContent> FileUploadHttpContentFactoryAsync(FileUploadRequest request, CancellationToken cancellationToken)
+        private static async Task<HttpContent> FileUploadHttpContentFactoryAsync(FileUploadRequest request, CancellationToken cancellationToken)
         {
             if (request.File == null) throw new InvalidOperationException("Missing file content data");
             if (request.File.SourceContent == null && request.File.SourceStream == null) throw new InvalidOperationException("No file content nor file stream defined in file content data.");

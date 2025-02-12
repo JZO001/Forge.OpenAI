@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Forge.OpenAI.Interfaces.Models;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -8,7 +9,7 @@ namespace Forge.OpenAI.Models.Batch
     /// <summary>
     /// https://platform.openai.com/docs/api-reference/batch/object
     /// </summary>
-    public class BatchData
+    public class BatchData : IBatchData
     {
 
         /// <summary>

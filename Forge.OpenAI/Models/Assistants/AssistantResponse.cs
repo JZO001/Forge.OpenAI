@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Forge.OpenAI.Infrastructure.Serialization;
 using Forge.OpenAI.Models.Shared;
+using Forge.OpenAI.Interfaces.Models;
 
 namespace Forge.OpenAI.Models.Assistants
 {
@@ -11,7 +12,7 @@ namespace Forge.OpenAI.Models.Assistants
     /// <summary>
     /// https://platform.openai.com/docs/api-reference/assistants/object
     /// </summary>
-    public class AssistantResponse : ResponseBase
+    public class AssistantResponse : ResponseBase, IAssistantData
     {
 
         /// <summary>

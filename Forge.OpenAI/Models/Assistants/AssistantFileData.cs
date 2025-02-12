@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Forge.OpenAI.Interfaces.Models;
+using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -8,7 +9,7 @@ namespace Forge.OpenAI.Models.Assistants
     /// <summary>
     /// https://platform.openai.com/docs/api-reference/assistants/file-object
     /// </summary>
-    public class AssistantFileData
+    public class AssistantFileData : IAssistantFileData
     {
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using Forge.OpenAI.Models.Common;
+﻿using Forge.OpenAI.Interfaces.Models;
+using Forge.OpenAI.Models.Common;
 using Forge.OpenAI.Models.Shared;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace Forge.OpenAI.Models.Messages
 {
 
     /// <summary>A message object.</summary>
-    public abstract class MessageResponseBase : ResponseBase
+    public abstract class MessageResponseBase : ResponseBase, IMessageData
     {
 
         public const string STATUS_IN_PROGRESS = "in_progress";

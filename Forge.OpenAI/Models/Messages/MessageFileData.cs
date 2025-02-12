@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Forge.OpenAI.Interfaces.Models;
+using System;
 using System.Text.Json.Serialization;
 
 namespace Forge.OpenAI.Models.Messages
@@ -7,7 +8,7 @@ namespace Forge.OpenAI.Models.Messages
     /// <summary>
     /// https://platform.openai.com/docs/api-reference/messages/file-object">https://platform.openai.com/docs/api-reference/messages/file-object
     /// </summary>
-    public class MessageFileData
+    public class MessageFileData : IMessageFileData
     {
 
         /// <summary>

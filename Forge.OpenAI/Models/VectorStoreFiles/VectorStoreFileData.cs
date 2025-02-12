@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using Forge.OpenAI.Interfaces.Models;
 using Forge.OpenAI.Models.VectorStores;
 
 namespace Forge.OpenAI.Models.VectorStoreFiles
@@ -8,7 +9,7 @@ namespace Forge.OpenAI.Models.VectorStoreFiles
     /// <summary>
     /// A list of files attached to a vector store.
     /// </summary>
-    public class VectorStoreFileData
+    public class VectorStoreFileData : IVectorStoreFileData
     {
 
         public const string STATUS_IN_PROGRESS = "in_progress";

@@ -1,4 +1,5 @@
-﻿using Forge.OpenAI.Models.Common;
+﻿using Forge.OpenAI.Interfaces.Models;
+using Forge.OpenAI.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
@@ -10,7 +11,7 @@ namespace Forge.OpenAI.Models.VectorStores
     /// Vector store data response base.
     /// </summary>
     /// <seealso cref="Forge.OpenAI.Models.Common.ResponseBase" />
-    public abstract class VectorStoreResponseBase : ResponseBase
+    public abstract class VectorStoreResponseBase : ResponseBase, IVectorStoreData
     {
 
         /// <summary>

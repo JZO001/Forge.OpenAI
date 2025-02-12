@@ -2,6 +2,7 @@
 using System;
 using System.Text.Json.Serialization;
 using Forge.OpenAI.Models.VectorStores;
+using Forge.OpenAI.Interfaces.Models;
 
 namespace Forge.OpenAI.Models.VectorStoreFiles
 {
@@ -10,7 +11,7 @@ namespace Forge.OpenAI.Models.VectorStoreFiles
     /// Response base with common properties for vector store files.
     /// </summary>
     /// <seealso cref="Forge.OpenAI.Models.Common.ResponseBase" />
-    public abstract class VectorStoreFileResponseBase : ResponseBase
+    public abstract class VectorStoreFileResponseBase : ResponseBase, IVectorStoreFileData
     {
 
         /// <summary>

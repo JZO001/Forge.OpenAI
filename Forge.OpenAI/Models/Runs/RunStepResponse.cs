@@ -1,4 +1,5 @@
-﻿using Forge.OpenAI.Models.Common;
+﻿using Forge.OpenAI.Interfaces.Models;
+using Forge.OpenAI.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
@@ -9,7 +10,7 @@ namespace Forge.OpenAI.Models.Runs
     /// <summary>
     ///   <a href="https://platform.openai.com/docs/api-reference/runs/step-object">https://platform.openai.com/docs/api-reference/runs/step-object</a>
     /// </summary>
-    public class RunStepResponse : ResponseBase
+    public class RunStepResponse : ResponseBase, IRunStepData
     {
 
         public const string RUN_STEP_TYPE_MESSAGE_CREATION = "message_creation";
@@ -25,7 +26,7 @@ namespace Forge.OpenAI.Models.Runs
         /// The time when the result was generated in unix epoch format
         /// </summary>
         [JsonPropertyName("created_at")]
-        public long? CreatedAtUnixTime { get; set; }
+        public int? CreatedAtUnixTime { get; set; }
 
         /// <summary>
         /// The time when the result was generated.

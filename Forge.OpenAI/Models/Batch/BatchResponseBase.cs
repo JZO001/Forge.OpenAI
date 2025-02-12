@@ -1,4 +1,5 @@
-﻿using Forge.OpenAI.Models.Common;
+﻿using Forge.OpenAI.Interfaces.Models;
+using Forge.OpenAI.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
@@ -10,7 +11,7 @@ namespace Forge.OpenAI.Models.Batch
     /// https://platform.openai.com/docs/api-reference/batch/create
     /// </summary>
     /// <seealso cref="Forge.OpenAI.Models.Common.ResponseBase" />
-    public abstract class BatchResponseBase : ResponseBase
+    public abstract class BatchResponseBase : ResponseBase, IBatchData
     {
 
         /// <summary>

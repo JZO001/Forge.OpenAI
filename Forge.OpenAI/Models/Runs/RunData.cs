@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Forge.OpenAI.Infrastructure.Serialization;
+using Forge.OpenAI.Interfaces.Models;
 using Forge.OpenAI.Models.Shared;
 
 namespace Forge.OpenAI.Models.Runs
 {
 
     /// <summary>Represents an execution run on a thread.</summary>
-    public class RunData
+    public class RunData : IRunData
     {
 
         public const string RUN_STATUS_QUEUED = "queued";
@@ -36,7 +37,7 @@ namespace Forge.OpenAI.Models.Runs
         /// The time when the result was generated in unix epoch format
         /// </summary>
         [JsonPropertyName("created_at")]
-        public long? CreatedAtUnixTime { get; set; }
+        public int? CreatedAtUnixTime { get; set; }
 
         /// <summary>
         /// The time when the result was generated.
@@ -80,7 +81,7 @@ namespace Forge.OpenAI.Models.Runs
         /// The Unix timestamp (in seconds) for when the run will expire.
         /// </summary>
         [JsonPropertyName("expires_at")]
-        public long? ExpiresAtUnixTimeSeconds { get; set; }
+        public int? ExpiresAtUnixTimeSeconds { get; set; }
 
         /// <summary>
         /// The Unix timestamp (in seconds) for when the run will expire.

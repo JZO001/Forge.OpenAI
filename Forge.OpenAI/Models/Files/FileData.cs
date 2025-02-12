@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Forge.OpenAI.Interfaces.Models;
+using System;
 using System.Text.Json.Serialization;
 
 namespace Forge.OpenAI.Models.Files
 {
 
     /// <summary>Represent the data of an uploaded file</summary>
-    public class FileData
+    public class FileData : IFileData
     {
 
         /// <summary>Initializes a new instance of the <see cref="FileData" /> class.</summary>
@@ -31,12 +32,12 @@ namespace Forge.OpenAI.Models.Files
         /// <summary>Gets or sets the created unix time.</summary>
         /// <value>The created unix time.</value>
         [JsonPropertyName("created_at")]
-        public int CreatedUnixTime { get; set; }
+        public int CreatedAtUnixTime { get; set; }
 
         /// <summary>Gets the created at.</summary>
         /// <value>The created at.</value>
         [JsonIgnore]
-        public DateTime CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedUnixTime).DateTime;
+        public DateTime CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnixTime).DateTime;
 
         /// <summary>Gets the name of the file.</summary>
         /// <value>The name of the file.</value>

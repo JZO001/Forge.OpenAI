@@ -1,204 +1,195 @@
-﻿using Forge.OpenAI.Models.Common;
+﻿using Forge.OpenAI.Models;
+using Forge.OpenAI.Models.Runs;
+using Forge.OpenAI.Models.Shared;
 using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using Forge.OpenAI.Infrastructure.Serialization;
-using Forge.OpenAI.Models.Shared;
-using Forge.OpenAI.Interfaces.Models;
 
-namespace Forge.OpenAI.Models.Runs
+namespace Forge.OpenAI.Interfaces.Models
 {
 
-    public abstract class RunResponseBase : ResponseBase, IRunData
+    public interface IRunData
     {
-
-        public const string RUN_STATUS_QUEUED = "queued";
-        public const string RUN_STATUS_IN_PROGRESS = "in_progress";
-        public const string RUN_STATUS_REQUIRES_ACTION = "requires_action";
-        public const string RUN_STATUS_CANCELLING = "cancelling";
-        public const string RUN_STATUS_CANCELLED = "cancelled";
-        public const string RUN_STATUS_FAILED = "failed";
-        public const string RUN_STATUS_COMPLETED = "completed";
-        public const string RUN_STATUS_EXPIRED = "expired";
 
         /// <summary>
         /// The identifier, which can be referenced in API endpoints.
         /// </summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
+        string Id { get; }
+
+        /// <summary>
+        /// Object type, ie: text_completion, file, fine-tune, list, etc
+        /// </summary>
+        string Object { get; }
 
         /// <summary>
         /// The time when the result was generated in unix epoch format
         /// </summary>
-        [JsonPropertyName("created_at")]
-        public int? CreatedAtUnixTime { get; set; }
+        int? CreatedAtUnixTime { get; }
 
         /// <summary>
         /// The time when the result was generated.
         /// </summary>
-        [JsonIgnore]
-        public DateTime? CreatedAt => CreatedAtUnixTime.HasValue ? (DateTime?)DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnixTime.Value).DateTime : null;
+        DateTime? CreatedAt { get; }
 
         /// <summary>
         /// The thread ID that this run belongs to.
         /// </summary>
-        [JsonPropertyName("thread_id")]
-        public string ThreadId { get; set; }
+        string ThreadId { get; }
 
         /// <summary>
         /// The ID of the assistant used for execution of this run.
         /// </summary>
-        [JsonPropertyName("assistant_id")]
-        public string AssistantId { get; set; }
+        string AssistantId { get; }
 
         /// <summary>
-        /// The status of the run. For the bpossible values, <see cref="RunData"/>
+        /// The status of the run.
         /// </summary>
-        [JsonPropertyName("status")]
-        public string Status { get; set; }
+        string Status { get; }
 
         /// <summary>
         /// Details on the action required to continue the run.
         /// Will be null if no action is required.
         /// </summary>
-        [JsonPropertyName("required_action")]
-        public RequiredAction RequiredAction { get; set; }
+        RequiredAction RequiredAction { get; }
 
         /// <summary>
         /// The Last error Associated with this run.
         /// Will be null if there are no errors.
         /// </summary>
-        [JsonPropertyName("last_error")]
-        public Error LastError { get; set; }
+        OpenAI.Models.Runs.Error LastError { get; }
 
         /// <summary>
         /// The Unix timestamp (in seconds) for when the run will expire.
         /// </summary>
-        [JsonPropertyName("expires_at")]
-        public int? ExpiresAtUnixTimeSeconds { get; set; }
+        int? ExpiresAtUnixTimeSeconds { get; }
 
         /// <summary>
         /// The Unix timestamp (in seconds) for when the run will expire.
         /// </summary>
-        [JsonIgnore]
-        public DateTime? ExpiresAt => ExpiresAtUnixTimeSeconds.HasValue ? (DateTime?)DateTimeOffset.FromUnixTimeSeconds(ExpiresAtUnixTimeSeconds.Value).DateTime : null;
+        DateTime? ExpiresAt { get; }
 
         /// <summary>
         /// The Unix timestamp (in seconds) for when the run was started.
         /// </summary>
-        [JsonPropertyName("started_at")]
-        public int? StartedAtUnixTimeSeconds { get; set; }
+        int? StartedAtUnixTimeSeconds { get; }
 
         /// <summary>
         /// The Unix timestamp (in seconds) for when the run was started.
         /// </summary>
-        [JsonIgnore]
-        public DateTime? StartedAt => StartedAtUnixTimeSeconds.HasValue ? (DateTime?)DateTimeOffset.FromUnixTimeSeconds(StartedAtUnixTimeSeconds.Value).DateTime : null;
+        DateTime? StartedAt { get; }
 
         /// <summary>
         /// The Unix timestamp (in seconds) for when the run was cancelled.
         /// </summary>
-        [JsonPropertyName("cancelled_at")]
-        public int? CancelledAtUnixTimeSeconds { get; set; }
+        int? CancelledAtUnixTimeSeconds { get; }
 
         /// <summary>
         /// The Unix timestamp (in seconds) for when the run was cancelled.
         /// </summary>
-        [JsonIgnore]
-        public DateTime? CancelledAt => CancelledAtUnixTimeSeconds.HasValue ? (DateTime?)DateTimeOffset.FromUnixTimeSeconds(CancelledAtUnixTimeSeconds.Value).DateTime : null;
+        DateTime? CancelledAt { get; }
 
         /// <summary>
         /// The Unix timestamp (in seconds) for when the run failed.
         /// </summary>
-        [JsonPropertyName("failed_at")]
-        public int? FailedAtUnixTimeSeconds { get; set; }
+        int? FailedAtUnixTimeSeconds { get; }
 
         /// <summary>
         /// The Unix timestamp (in seconds) for when the run failed.
         /// </summary>
-        [JsonIgnore]
-        public DateTime? FailedAt => FailedAtUnixTimeSeconds.HasValue ? (DateTime?)DateTimeOffset.FromUnixTimeSeconds(FailedAtUnixTimeSeconds.Value).DateTime : null;
+        DateTime? FailedAt { get; }
 
         /// <summary>
         /// The Unix timestamp (in seconds) for when the run was completed.
         /// </summary>
-        [JsonPropertyName("completed_at")]
-        public int? CompletedAtUnixTimeSeconds { get; set; }
+        int? CompletedAtUnixTimeSeconds { get; }
 
         /// <summary>
         /// The Unix timestamp (in seconds) for when the run was completed.
         /// </summary>
-        [JsonIgnore]
-        public DateTime? CompletedAt => CompletedAtUnixTimeSeconds.HasValue ? (DateTime?)DateTimeOffset.FromUnixTimeSeconds(CompletedAtUnixTimeSeconds.Value).DateTime : null;
+        DateTime? CompletedAt { get; }
 
         /// <summary>
         ///   <a href="https://platform.openai.com/docs/api-reference/runs/object#runs/object-incomplete_details">https://platform.openai.com/docs/api-reference/runs/object#runs/object-incomplete_details</a>
         /// </summary>
         /// <value>The incomplete details.</value>
-        [JsonPropertyName("incomplete_details")]
-        public IncompleteDetails IncompleteDetails { get; set; }
+        IncompleteDetails IncompleteDetails { get; }
 
         /// <summary>
-        /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the code_interpreter tool requires a list of file IDs, while the file_search tool requires a list of vector store IDs.
-        /// https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-tool_resources
+        /// The model that the assistant used for this run.
         /// </summary>
-        /// <value>The tool resources.</value>
-        [JsonPropertyName("tool_resources")]
-        public ToolResource ToolResources { get; set; }
+        string Model
+        {
+            get;
+        }
 
         /// <summary>
         /// The instructions that the assistant used for this run.
         /// </summary>
-        [JsonPropertyName("instructions")]
-        public string Instructions { get; set; }
+        string Instructions
+        {
+            get;
+        }
 
         /// <summary>
         /// The list of tools that the assistant used for this run.
         /// </summary>
-        [JsonPropertyName("tools")]
-        public IReadOnlyList<Tool> Tools { get; set; }
+        IReadOnlyList<Tool> Tools
+        {
+            get;
+        }
 
         /// <summary>
         /// Set of 16 key-value pairs that can be attached to an object.
         /// This can be useful for storing additional information about the object in a structured format.
         /// Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long.
         /// </summary>
-        [JsonPropertyName("metadata")]
-        public IReadOnlyDictionary<string, string> Metadata { get; set; }
+        IReadOnlyDictionary<string, string> Metadata
+        {
+            get;
+        }
 
         /// <summary>
         /// Usage statistics related to the run. This value will be `null` if the run is not in a terminal state (i.e. `in_progress`, `queued`, etc.).
         /// </summary>
-        [JsonPropertyName("usage")]
-        public Usage Usage { get; set; }
+        Usage Usage
+        {
+            get;
+        }
 
         /// <summary>
         /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
         /// </summary>
         /// <value>The temperature.</value>
-        [JsonPropertyName("temperature")]
-        public double? Temperature { get; set; }
+        double? Temperature
+        {
+            get;
+        }
 
         /// <summary>
         /// An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
         /// We generally recommend altering this or temperature but not both. <br/>
         /// </summary>
-        [JsonPropertyName("top_p")]
-        public double? TopP { get; set; }
+        double? TopP
+        {
+            get;
+        }
 
         /// <summary>
         ///   <a href="https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-max_prompt_tokens">https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-max_prompt_tokens</a>
         /// </summary>
         /// <value>The maximum prompt tokens.</value>
-        [JsonPropertyName("max_prompt_tokens")]
-        public int? MaxPromptTokens { get; set; }
+        int? MaxPromptTokens
+        {
+            get;
+        }
 
         /// <summary>
         ///   <a href="https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-max_prompt_tokens">https://platform.openai.com/docs/api-reference/runs/createThreadAndRun#runs-createthreadandrun-max_prompt_tokens</a>
         /// </summary>
         /// <value>The maximum prompt tokens.</value>
-        [JsonPropertyName("max_completion_tokens")]
-        public int? MaxCompletionTokens { get; set; }
+        int? MaxCompletionTokens
+        {
+            get;
+        }
 
         /// <summary>
         ///   <para>
@@ -208,8 +199,10 @@ namespace Forge.OpenAI.Models.Runs
         ///   </para>
         /// </summary>
         /// <value>The truncation strategy.</value>
-        [JsonPropertyName("truncation_strategy")]
-        public TruncationStrategy TruncationStrategy { get; set; }
+        TruncationStrategy TruncationStrategy
+        {
+            get;
+        }
 
         /// <summary>
         ///   <para>
@@ -219,17 +212,17 @@ namespace Forge.OpenAI.Models.Runs
         ///   </para>
         /// </summary>
         /// <value>The tool choice.</value>
-        [JsonPropertyName("tool_choice")]
-        [JsonConverter(typeof(ToolChoiceConverter))]
-        public object ToolChoice { get; set; }
+        object ToolChoice { get; }
 
         /// <summary>
         /// Whether to enable parallel function calling during tool use.
         /// https://platform.openai.com/docs/api-reference/runs/object#runs/object-parallel_tool_calls
         /// https://platform.openai.com/docs/guides/function-calling/parallel-function-calling
         /// </summary>
-        [JsonPropertyName("parallel_tool_calls")]
-        public bool ParallelToolCalls { get; set; }
+        bool ParallelToolCalls
+        {
+            get;
+        }
 
         /// <summary>
         ///   <para>
@@ -241,35 +234,7 @@ namespace Forge.OpenAI.Models.Runs
         ///   </para>
         /// </summary>
         /// <value>The response format.</value>
-        [JsonPropertyName("response_format")]
-        [JsonConverter(typeof(ResponseFormatConverter))]
-        public object ResponseFormat { get; set; }
-
-        /// <summary>
-        /// The details of the run step.
-        /// </summary>
-        [JsonPropertyName("step_details")]
-        public StepDetails StepDetails { get; set; }
-
-        /// <summary>Gets the role.</summary>
-        /// <value>The role.</value>
-        [JsonPropertyName("role")]
-        public string Role { get; set; }
-
-        /// <summary>Gets content of the message delta.</summary>
-        /// <value>The content of the message delta.</value>
-        [JsonPropertyName("content")]
-        public IReadOnlyList<MessageDeltaContent> MessageDeltaContents { get; set; }
-
-        /// <summary>Gets the delta data.</summary>
-        /// <value>The delta.</value>
-        [JsonPropertyName("delta")]
-        public MessageDelta Delta { get; set; }
-
-        /// <summary>Gets the type of response.</summary>
-        /// <value>The type.</value>
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
+        object ResponseFormat { get; }
 
     }
 

@@ -1,12 +1,13 @@
 ﻿using Forge.OpenAI.Models.Common;
 using System.Text.Json.Serialization;
 using System;
+using Forge.OpenAI.Interfaces.Models;
 
 namespace Forge.OpenAI.Models.Files
 {
 
     /// <summary>Represents a shared response content for file data</summary>
-    public abstract class FileDataResponseBase : ResponseBase
+    public abstract class FileDataResponseBase : ResponseBase, IFileData
     {
 
         /// <summary>Initializes a new instance of the <see cref="FileDataResponseBase" /> class.</summary>
@@ -27,7 +28,7 @@ namespace Forge.OpenAI.Models.Files
         /// <summary>Gets the created at unix time.</summary>
         /// <value>The created at unix time.</value>
         [JsonPropertyName("created_at")]
-        public long CreatedAtUnixTime { get; set; }
+        public int CreatedAtUnixTime { get; set; }
 
         /// <summary>Gets the created at.</summary>
         /// <value>The created at.</value>
@@ -46,11 +47,13 @@ namespace Forge.OpenAI.Models.Files
 
         /// <summary>Gets the status.</summary>
         /// <value>The status.</value>
+        [Obsolete]
         [JsonPropertyName("status")]
         public string Status { get; set; }
 
         /// <summary>Gets the status details.</summary>
         /// <value>The status details.</value>
+        [Obsolete]
         [JsonPropertyName("status_details")]
         public string StatusDetails { get; set; }
 
