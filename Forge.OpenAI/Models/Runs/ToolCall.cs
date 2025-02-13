@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Forge.OpenAI.Models.Shared;
+using System.Text.Json.Serialization;
 
 namespace Forge.OpenAI.Models.Runs
 {

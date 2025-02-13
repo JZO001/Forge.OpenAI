@@ -69,9 +69,9 @@ namespace Runs
                 CreateThreadRequest createThreadRequest = new CreateThreadRequest();
 
                 HttpOperationResult<CreateThreadResponse> createThreadResult = await openAi.ThreadsService.CreateAsync(createThreadRequest, CancellationToken.None);
-                if (createAssistantResult.IsSuccess)
+                if (createThreadResult.IsSuccess)
                 {
-                    Console.WriteLine(createAssistantResult.Result!);
+                    Console.WriteLine(createThreadResult.Result!);
                     Console.WriteLine();
 
                     // Add a message to the thread

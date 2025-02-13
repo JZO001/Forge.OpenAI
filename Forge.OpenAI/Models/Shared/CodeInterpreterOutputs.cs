@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Forge.OpenAI.Models.Messages;
 
-namespace Forge.OpenAI.Models.Runs
+namespace Forge.OpenAI.Models.Shared
 {
 
     public class CodeInterpreterOutputs
