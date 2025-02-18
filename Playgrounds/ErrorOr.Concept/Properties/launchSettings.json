@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ErrorOr.Concept": {
+      "commandName": "Project",
+      "commandLineArgs": "--reinit"
+    }
+  }
+}

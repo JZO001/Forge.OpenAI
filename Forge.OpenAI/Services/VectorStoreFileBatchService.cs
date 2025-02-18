@@ -78,7 +78,7 @@ namespace Forge.OpenAI.Services
             var validationResult = request.Validate<CreateVectorStoreFileBatchResponse>();
             if (validationResult != null) return validationResult;
 
-            return await _apiHttpService.PostAsync<CreateVectorStoreFileBatchRequest, CreateVectorStoreFileBatchResponse>(GetCreateUri(), request, null, cancellationToken).ConfigureAwait(false);
+            return await _apiHttpService.PostAsync<CreateVectorStoreFileBatchRequest, CreateVectorStoreFileBatchResponse>(GetCreateUri(request.VectorStoreId), request, null, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -125,9 +125,9 @@ namespace Forge.OpenAI.Services
             return await _apiHttpService.PostAsync<object, DeleteVectorStoreFileBatchResponse>(GetCancelUri(vectorStoreId, batchId), null, null, cancellationToken).ConfigureAwait(false);
         }
 
-        private string GetCreateUri()
+        private string GetCreateUri(string vectorStoreId)
         {
-            return string.Format(_providerEndpointService.BuildBaseUri(), _options.VectorStoreFileBatchesCreateUri);
+            return string.Format(_providerEndpointService.BuildBaseUri(), string.Format(_options.VectorStoreFileBatchesCreateUri, vectorStoreId));
         }
 
         private string GetUri(string vectorStoreId, string batchId)

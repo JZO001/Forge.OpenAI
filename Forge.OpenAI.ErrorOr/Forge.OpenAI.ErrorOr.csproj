@@ -1,0 +1,92 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup Label="Globals">
+		<SccProjectName></SccProjectName>
+		<SccProvider></SccProvider>
+		<SccAuxPath></SccAuxPath>
+		<SccLocalPath></SccLocalPath>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<TargetFrameworks>net461;netstandard2.0;netcoreapp3.1;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+		<ProjectGuid>{1B5DEF81-4913-4D3B-A5B5-05C4F6DE27BA}</ProjectGuid>
+		<DocumentationFile>Forge.OpenAI.ErrorOr.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>..\..\.Documents\Forge.pfx</AssemblyOriginatorKeyFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="Forge.OpenAI.ErrorOr.csproj.vspscc" />
+		<None Remove="Forge.OpenAI.ErrorOr.xml" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<Product>$(AssemblyName): OpenAI, ChatGPT API for .NET clients</Product>
+		<Company>Forge Project Contributor(s)</Company>
+		<Copyright></Copyright>
+		<PackageId>$(AssemblyName)</PackageId>
+		<Title>Forge OpenAI, ChatGPT API for .NET clients</Title>
+		<Description>OpenAI C# / .NET library, using GPT-4, 3.5 and 3, DALL-E 3, DALL-E 2, Whisper, etc. It supports OpenAI and Azure-OpenAI APIs, dependency injections. Developed for public and free usage.</Description>
+		<PackageIcon>Forge.OpenAI.ErrorOr.png</PackageIcon>
+		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
+		<Authors>Zoltan Juhasz</Authors>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/JZO001/Forge.OpenAI</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>$(AssemblyVersion)</FileVersion>
+		<Version>$(AssemblyVersion)</Version>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageTags>OpenAI, Azure-OpenAI, Azure-OpenAI-API, ChatGPT, GPT4, GPT-4, GPT-4-API, GPT35, GPT-35, GPT-35-API, GPT3, GPT-3, GPT-3-API, DALLE, DALL-E, DALL-E-API, OpenAi, openAi, azure, assistant, threads, Whisper, AI, ML, dotnet, dotnetcore, machine-learning, sdk, forge, translation, transcription, chat, chatbot, image, image-processing, embedding, embedding-models, moderation, text-completion, fine-tune, dotNet, csharp</PackageTags>
+		<PackageReleaseNotes>
+			v1.0.0 - Initial release
+		</PackageReleaseNotes>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net7.0' or '$(TargetFramework)' == 'net8.0' or '$(TargetFramework)' == 'net9.0'">
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net7.0' or '$(TargetFramework)' == 'net8.0' or '$(TargetFramework)' == 'net9.0'">
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="Forge.OpenAI.ErrorOr.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Forge.ErrorOr" Version="2.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Forge.OpenAI.ErrorOr.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Forge.OpenAI\Forge.OpenAI.csproj" />
+	</ItemGroup>
+
+</Project>

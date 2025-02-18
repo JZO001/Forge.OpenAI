@@ -1,0 +1,106 @@
+abbrev.	abbreviation
+Aborig.	Aboriginal
+adj.	adjective
+adv.	adverb
+Afr.	African
+Afrik.	Afrikaans
+alt.	alteration, altered
+Amer.	American
+appar.	apparently
+Arab.	Arabic
+assoc.	associated, association
+aux.	auxiliary
+b.	born
+back-form.	back-formation
+C (as in C18, C19, etc.)	century
+Canad.	Canadian
+cent.	century
+cf.	compare with
+Chin.	Chinese
+colloq.	colloquial
+comb. form	combining form
+compar.	comparative
+conj.	conjunction
+contr.	contraction
+corresp.	corresponding
+Dan.	Danish
+det.	determiner
+dial.	dialect
+dimin.	diminutive
+Du.	Dutch
+E.	East
+eccles.	ecclesiastical
+Engl.	English
+exclam.	exclamation
+fem.	feminine
+Fr.	French
+freq.	frequently
+Ger.	German
+Gk	Greek
+Gmc	Germanic
+Heb.	Hebrew
+imper.	imperative
+Ind.	Indian
+Indo-Eur.	Indo-European
+infin.	infinitive
+interrog.	interrogative
+Ir.	Irish
+Ital.	Italian
+L.	Latin
+Latin Amer. Sp.	Latin American Spanish
+lit.	literally
+masc.	masculine
+MDu.	Middle Dutch
+ME	Middle English
+med.	medieval
+Mex. Sp.	Mexican Spanish
+Mid. High Ger.	Middle High German
+Mid. Low Ger.	Middle Low German
+mod.	modern
+n.	noun
+N.	North
+naut.	nautical
+neg.	negative
+neut.	neuter
+north. Engl.	northern English
+Norw.	Norwegian
+obs.	obsolete
+OE	Old English
+OFr.	Old French
+ON	Old Norse
+Old North. Fr.	Old Northern French
+orig.	originally
+part.	participle
+perh.	perhaps
+Pers.	Persian
+phr.	phrase
+phrs	phrases
+pl.	plural
+pop.	popular
+Port.	Portuguese
+possess.	possessive
+postpos.	postpositive
+predet.	predeterminer
+prep.	preposition
+pres.	present
+prob.	probably
+pron.	pronoun
+pronunc.	pronunciation
+ref.	reference
+rel.	related
+Russ.	Russian
+S.	South
+Sc.	Scottish
+Scand.	Scandinavian
+sing.	singular
+sl.	slang
+Sp.	Spanish
+Swed.	Swedish
+symb.	symbol
+Turk.	Turkish
+ult.	ultimately
+usu.	usually
+v.	verb
+var.	variant
+vars	variants
+W.	West

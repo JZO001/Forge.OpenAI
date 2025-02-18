@@ -37,12 +37,13 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/JZO001/Forge.OpenAI</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<AssemblyVersion>1.6.0.0</AssemblyVersion>
+		<AssemblyVersion>1.6.1.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageTags>OpenAI, Azure-OpenAI, Azure-OpenAI-API, ChatGPT, GPT4, GPT-4, GPT-4-API, GPT35, GPT-35, GPT-35-API, GPT3, GPT-3, GPT-3-API, DALLE, DALL-E, DALL-E-API, OpenAi, openAi, azure, assistant, threads, Whisper, AI, ML, dotnet, dotnetcore, machine-learning, sdk, forge, translation, transcription, chat, chatbot, image, image-processing, embedding, embedding-models, moderation, text-completion, fine-tune, dotNet, csharp</PackageTags>
 		<PackageReleaseNotes>
+			v1.6.1 - VectorStoreFileService create method fixed
 			v1.6.0 - Data structure optimization
 			v1.5.8 - Added interfaces for common object structures
 			v1.5.7 - Added missing properties
