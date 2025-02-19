@@ -8,20 +8,18 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<TargetFrameworks>net461;netstandard2.0;netcoreapp3.1;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
-		<ProjectGuid>{1B5DEF81-4913-4D3B-A5B5-05C4F6DE27BA}</ProjectGuid>
-		<DocumentationFile>Forge.OpenAI.ErrorOr.xml</DocumentationFile>
+		<TargetFrameworks>netstandard2.0;netcoreapp3.1;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+		<ProjectGuid>{46DA2CBD-155F-4A9A-A15F-C5950EE51530}</ProjectGuid>
+		<DocumentationFile>Forge.OpenAI.ErrorOr.Unsigned.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
-		<SignAssembly>true</SignAssembly>
-		<AssemblyOriginatorKeyFile>..\..\.Documents\Forge.pfx</AssemblyOriginatorKeyFile>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="Forge.OpenAI.ErrorOr.csproj.vspscc" />
-		<None Remove="Forge.OpenAI.ErrorOr.xml" />
+		<None Remove="Forge.OpenAI.ErrorOr.Unsigned.csproj.vspscc" />
+		<None Remove="Forge.OpenAI.ErrorOr.Unsigned.xml" />
 	</ItemGroup>
 
 	<PropertyGroup>
@@ -43,8 +41,7 @@
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageTags>OpenAI, Azure-OpenAI, Azure-OpenAI-API, ChatGPT, GPT4, GPT-4, GPT-4-API, GPT35, GPT-35, GPT-35-API, GPT3, GPT-3, GPT-3-API, DALLE, DALL-E, DALL-E-API, OpenAi, openAi, azure, assistant, threads, Whisper, AI, ML, dotnet, dotnetcore, machine-learning, sdk, forge, translation, transcription, chat, chatbot, image, image-processing, embedding, embedding-models, moderation, text-completion, fine-tune, dotNet, csharp</PackageTags>
 		<PackageReleaseNotes>
-			v1.0.1 - AllowPartiallyTrustedCallers added
-			v1.0.0 - Initial release
+			v1.0.1 - Initial release, Original ErrorOr library used
 		</PackageReleaseNotes>
 	</PropertyGroup>
 
@@ -59,6 +56,11 @@
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net7.0' or '$(TargetFramework)' == 'net8.0' or '$(TargetFramework)' == 'net9.0'">
 		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\Forge.OpenAI.ErrorOr\ExceptionExtensions.cs" Link="ExceptionExtensions.cs" />
+		<Compile Include="..\Forge.OpenAI.ErrorOr\HttpOperationResultExtension.cs" Link="HttpOperationResultExtension.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -77,7 +79,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Forge.ErrorOr" Version="2.0.1" />
+		<PackageReference Include="ErrorOr" Version="2.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

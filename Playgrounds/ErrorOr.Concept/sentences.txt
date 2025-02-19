@@ -1,2 +1,2 @@
 ﻿"Tell me a long english sentence what I should abbreviate."
-"Sesame System company applies AI technology to create a new generation of intelligent systems."
+"JZO Tech Ltd company applies AI technology to create a new generation of intelligent systems."

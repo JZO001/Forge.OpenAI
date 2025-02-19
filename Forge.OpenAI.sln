@@ -67,6 +67,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forge.OpenAI.ErrorOr", "For
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorOr.Concept", "Playgrounds\ErrorOr.Concept\ErrorOr.Concept.csproj", "{B157808E-9DE4-460C-A0B1-97279EF19072}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forge.OpenAI.ErrorOr.Unsigned", "Forge.OpenAI.ErrorOr.Unsigned\Forge.OpenAI.ErrorOr.Unsigned.csproj", "{4492BF03-A642-4DEC-99C4-346B1BB5DF5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -173,6 +175,10 @@ Global
 		{B157808E-9DE4-460C-A0B1-97279EF19072}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B157808E-9DE4-460C-A0B1-97279EF19072}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B157808E-9DE4-460C-A0B1-97279EF19072}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4492BF03-A642-4DEC-99C4-346B1BB5DF5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4492BF03-A642-4DEC-99C4-346B1BB5DF5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4492BF03-A642-4DEC-99C4-346B1BB5DF5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4492BF03-A642-4DEC-99C4-346B1BB5DF5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
