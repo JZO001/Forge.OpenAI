@@ -11,6 +11,8 @@ namespace Forge.OpenAI.Models.Shared
     public class ResponseFormat
     {
 
+        public const string RESPONSE_FORMAT_AUTO = "auto";
+        public const string RESPONSE_FORMAT_JSON_SCHEMA = "json_schema";
         public const string RESPONSE_FORMAT_JSON = "json_object";
         public const string RESPONSE_FORMAT_TEXT = "text";
 

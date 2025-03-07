@@ -89,6 +89,9 @@ namespace Forge.OpenAI.Models
         public const string Gpt_4o_mini_audio_preview = "gpt-4o-mini-audio-preview-2024-12-17";
         public const string Gpt_4o_mini_audio_preview_2024_12_17 = "gpt-4o-mini-audio-preview-2024-12-17";
 
+        public const string Gpt_4_5_preview = "gpt-4.5-preview";
+        public const string Gpt_4_5_preview_2024_02_27 = "gpt-4.5-preview-2025-02-27";
+
         public const string O1 = "o1";
         public const string O1_2024_12_17 = "o1-2024-12-17";
         public const string O1_Preview = "o1-preview";
